@@ -15,7 +15,7 @@
 
           slug = "caddy";
           version = "2.6.2";
-          arch = "amd64"; # arm64
+          arch = if system == "x86_64-linux" then "amd64" else "arm64";
 
           src = pkgs.fetchurl {
             url = "https://github.com/caddyserver/caddy/releases/download/v${version}/caddy_${version}_linux_${arch}.tar.gz";

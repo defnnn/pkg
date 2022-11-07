@@ -15,7 +15,7 @@
 
           slug = "coredns";
           version = "1.10.0";
-          arch = "amd64"; # arm64
+          arch = if system == "x86_64-linux" then "amd64" else "arm64";
 
           src = pkgs.fetchurl {
             url = "https://github.com/coredns/coredns/releases/download/v${version}/coredns_${version}_linux_${arch}.tgz";

@@ -15,7 +15,7 @@
 
           slug = "cue";
           version = "0.4.3";
-          arch = "amd64"; # arm64
+          arch = if system == "x86_64-linux" then "amd64" else "arm64";
 
           src = pkgs.fetchurl {
             url = "https://github.com/cue-lang/cue/releases/download/v${version}/cue_v${version}_linux_${arch}.tar.gz";

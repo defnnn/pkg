@@ -15,7 +15,7 @@
 
           slug = "cloudflared";
           version = "2022.10.3";
-          arch = "amd64"; # aarch64
+          arch = if system == "x86_64-linux" then "amd64" else "aarch64";
 
           src = pkgs.fetchurl {
             url = "https://github.com/cloudflare/cloudflared/releases/download/${version}/cloudflared-linux-${arch}";
