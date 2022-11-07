@@ -15,11 +15,11 @@
 
           slug = "cloudflared";
           version = "2022.10.3";
-          arch = if system == "x86_64-linux" then "amd64" else "aarch64";
+          arch = if system == "x86_64-linux" then "amd64" else "arm64";
 
           src = pkgs.fetchurl {
             url = "https://github.com/cloudflare/cloudflared/releases/download/${version}/cloudflared-linux-${arch}";
-            sha256 = "sha256-sVj9EkB0W5S7zBFIiO+LIDQ05CNmSFOd5MIjvAZvD+Y=";
+            sha256 = if arch == "amd64" then "sha256-sVj9EkB0W5S7zBFIiO+LIDQ05CNmSFOd5MIjvAZvD+Y=" else "sha256-9zIplS0HCfflg0pUannhjwxQQyMsLx0C5hfrCZjfuu0=";
             executable = true;
           };
 

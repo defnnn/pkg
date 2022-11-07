@@ -19,7 +19,7 @@
 
           src = pkgs.fetchurl {
             url = "https://github.com/coredns/coredns/releases/download/v${version}/coredns_${version}_linux_${arch}.tgz";
-            sha256 = "sha256-S0YXRu4fD4d8BSwjoJxDqb4S/+kVXmhiPBaQSq5tJ3w=";
+            sha256 = if arch == "amd64" then "sha256-S0YXRu4fD4d8BSwjoJxDqb4S/+kVXmhiPBaQSq5tJ3w=" else "sha256-0bSgofm+jGlv5XuMlPS60vN3w2ZiNaS1TFCO+TMuSTs=";
           };
 
           sourceRoot = ".";
