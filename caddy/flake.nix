@@ -19,7 +19,7 @@
 
           src = pkgs.fetchurl {
             url = "https://github.com/caddyserver/caddy/releases/download/v${version}/caddy_${version}_linux_${arch}.tar.gz";
-            sha256 = "sha256-WvDuZaAiAQi3uWMisEGKvNpSbV9/7Fr66gKfGuvMpio=";
+            sha256 = if system == "x86_64-linux" then "sha256-WvDuZaAiAQi3uWMisEGKvNpSbV9/7Fr66gKfGuvMpio=" else "sha256-qMP0FA0YwyTMafXeTfBWblKeFjbP80AJWkJHV5m/P+0=";
           };
 
           sourceRoot = ".";
