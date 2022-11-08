@@ -19,7 +19,7 @@
 
           src = pkgs.fetchurl {
             url = "https://github.com/tilt-dev/tilt/releases/download/v${version}/tilt.${version}.linux.${arch}.tar.gz";
-            sha256 = if arch == "amd64" then "sha256-ao1xGSoUPDcelOWHWn41BVNnG/KrHvm4L1G1n9tN7z8=" else "sha256-cE4fgInHr9GHF2dQOaMOu7AkHFc+BL8vQq8WI0FXmDM=";
+            sha256 = if arch == "x86_64" then "sha256-ao1xGSoUPDcelOWHWn41BVNnG/KrHvm4L1G1n9tN7z8=" else "sha256-cE4fgInHr9GHF2dQOaMOu7AkHFc+BL8vQq8WI0FXmDM=";
             executable = true;
           };
 
