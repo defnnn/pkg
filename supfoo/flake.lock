@@ -15,19 +15,56 @@
         "type": "github"
       }
     },
+    "flake-utils_2": {
+      "locked": {
+        "lastModified": 1667395993,
+        "narHash": "sha256-nuEHfE/LcWyuSWnS8t12N1wc105Qtau+/OdUAjtQ0rA=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "5aed5285a952e0b949eb3ba02c12fa4fcfef535f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "flake-utils_3": {
+      "locked": {
+        "lastModified": 1667395993,
+        "narHash": "sha256-nuEHfE/LcWyuSWnS8t12N1wc105Qtau+/OdUAjtQ0rA=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "5aed5285a952e0b949eb3ba02c12fa4fcfef535f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
     "fooPkg": {
       "inputs": {
+        "flake-utils": "flake-utils_2",
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1,
-        "narHash": "sha256-EEMvzVxPuCTd7pT7PXhebDDV6j22dnFfRE6pAvF2NVU=",
-        "path": "../foo",
-        "type": "path"
+        "dir": "foo",
+        "lastModified": 1667882176,
+        "narHash": "sha256-3tfJ0JlYZxXSpWw3VtjWr5V5L0Jsk8iAV+ejarUSSvs=",
+        "owner": "defn",
+        "repo": "pkg",
+        "rev": "fd531c5b5098993967c53a73539b0793e7614b82",
+        "type": "github"
       },
       "original": {
-        "path": "../foo",
-        "type": "path"
+        "dir": "foo",
+        "owner": "defn",
+        "ref": "v0.0.2",
+        "repo": "pkg",
+        "type": "github"
       }
     },
     "nixpkgs": {
@@ -87,17 +124,24 @@
     },
     "supPkg": {
       "inputs": {
+        "flake-utils": "flake-utils_3",
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1,
-        "narHash": "sha256-Ue1/X+APs2bFY1lP7dVo+u4gXDO7PdrhmHLWdK7zEvo=",
-        "path": "../sup",
-        "type": "path"
+        "dir": "sup",
+        "lastModified": 1667882176,
+        "narHash": "sha256-3tfJ0JlYZxXSpWw3VtjWr5V5L0Jsk8iAV+ejarUSSvs=",
+        "owner": "defn",
+        "repo": "pkg",
+        "rev": "fd531c5b5098993967c53a73539b0793e7614b82",
+        "type": "github"
       },
       "original": {
-        "path": "../sup",
-        "type": "path"
+        "dir": "sup",
+        "owner": "defn",
+        "ref": "v0.0.2",
+        "repo": "pkg",
+        "type": "github"
       }
     }
   },

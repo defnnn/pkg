@@ -4,8 +4,8 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs";
     flake-utils.url = "github:numtide/flake-utils";
-    fooPkg.url = "path:../foo";
-    supPkg.url = "path:../sup";
+    fooPkg.url = "github:defn/pkg?dir=foo&ref=v0.0.2";
+    supPkg.url = "github:defn/pkg?dir=sup&ref=v0.0.2";
   };
 
   outputs = { self, nixpkgs, fooPkg, supPkg, flake-utils }:
