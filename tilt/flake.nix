@@ -14,12 +14,12 @@
           name = "${slug}-${version}";
 
           slug = "tilt";
-          version = "0.30.10";
+          version = "0.30.11";
           arch = if system == "x86_64-linux" then "x86_64" else "arm64";
 
           src = pkgs.fetchurl {
             url = "https://github.com/tilt-dev/tilt/releases/download/v${version}/tilt.${version}.linux.${arch}.tar.gz";
-            sha256 = if arch == "x86_64" then "sha256-ao1xGSoUPDcelOWHWn41BVNnG/KrHvm4L1G1n9tN7z8=" else "sha256-cE4fgInHr9GHF2dQOaMOu7AkHFc+BL8vQq8WI0FXmDM=";
+            sha256 = if arch == "x86_64" then "sha256-aRsh+yKmmLF3pquADbhL+Da/qXO0nck8voMx6or4i3U=" else "sha256-Bk76Q15pVGaUtt1sQe58+AjYcba66DRpNKdmXL+62yc=";
             executable = true;
           };
 
