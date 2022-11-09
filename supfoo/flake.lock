@@ -97,7 +97,7 @@
         "type": "github"
       }
     },
-    "fooPkg": {
+    "foo-pkg": {
       "inputs": {
         "flake-utils": "flake-utils_2",
         "nixpkgs": "nixpkgs"
@@ -219,13 +219,13 @@
     "root": {
       "inputs": {
         "flake-utils": "flake-utils",
-        "fooPkg": "fooPkg",
+        "foo-pkg": "foo-pkg",
         "home": "home",
         "nixpkgs": "nixpkgs_4",
-        "supPkg": "supPkg"
+        "sup-pkg": "sup-pkg"
       }
     },
-    "supPkg": {
+    "sup-pkg": {
       "inputs": {
         "flake-utils": "flake-utils_5",
         "nixpkgs": "nixpkgs_5"
