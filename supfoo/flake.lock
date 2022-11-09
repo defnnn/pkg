@@ -126,8 +126,8 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1667967116,
-        "narHash": "sha256-sJEenB8Ubl/agIIQu9skuhHytXq+WQtPTC3MSfBOIdc=",
+        "lastModified": 1667968755,
+        "narHash": "sha256-OuZSy+R8XG3gtuoCyvLyqkfpPGQX1wky/WbvsgJ1sC4=",
         "path": "/home/ubuntu/dev",
         "type": "path"
       },
