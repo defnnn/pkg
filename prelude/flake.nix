@@ -14,11 +14,11 @@
           name = "${slug}-${version}";
 
           slug = "prelude";
-          version = "0.0.1";
+          version = "0.0.2";
 
           dontUnpack = true;
 
-          installPhase = "touch $out";
+          installPhase = "mkdir -p $out";
 
           meta = with lib; {
             homepage = "https://defn.sh/${slug}";
