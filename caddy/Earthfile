@@ -10,7 +10,4 @@ image:
 dev:
     FROM pkg+alpine-nix-dir --image=defn/pkg:caddy --arch=${USERARCH} --dir=caddy
 
-test:
-    FROM +dev
-
-    RUN /entrypoint caddy version
+    RUN --no-cache /entrypoint caddy version
