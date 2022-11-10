@@ -6,3 +6,9 @@ image:
     ARG image
     BUILD --platform=linux/amd64 pkg+alpine-nix-dir --image=${image} --arch=amd64 --dir=caddy
     BUILD --platform=linux/arm64 pkg+alpine-nix-dir --image=${image} --arch=arm64 --dir=caddy
+
+amd64:
+    BUILD --platform=linux/amd64 pkg+alpine-nix-dir --image=defn/pkg:caddy --arch=amd64 --dir=caddy
+
+arm64:
+    BUILD --platform=linux/arm64 pkg+alpine-nix-dir --image=defn/pkg:caddy --arch=arm64 --dir=caddy
