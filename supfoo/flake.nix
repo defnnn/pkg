@@ -2,7 +2,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
-    home.url = "path:/home/ubuntu/dev";
+    home.url = "github:defn/dev?dir=dev&ref=v0.0.2";
     foo-pkg.url = "github:defn/pkg?dir=foo&ref=v0.0.2";
     sup-pkg.url = "github:defn/pkg?dir=sup&ref=v0.0.2";
   };
@@ -23,6 +23,16 @@
       sup = sup-pkg.defaultPackage.${system};
     in
     {
+      devShell =
+        pkgs.mkShell rec {
+          buildInputs = with pkgs; [
+            home.defaultPackage.${system}
+            self.defaultPackage.${system}
+            foo
+            sup
+          ];
+        };
+
       defaultPackage =
         with import nixpkgs { inherit system; };
         stdenv.mkDerivation rec {
@@ -47,16 +57,5 @@
               platforms = platforms.linux;
             };
         };
-
-      devShell =
-        pkgs.mkShell rec {
-          buildInputs = [
-            foo
-            sup
-            self.defaultPackage.${system}
-            home.defaultPackage.${system}
-          ];
-        };
-
     });
 }
