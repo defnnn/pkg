@@ -2,7 +2,7 @@ VERSION --shell-out-anywhere --use-chmod --use-host-command --earthly-version-ar
 
 ubuntu:
     ARG arch
-    ARG UBUNTU
+    ARG UBUNTU=ubuntu:focal-20220826
 
     FROM ${UBUNTU}
 
@@ -10,8 +10,7 @@ ubuntu:
 
 root:
     ARG arch
-    ARG TAILSCALE
-    ARG BUMP
+    ARG TAILSCALE=1.32.1
 
     FROM +ubuntu --arch=${arch}
 
@@ -25,8 +24,6 @@ root:
 
     ENV DEBIAN_FRONTEND=noninteractive
     ENV container=docker
-
-    RUN echo ${BUMP}
 
     # oathtool libusb-1.0-0 libolm-dev
     RUN dpkg-divert --local --rename --add /sbin/udevadm && ln -s /bin/true /sbin/udevadm \
@@ -77,7 +74,6 @@ root:
 
 nix:
     ARG arch
-    ARG NIXBUMP
 
     FROM +root --arch=${arch}
 
@@ -88,7 +84,7 @@ nix:
     # nix
     RUN curl -L https://nixos.org/nix/install > nix-install.sh && sh nix-install.sh --no-daemon --no-modify-profile && rm -f nix-install.sh && chmod 0755 /nix && sudo rm -f /bin/man
 
-    RUN echo ${NIXBUMP} && . ~/.nix-profile/etc/profile.d/nix.sh \
+    RUN . ~/.nix-profile/etc/profile.d/nix.sh \
             && ~/.nix-profile/bin/nix --extra-experimental-features nix-command --extra-experimental-features flakes \
                 profile install \
                     github:defn/pkg?dir=prelude\&ref=v0.0.5 nixpkgs#nix-direnv nixpkgs#direnv
