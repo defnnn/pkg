@@ -1,25 +1,40 @@
 {
-  description = "earthly";
-
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/22.05";
     flake-utils.url = "github:numtide/flake-utils";
+    home.url = "github:defn/dev?dir=dev&ref=v0.0.2";
   };
 
-  outputs = { self, nixpkgs, flake-utils }:
-    flake-utils.lib.eachDefaultSystem (system: {
+  outputs =
+    { self
+    , nixpkgs
+    , flake-utils
+    , home
+    }:
+    flake-utils.lib.eachDefaultSystem (system:
+    let
+      pkgs = import nixpkgs { inherit system; };
+    in
+    {
+      devShell =
+        pkgs.mkShell rec {
+          buildInputs = with pkgs; [
+            home.defaultPackage.${system}
+          ];
+        };
+
       defaultPackage =
         with import nixpkgs { inherit system; };
         stdenv.mkDerivation rec {
           name = "${slug}-${version}";
 
           slug = "earthly";
-          version = "0.6.28";
-          arch = "amd64"; # arm64
+          version = "0.6.29";
+          arch = if system == "x86_64-linux" then "amd64" else "arm64";
 
           src = pkgs.fetchurl {
             url = "https://github.com/earthly/earthly/releases/download/v${version}/earthly-linux-${arch}";
-            sha256 = "sha256-TbtP/tL54B9d4I2dIUY9hKOvdf6WlYpPTMYE6xRik4Y=";
+            sha256 = if arch == "amd64" then "sha256-uiYZekPpUs3qe+RjeRkR06N0N+Ek7mzPIITkiJiqNOU=" else "sha256-0hN6hggSD3q0tQptAiYfiOQsnk7X9lZCq7Jej9U3Qzk=";
             executable = true;
           };
 
@@ -32,11 +47,15 @@
             install -m 0755 $src $out/bin/earthly
           '';
 
-          meta = with lib; {
-            homepage = "https://defn.sh/${slug}";
-            description = "${slug}";
-            platforms = platforms.linux;
-          };
+          propagatedBuildInputs = [
+          ];
+
+          meta = with lib;
+            {
+              homepage = "https://defn.sh/${slug}";
+              description = "${slug}";
+              platforms = platforms.linux;
+            };
         };
     });
 }
