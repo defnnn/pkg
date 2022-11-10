@@ -2,7 +2,7 @@ VERSION --shell-out-anywhere --use-chmod --use-host-command --earthly-version-ar
 
 ubuntu:
     ARG arch
-    ARG UBUNTU=ubuntu:focal-20220826
+    ARG UBUNTU=ubuntu:focal-20221101
 
     FROM ${UBUNTU}
 

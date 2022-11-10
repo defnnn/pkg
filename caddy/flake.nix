@@ -1,13 +1,29 @@
 {
-  description = "caddy";
-
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/22.05";
     flake-utils.url = "github:numtide/flake-utils";
+    home.url = "github:defn/dev?dir=dev&ref=v0.0.3";
   };
 
-  outputs = { self, nixpkgs, flake-utils }:
-    flake-utils.lib.eachDefaultSystem (system: {
+  outputs =
+    { self
+    , nixpkgs
+    , flake-utils
+    , home
+    }:
+    flake-utils.lib.eachDefaultSystem (system:
+    let
+      pkgs = import nixpkgs { inherit system; };
+    in
+    rec {
+      devShell =
+        pkgs.mkShell rec {
+          buildInputs = with pkgs; [
+            home.defaultPackage.${system}
+            defaultPackage
+          ];
+        };
+
       defaultPackage =
         with import nixpkgs { inherit system; };
         stdenv.mkDerivation rec {
@@ -29,11 +45,15 @@
             install -m 0755 caddy $out/bin/caddy
           '';
 
-          meta = with lib; {
-            homepage = "https://defn.sh/${slug}";
-            description = "${slug}";
-            platforms = platforms.linux;
-          };
+          propagatedBuildInputs = [
+          ];
+
+          meta = with lib;
+            {
+              homepage = "https://defn.sh/${slug}";
+              description = "${slug}";
+              platforms = platforms.linux;
+            };
         };
     });
 }

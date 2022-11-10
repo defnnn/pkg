@@ -1,0 +1,8 @@
+VERSION --shell-out-anywhere --use-chmod --use-host-command --earthly-version-arg --use-copy-link --use-registry-for-with-docker 0.6
+
+IMPORT github.com/defn/pkg
+
+image:
+    ARG image
+    BUILD --platform=linux/amd64 pkg+alpine-nix-dir --image=${image} --arch=amd64 --dir=caddy
+    BUILD --platform=linux/arm64 pkg+alpine-nix-dir --image=${image} --arch=arm64 --dir=caddy
