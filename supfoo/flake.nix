@@ -2,7 +2,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
-    home.url = "github:defn/dev?dir=dev&ref=v0.0.2";
+    home.url = "github:defn/dev?dir=dev&ref=v0.0.4";
     foo-pkg.url = "github:defn/pkg?dir=foo&ref=v0.0.2";
     sup-pkg.url = "github:defn/pkg?dir=sup&ref=v0.0.2";
   };

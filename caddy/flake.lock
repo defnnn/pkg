@@ -197,17 +197,17 @@
       },
       "locked": {
         "dir": "dev",
-        "lastModified": 1668049568,
-        "narHash": "sha256-GhSmk3U503B/FWXjqrw2D1ebKkhnTfKsazbhmG3zjao=",
+        "lastModified": 1668053133,
+        "narHash": "sha256-6OfgYAwDavlDG3otCZsnCwuoX1EjcHsTpqOkVK6hdEU=",
         "owner": "defn",
         "repo": "dev",
-        "rev": "020cfd6a9594a98ddfa56bbae15c976df9573a8c",
+        "rev": "018e2ab33e1f1614c3e9a76d03577c579243542a",
         "type": "github"
       },
       "original": {
         "dir": "dev",
         "owner": "defn",
-        "ref": "v0.0.3",
+        "ref": "v0.0.4",
         "repo": "dev",
         "type": "github"
       }

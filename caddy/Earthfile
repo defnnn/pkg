@@ -8,6 +8,6 @@ image:
     BUILD --platform=linux/arm64 pkg+alpine-nix-dir --image=${image} --arch=arm64 --dir=caddy
 
 dev:
-    FROM pkg+alpine-nix-dir --image=defn/pkg:caddy --arch=${USERARCH} --dir=caddy
+    FROM pkg+alpine-nix-dir --arch=${USERARCH} --dir=caddy
 
     RUN --no-cache /entrypoint caddy version
