@@ -35,7 +35,7 @@
         stdenv.mkDerivation rec {
           name = "${slug}-${version}";
 
-          slug = "defn-pkg-home";
+          slug = "defn-pkg-dev";
           version = "0.0.1";
 
           dontUnpack = true;
