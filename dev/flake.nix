@@ -5,6 +5,7 @@
     c-pkg.url = github:defn/pkg?dir=c&ref=v0.0.10;
     tilt-pkg.url = github:defn/pkg?dir=tilt&ref=v0.0.4;
     earthly-pkg.url = github:defn/pkg?dir=earthly&ref=v0.0.5;
+    yaegi-pkg.url = github:defn/pkg?dir=yaegi&ref=v0.0.13;
   };
 
   outputs =
@@ -14,6 +15,7 @@
     , c-pkg
     , tilt-pkg
     , earthly-pkg
+    , yaegi-pkg
     }:
     flake-utils.lib.eachDefaultSystem (system:
     let
@@ -21,6 +23,7 @@
       c = c-pkg.defaultPackage.${system};
       tilt = tilt-pkg.defaultPackage.${system};
       earthly = earthly-pkg.defaultPackage.${system};
+      yaegi = yaegi-pkg.defaultPackage.${system};
     in
     rec {
       devShell =
@@ -53,6 +56,7 @@
             c
             tilt
             earthly
+            yaegi
           ];
 
           meta = with lib; {
