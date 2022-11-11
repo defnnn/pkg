@@ -3,6 +3,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/22.05";
     flake-utils.url = "github:numtide/flake-utils";
     cue-pkg.url = "github:defn/pkg?dir=cue&ref=v0.0.5";
+    hof-pkg.url = "github:defn/pkg?dir=hof&ref=v0.0.5";
   };
 
   outputs =
@@ -10,11 +11,13 @@
     , nixpkgs
     , flake-utils
     , cue-pkg
+    , hof-pkg
     }:
     flake-utils.lib.eachDefaultSystem (system:
     let
       pkgs = import nixpkgs { inherit system; };
       cue = cue-pkg.defaultPackage.${system};
+      hof = hof-pkg.defaultPackage.${system};
     in
     rec {
       devShell =
@@ -22,6 +25,7 @@
           buildInputs = with pkgs; [
             defaultPackage
             cue
+            hof
           ];
         };
 
@@ -31,7 +35,7 @@
           name = "${slug}-${version}";
 
           slug = "c";
-          version = "0.0.1";
+          version = "0.0.2";
 
           src = ./bin;
 
@@ -45,6 +49,7 @@
 
           propagatedBuildInputs = [
             cue
+            hof
           ];
 
           meta = with lib; {
