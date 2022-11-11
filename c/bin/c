@@ -5,6 +5,15 @@ function main {
 
 	local cmd="$1"
 	shift
+
+	case "${cmd}" in
+		update)
+			git pull
+			hof mod vendor cue
+			return $?
+			;;
+	esac
+		
 	local args=""
 
 	for a in "$@"; do args="${args}${args:+ }$(echo -n "${a}" | base64)"; done
