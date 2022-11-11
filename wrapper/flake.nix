@@ -17,8 +17,7 @@
         devShell = pkgs.mkShell
           rec {
             buildInputs =
-              values.buildInputs
-              ++ [ other.self.defaultPackage.${system} ]
+              [ other.self.defaultPackage.${system} ]
               ++ pkgs.lib.lists.foldr hasDefaultPackage [ ] inputsList;
           };
       };
