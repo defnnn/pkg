@@ -14,7 +14,6 @@
           ));
       in
       rec {
-        defaultPackage = other.defaultPackage.${system};
         devShell = pkgs.mkShell
           rec {
             buildInputs =
