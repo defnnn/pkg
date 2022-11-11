@@ -44,10 +44,11 @@
           installPhase = ''
             mkdir -p $out/bin
             cp -a $src/* $out/bin/
-            chmod 755 $out/bin/*
+            chmod 755 $out/bin/c $out/bin/c-*
           '';
 
-          propagatedBuildInputs = [
+          propagatedBuildInputs = with pkgs; [
+            getopt
             cue
             hof
           ];

@@ -56,10 +56,6 @@ function sub-help {
 
 function call-main {
   if declare -F options >/dev/null; then
-    if [[ -x /usr/local/opt/gnu-getopt/bin/getopt ]]; then
-      export FLAGS_GETOPT_CMD=/usr/local/opt/gnu-getopt/bin/getopt
-    fi
-
     source shflags
 
     save-function flags_help shflags-help
