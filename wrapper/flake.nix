@@ -2,9 +2,8 @@
   inputs = { };
 
   outputs = inputs: {
-    wrap = { other, custom, system, pkgs }:
+    wrap = { other, system, pkgs }:
       let
-        values = import custom { inherit pkgs; inherit system; };
         inputsList = (pkgs.lib.attrsets.mapAttrsToList (name: value: value) other);
         hasDefaultPackage = (item: acc:
           acc ++
@@ -15,7 +14,7 @@
           ));
       in
       rec {
-        defaultPackage = values.defaultPackage;
+        defaultPackage = other.defaultPackage.${system};
         devShell = pkgs.mkShell
           rec {
             buildInputs =
