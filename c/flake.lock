@@ -1,22 +1,23 @@
 {
   "nodes": {
-    "cuePkg": {
+    "cue-pkg": {
       "inputs": {
         "flake-utils": "flake-utils",
         "nixpkgs": "nixpkgs"
       },
       "locked": {
         "dir": "cue",
-        "lastModified": 1667708905,
-        "narHash": "sha256-hksKLv/aATme3ES9xTHhC7V9AECSxRGQLxjwJFkjhTA=",
+        "lastModified": 1668045352,
+        "narHash": "sha256-+1ilhs574QJU95vyCKUWByhLaNscxI0jnFDlJc+RKGM=",
         "owner": "defn",
         "repo": "pkg",
-        "rev": "5414fd6c8f27102777f805ac159159231160525e",
+        "rev": "662a64d34ea7c2530310a0499c31e377ef641382",
         "type": "github"
       },
       "original": {
         "dir": "cue",
         "owner": "defn",
+        "ref": "v0.0.5",
         "repo": "pkg",
         "type": "github"
       }
@@ -69,22 +70,23 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1667758139,
-        "narHash": "sha256-CbDAP6wttlaVs9s4DPZlJ5Wf6Ozz9lX7SdJVtFA8cAo=",
+        "lastModified": 1653936696,
+        "narHash": "sha256-M6bJShji9AIDZ7Kh7CPwPBPb/T7RiVev2PAcOi4fxDQ=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "8993cc730d11148ef59e84a8f15f94f688e1bfd1",
+        "rev": "ce6aa13369b667ac2542593170993504932eb836",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
+        "ref": "22.05",
         "repo": "nixpkgs",
         "type": "github"
       }
     },
     "root": {
       "inputs": {
-        "cuePkg": "cuePkg",
+        "cue-pkg": "cue-pkg",
         "flake-utils": "flake-utils_2",
         "nixpkgs": "nixpkgs_2"
       }

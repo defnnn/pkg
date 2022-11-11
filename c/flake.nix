@@ -1,51 +1,57 @@
 {
-  description = "c: bash script example";
-
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs";
+    nixpkgs.url = "github:NixOS/nixpkgs/22.05";
     flake-utils.url = "github:numtide/flake-utils";
-    cuePkg.url = "github:defn/pkg?dir=cue";
+    cue-pkg.url = "github:defn/pkg?dir=cue&ref=v0.0.5";
   };
 
-  outputs = { self, nixpkgs, cuePkg, flake-utils }:
+  outputs =
+    { self
+    , nixpkgs
+    , flake-utils
+    , cue-pkg
+    }:
     flake-utils.lib.eachDefaultSystem (system:
-      let
-        pkgs = nixpkgs.legacyPackages.${system};
-        cue = cuePkg.defaultPackage.${system};
-      in
-      {
-        devShell =
-          pkgs.mkShell rec {
-            buildInputs = with pkgs; [
-              cue
-              self.defaultPackage.${system}
-            ];
+    let
+      pkgs = import nixpkgs { inherit system; };
+      cue = cue-pkg.defaultPackage.${system};
+    in
+    rec {
+      devShell =
+        pkgs.mkShell rec {
+          buildInputs = with pkgs; [
+            defaultPackage
+            cue
+          ];
+        };
+
+      defaultPackage =
+        with import nixpkgs { inherit system; };
+        stdenv.mkDerivation rec {
+          name = "${slug}-${version}";
+
+          slug = "c";
+          version = "0.0.1";
+
+          src = ./bin;
+
+          dontUnpack = true;
+
+          installPhase = ''
+            mkdir -p $out/bin
+            cp -a $src/* $out/bin/
+            chmod 755 $out/bin/*
+          '';
+
+          propagatedBuildInputs = [
+            cue
+          ];
+
+          meta = with lib; {
+            homepage = "https://defn.sh/${slug}";
+            description = "common utility: c";
+            platforms = platforms.linux;
           };
-
-        defaultPackage =
-          with import nixpkgs { inherit system; };
-          stdenv.mkDerivation rec {
-            name = "c-${version}";
-
-            version = "0.0.1";
-
-            src = ./run.sh;
-
-            dontUnpack = true;
-
-            buildInputs = [ cue wget ];
-
-            installPhase = ''
-              install -m 0755 -D $src $out/bin/c
-              chmod 755 $out/bin/c
-            '';
-
-            meta = with lib; {
-              homepage = "https://defn.sh/c";
-              description = "containerizing scripts with flake";
-              platforms = platforms.linux;
-            };
-          };
-      }
-    );
+        };
+    });
 }
