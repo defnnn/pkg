@@ -49,6 +49,7 @@
             docker-credential-helpers
             kubectl
             k9s
+            pre-commit
             c
             tilt
             earthly
