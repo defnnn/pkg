@@ -12,8 +12,7 @@ function main {
     git init || true
     rsync -ia ../../flake.lock ../../*.nix .
 
-    git add -f --intent-to-add flake.lock *.nix app
-    git update-index --assume-unchanged flake.lock *.nix app
+    git add -f flake.lock *.nix app
 
     n build "$build"
     sudo rm -rf nix/store
