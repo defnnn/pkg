@@ -9,6 +9,9 @@
   };
 
   outputs = inputs:
+    {
+      wrapper = inputs.wrapper;
+    } //
     inputs.wrapper.flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import inputs.wrapper.nixpkgs { inherit system; };
