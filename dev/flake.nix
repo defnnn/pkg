@@ -1,9 +1,7 @@
 {
   inputs = {
-    nixpkgs.url = github:NixOS/nixpkgs/22.05;
-    flake-utils.url = github:numtide/flake-utils;
-    wrapper.url = github:defn/pkg?dir=wrapper&ref=v0.0.16;
-    
+    wrapper.url = github:defn/pkg?dir=wrapper&ref=v0.0.20;
+
     c.url = github:defn/pkg?dir=c&ref=v0.0.10;
     tilt.url = github:defn/pkg?dir=tilt&ref=v0.0.4;
     earthly.url = github:defn/pkg?dir=earthly&ref=v0.0.5;
@@ -11,10 +9,10 @@
   };
 
   outputs = inputs:
-    inputs.flake-utils.lib.eachDefaultSystem (system:
+    inputs.wrapper.flake-utils.lib.eachDefaultSystem (system:
       let
-        pkgs = import inputs.nixpkgs { inherit system; };
-        wrap = inputs.wrapper.wrap { other = inputs; inherit system; inherit pkgs; };
+        pkgs = import inputs.wrapper.nixpkgs { inherit system; };
+        wrap = inputs.wrapper.wrap { other = inputs; inherit system; };
         slug = "defn-pkg-dev";
         version = "0.0.1";
         buildInputs = [

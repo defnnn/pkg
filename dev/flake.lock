@@ -892,8 +892,6 @@
       "inputs": {
         "c": "c",
         "earthly": "earthly",
-        "flake-utils": "flake-utils_8",
-        "nixpkgs": "nixpkgs_8",
         "tilt": "tilt",
         "wrapper": "wrapper",
         "yaegi": "yaegi"
@@ -901,8 +899,8 @@
     },
     "tilt": {
       "inputs": {
-        "flake-utils": "flake-utils_9",
-        "nixpkgs": "nixpkgs_9"
+        "flake-utils": "flake-utils_8",
+        "nixpkgs": "nixpkgs_8"
       },
       "locked": {
         "dir": "tilt",
@@ -988,19 +986,23 @@
       }
     },
     "wrapper": {
+      "inputs": {
+        "flake-utils": "flake-utils_9",
+        "nixpkgs": "nixpkgs_9"
+      },
       "locked": {
         "dir": "wrapper",
-        "lastModified": 1668186527,
-        "narHash": "sha256-a0qRPDaf4yDV0gnwPMlQ0cuYHrJvCfYzDnWxSkntOVc=",
+        "lastModified": 1668220635,
+        "narHash": "sha256-MOKJGSiOH5+p30A7D+bUAcVHu46s01B+S5hFpPLIq1U=",
         "owner": "defn",
         "repo": "pkg",
-        "rev": "479906cbc5649b84907d450e5343fae71d3635e2",
+        "rev": "ab583a17a67e04a9ae8a652e5d0fab129fa1a999",
         "type": "github"
       },
       "original": {
         "dir": "wrapper",
         "owner": "defn",
-        "ref": "v0.0.16",
+        "ref": "v0.0.20",
         "repo": "pkg",
         "type": "github"
       }
