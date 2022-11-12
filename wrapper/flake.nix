@@ -8,7 +8,7 @@
     nixpkgs = inputs.nixpkgs;
     flake-utils = inputs.flake-utils;
 
-    wrap = { other, system }:
+    wrap = { other, system, site }:
       let
         pkgs = import inputs.nixpkgs { inherit system; };
         inputsList = (pkgs.lib.attrsets.mapAttrsToList (name: value: value) other);
@@ -27,7 +27,7 @@
               [ other.self.defaultPackage.${system} ]
               ++ pkgs.lib.lists.foldr hasDefaultPackage [ ] inputsList;
           };
-        downloadBuilder = input@{ site, system, pkgs, ... }: pkgs.stdenv.mkDerivation
+        downloadBuilder = pkgs.stdenv.mkDerivation
           rec {
             name = "${site.slug}-${site.version}";
 
@@ -38,7 +38,7 @@
 
             sourceRoot = ".";
 
-            installPhase = input.installPhase;
+            installPhase = site.installPhase;
 
             meta = with pkgs.lib; with site; {
               inherit homepage;
