@@ -2,6 +2,7 @@
 
 function main {
     set -exu
+    set +f
 
     name="$1"; shift
     build="$1"; shift
