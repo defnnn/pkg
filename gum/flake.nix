@@ -1,6 +1,7 @@
 {
   inputs = {
-    dev.url = github:defn/pkg?dir=dev&ref=v0.0.26;
+    #dev.url = github:defn/pkg?dir=dev&ref=v0.0.26;
+    dev.url = path:../dev;
   };
 
   outputs = inputs:
@@ -15,27 +16,17 @@
       with site;
       rec {
         devShell = wrap.devShell;
-        defaultPackage = pkgs.stdenv.mkDerivation
-          rec {
-            name = "${slug}-${version}";
+        defaultPackage = wrap.downloadBuilder {
+          inherit site;
+          inherit pkgs;
+          inherit system;
 
-            src = with downloads.${system}; pkgs.fetchurl {
-              url = site.url_template downloads.${system};
-              inherit sha256;
-            };
+          installPhase = ''
+            install -m 0755 -d $out/bin
+            install -m 0755 gum $out/bin/gum
+          '';
 
-            sourceRoot = ".";
-
-            installPhase = ''
-              install -m 0755 -d $out/bin
-              install -m 0755 gum $out/bin/gum
-            '';
-
-            meta = with pkgs.lib; with site; {
-              inherit homepage;
-              inherit description;
-            };
-          };
+        };
       }
     );
 }

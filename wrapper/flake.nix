@@ -27,6 +27,24 @@
               [ other.self.defaultPackage.${system} ]
               ++ pkgs.lib.lists.foldr hasDefaultPackage [ ] inputsList;
           };
+        downloadBuilder = input@{ site, system, pkgs, ... }: pkgs.stdenv.mkDerivation
+          rec {
+            name = "${site.slug}-${site.version}";
+
+            src = with site.downloads.${system}; pkgs.fetchurl {
+              url = site.url_template downloads.${system};
+              inherit sha256;
+            };
+
+            sourceRoot = ".";
+
+            insallPhase = input.installPhase;
+
+            meta = with pkgs.lib; with site; {
+              inherit homepage;
+              inherit description;
+            };
+          };
       };
   };
 }
