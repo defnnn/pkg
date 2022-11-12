@@ -38,9 +38,15 @@
           rec {
             name = "${slug}-${version}";
 
+            src = ./.;
+
             dontUnpack = true;
 
-            installPhase = "mkdir -p $out";
+            installPhase = ''
+              mkdir -p $out/bin
+              cp $src/bin/c-* $out/bin/
+              chmod 755 $out/bin/*
+            '';
 
             propagatedBuildInputs = buildInputs;
 
