@@ -1,10 +1,16 @@
 {
-  inputs = { };
+  inputs = {
+    nixpkgs.url = github:NixOS/nixpkgs/22.05;
+    flake-utils.url = github:numtide/flake-utils;
+  };
 
   outputs = inputs: {
-    wrap = { other, system, pkgs }:
+    nixpkgs = inputs.nixpkgs;
+    flake-utils = inputs.flake-utils;
+
+    wrap = { other, system }:
       let
-        inputsList = (pkgs.lib.attrsets.mapAttrsToList (name: value: value) other);
+        inputsList = (nixpkgs.lib.attrsets.mapAttrsToList (name: value: value) other);
         hasDefaultPackage = (item: acc:
           acc ++
           (
@@ -14,11 +20,11 @@
           ));
       in
       rec {
-        devShell = pkgs.mkShell
+        devShell = nixpkgs.mkShell
           rec {
             buildInputs =
               [ other.self.defaultPackage.${system} ]
-              ++ pkgs.lib.lists.foldr hasDefaultPackage [ ] inputsList;
+              ++ nixpkgs.lib.lists.foldr hasDefaultPackage [ ] inputsList;
           };
       };
   };
