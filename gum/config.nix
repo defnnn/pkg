@@ -5,7 +5,8 @@ rec {
   description = "chamrbracelet gum";
   downloads = {
     "x86_64-linux" = rec {
-      url = "https://github.com/charmbracelet/gum/releases/download/v${version}/gum_${version}_linux_${arch}.tar.gz";
+      os = "linux";
+      url = "https://github.com/charmbracelet/gum/releases/download/v${version}/gum_${version}_${os}_${arch}.tar.gz";
       arch = "x86_64";
       sha256 = "sha256-K1LJVGyxXb9gzJTVobSuyoMNIR+uRVLiWg/oiMkU9qc=";
     };
