@@ -1,69 +1,54 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/22.05";
-    flake-utils.url = "github:numtide/flake-utils";
-    c-pkg.url = github:defn/pkg?dir=c&ref=v0.0.10;
-    tilt-pkg.url = github:defn/pkg?dir=tilt&ref=v0.0.4;
-    earthly-pkg.url = github:defn/pkg?dir=earthly&ref=v0.0.5;
-    yaegi-pkg.url = github:defn/pkg?dir=yaegi&ref=v0.0.13;
+    nixpkgs.url = github:NixOS/nixpkgs/22.05;
+    flake-utils.url = github:numtide/flake-utils;
+    wrapper.url = github:defn/pkg?dir=wrapper&ref=v0.0.16;
+    
+    c.url = github:defn/pkg?dir=c&ref=v0.0.10;
+    tilt.url = github:defn/pkg?dir=tilt&ref=v0.0.4;
+    earthly.url = github:defn/pkg?dir=earthly&ref=v0.0.5;
+    yaegi.url = github:defn/pkg?dir=yaegi&ref=v0.0.13;
   };
 
-  outputs =
-    { self
-    , nixpkgs
-    , flake-utils
-    , c-pkg
-    , tilt-pkg
-    , earthly-pkg
-    , yaegi-pkg
-    }:
-    flake-utils.lib.eachDefaultSystem (system:
-    let
-      pkgs = import nixpkgs { inherit system; };
-      c = c-pkg.defaultPackage.${system};
-      tilt = tilt-pkg.defaultPackage.${system};
-      earthly = earthly-pkg.defaultPackage.${system};
-      yaegi = yaegi-pkg.defaultPackage.${system};
-    in
-    rec {
-      devShell =
-        pkgs.mkShell rec {
-          buildInputs = with pkgs; [
-            defaultPackage
-          ];
-        };
+  outputs = inputs:
+    inputs.flake-utils.lib.eachDefaultSystem (system:
+      let
+        pkgs = import inputs.nixpkgs { inherit system; };
+        wrap = inputs.wrapper.wrap { other = inputs; inherit system; inherit pkgs; };
+        slug = "defn-pkg-dev";
+        version = "0.0.1";
+        buildInputs = [
+          pkgs.jq
+          pkgs.fzf
+          pkgs.docker
+          pkgs.docker-credential-helpers
+          pkgs.kubectl
+          pkgs.k9s
+          pkgs.pre-commit
+          inputs.c.defaultPackage.${system}
+          inputs.tilt.defaultPackage.${system}
+          inputs.earthly.defaultPackage.${system}
+          inputs.yaegi.defaultPackage.${system}
+        ];
+      in
+      rec {
+        devShell = wrap.devShell;
+        defaultPackage = pkgs.stdenv.mkDerivation
+          rec {
+            name = "${slug}-${version}";
 
-      defaultPackage =
-        with import nixpkgs { inherit system; };
-        stdenv.mkDerivation rec {
-          name = "${slug}-${version}";
+            dontUnpack = true;
 
-          slug = "defn-pkg-dev";
-          version = "0.0.1";
+            installPhase = "mkdir -p $out";
 
-          dontUnpack = true;
+            propagatedBuildInputs = buildInputs;
 
-          installPhase = "mkdir -p $out";
-
-          propagatedBuildInputs = with pkgs; [
-            jq
-            fzf
-            docker
-            docker-credential-helpers
-            kubectl
-            k9s
-            pre-commit
-            c
-            tilt
-            earthly
-            yaegi
-          ];
-
-          meta = with lib; {
-            homepage = "https://defn.sh/${slug}";
-            description = "common dev tools";
-            platforms = platforms.linux;
+            meta = with pkgs.lib; {
+              homepage = "https://defn.sh/${slug}";
+              description = "common dev tools";
+              platforms = platforms.linux;
+            };
           };
-        };
-    });
+      }
+    );
 }
