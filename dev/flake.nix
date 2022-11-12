@@ -6,8 +6,8 @@
     tilt.url = github:defn/pkg?dir=tilt&ref=v0.0.4;
     earthly.url = github:defn/pkg?dir=earthly&ref=v0.0.5;
     yaegi.url = github:defn/pkg?dir=yaegi&ref=v0.0.13;
-    glow.url = github:defn/pkg?dir=yaegi&ref=v0.0.27;
-    gum.url = github:defn/pkg?dir=yaegi&ref=v0.0.27;
+    glow.url = github:defn/pkg?dir=glow&ref=v0.0.27;
+    gum.url = github:defn/pkg?dir=gum&ref=v0.0.27;
   };
 
   outputs = inputs:
