@@ -6,9 +6,9 @@ rec {
   downloads = {
     "x86_64-linux" = rec {
       os = "linux";
-      url = "https://github.com/charmbracelet/gum/releases/download/v${version}/gum_${version}_${os}_${arch}.tar.gz";
       arch = "x86_64";
       sha256 = "sha256-K1LJVGyxXb9gzJTVobSuyoMNIR+uRVLiWg/oiMkU9qc=";
+      url = "https://github.com/charmbracelet/gum/releases/download/v${version}/gum_${version}_${os}_${arch}.tar.gz";
     };
   };
 }
