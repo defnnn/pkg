@@ -4,13 +4,14 @@
     flake-utils.url = github:numtide/flake-utils;
   };
 
-  outputs = inputs: rec {
+  outputs = inputs: {
     nixpkgs = inputs.nixpkgs;
     flake-utils = inputs.flake-utils;
 
     wrap = { other, system }:
       let
-        inputsList = (nixpkgs.lib.attrsets.mapAttrsToList (name: value: value) other);
+        pkgs = import inputs.nixpkgs { inherit system; };
+        inputsList = (pkgs.lib.attrsets.mapAttrsToList (name: value: value) other);
         hasDefaultPackage = (item: acc:
           acc ++
           (
@@ -20,11 +21,11 @@
           ));
       in
       rec {
-        devShell = nixpkgs.mkShell
+        devShell = pkgs.mkShell
           rec {
             buildInputs =
               [ other.self.defaultPackage.${system} ]
-              ++ nixpkgs.lib.lists.foldr hasDefaultPackage [ ] inputsList;
+              ++ pkgs.lib.lists.foldr hasDefaultPackage [ ] inputsList;
           };
       };
   };
