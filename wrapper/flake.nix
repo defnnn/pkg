@@ -38,7 +38,7 @@
 
             sourceRoot = ".";
 
-            installPhase = site.installPhase { inherit src; inherit out; };
+            installPhase = site.installPhase { inherit src; };
 
             meta = with pkgs.lib; with site; {
               inherit homepage;
