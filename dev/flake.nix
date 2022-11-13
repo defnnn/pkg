@@ -12,12 +12,10 @@
       main = { inputs, config, handler }:
         eachDefaultSystem (system:
           let
-            site = import config;
             pkgs = import wrapper.nixpkgs { inherit system; };
-            wrap = wrapper.wrap { other = inputs; inherit system; inherit site; };
+            wrap = wrapper.wrap { other = inputs; inherit system; site = config; };
           in
           handler {
-            inherit site;
             inherit pkgs;
             inherit wrap;
             inherit system;
