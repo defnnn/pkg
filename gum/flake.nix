@@ -1,31 +1,19 @@
 {
   inputs = {
-    dev.url = github:defn/pkg?dir=dev&ref=v0.0.30-rc2;
+    dev.url = github:defn/pkg?dir=dev&ref=v0.0.31;
   };
 
   outputs = inputs:
     inputs.dev.wrapper.flake-utils.lib.eachDefaultSystem (system:
       let
-        pkgs = import inputs.dev.wrapper.nixpkgs { inherit system; };
-        wrap = inputs.dev.wrapper.wrap { other = inputs; inherit system; };
-        buildInputs = [
-        ];
         site = import ./config.nix;
+        pkgs = import inputs.dev.wrapper.nixpkgs { inherit system; };
+        wrap = inputs.dev.wrapper.wrap { other = inputs; inherit system; inherit site; };
       in
       with site;
       rec {
         devShell = wrap.devShell;
-        defaultPackage = wrap.downloadBuilder {
-          inherit site;
-          inherit pkgs;
-          inherit system;
-
-          installPhase = ''
-            install -m 0755 -d $out/bin
-            install -m 0755 gum $out/bin/gum
-          '';
-
-        };
+        defaultPackage = wrap.downloadBuilder;
       }
     );
 }
