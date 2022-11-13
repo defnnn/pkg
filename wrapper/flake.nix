@@ -51,7 +51,7 @@
               };
             };
 
-        bashBuilder = input@{ propagatedBuildInputs ? [ ], buildInputs ? [ ]}:
+        bashBuilder = input@{ propagatedBuildInputs ? [ ], buildInputs ? [ ], ...}:
           pkgs.stdenv.mkDerivation
             rec {
               name = "${site.slug}-${site.version}";
