@@ -7,12 +7,17 @@
     inherit inputs;
 
     config = rec {
-      slug = "defn-pkg-caddy";
+      slug = "caddy";
       version = "2.6.2";
       homepage = "https://github.com/defn/pkg/tree/master/${slug}";
-      description = "caddy";
+      description = "${slug}";
 
       url_template = input: "https://github.com/caddyserver/caddy/releases/download/v${input.version}/caddy_${input.version}_${input.os}_${input.arch}.tar.gz";
+
+      installPhase = { src }: ''
+        install -m 0755 -d $out $out/bin
+        install -m 0755 caddy $out/bin/caddy
+      '';
 
       downloads = {
         "x86_64-linux" = rec {
@@ -40,11 +45,6 @@
           sha256 = " sha256-K1LJVGyxXb9gzJTVobSuyoMNIR+uRVLiWg/oiMkU9qc=";
         };
       };
-
-      installPhase = { src }: ''
-        install -m 0755 -d $out $out/bin
-        install -m 0755 caddy $out/bin/caddy
-      '';
     };
 
     handler = { pkgs, wrap, system }: rec {
