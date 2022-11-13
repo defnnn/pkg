@@ -4,8 +4,10 @@
   };
 
   outputs = inputs:
-    {
+    rec {
       wrapper = inputs.wrapper;
+
+      eachDefaultSystem = wrapper.flake-utils.lib.eachDefaultSystem;
     } //
     inputs.wrapper.flake-utils.lib.eachDefaultSystem (system:
       let
