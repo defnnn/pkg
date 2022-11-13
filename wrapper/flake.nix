@@ -40,8 +40,8 @@
 
               sourceRoot = ".";
 
-              buildInputs = nuildInputs;
-              propagatedBuildInputs = propagatedBuildInputs;
+              inherit propagatedBuildInputs;
+              inherit buildInputs;
 
               installPhase = site.installPhase { inherit src; };
 
@@ -51,17 +51,16 @@
               };
             };
 
-        nullBuilder = { propagatedBuildInputs ? [ ], buildInputs ? [ ] }:
+        bashBuilder = { propagatedBuildInputs ? [ ], buildInputs ? [ ], installPhase ? "mkdir -p $out" }:
           pkgs.stdenv.mkDerivation
             rec {
               name = "${slug}-${version}";
 
               dontUnpack = true;
 
-              propagatedBuildInputs = propagatedBuildInputs;
-              buildInputs = nuildInputs;
-
-              installPhase = "mkdir -p $out";
+              inherit propagatedBuildInputs;
+              inherit buildInputs;
+              inherit installPhase;
 
               meta = with pkgs.lib; with site; {
                 inherit homepage;
