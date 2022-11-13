@@ -8,7 +8,7 @@ function main {
     build="$1"; shift
     image="$1"; shift
 
-    cd "dist/image-${name}"
+    cd "dist/${name}"
     git init || true
     rsync -ia ../../flake.lock ../../*.nix .
 
