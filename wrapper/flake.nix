@@ -51,16 +51,18 @@
               };
             };
 
-        bashBuilder = { propagatedBuildInputs ? [ ], buildInputs ? [ ], installPhase ? "mkdir -p $out" }:
+        bashBuilder = input@{ propagatedBuildInputs ? [ ], buildInputs ? [ ], installPhase ? { src }: "mkdir -p $out" }:
           pkgs.stdenv.mkDerivation
             rec {
               name = "${site.slug}-${site.version}";
+
+              src = ./.;
 
               dontUnpack = true;
 
               inherit propagatedBuildInputs;
               inherit buildInputs;
-              inherit installPhase;
+              installPhase = input.installPhase { inherit src; };
 
               meta = with pkgs.lib; with site; {
                 inherit homepage;
