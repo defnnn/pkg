@@ -30,4 +30,9 @@ rec {
       sha256 = " sha256-K1LJVGyxXb9gzJTVobSuyoMNIR+uRVLiWg/oiMkU9qc=";
     };
   };
+
+  installPhase = { src }: ''
+    install -m 0755 -d $out $out/bin
+    install -m 0755 glow $out/bin/glow
+  '';
 }

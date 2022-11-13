@@ -1,6 +1,6 @@
 {
   inputs = {
-    dev.url = github:defn/pkg?dir=dev&ref=v0.0.31;
+    dev.url = github:defn/pkg?dir=dev&ref=v0.0.32;
   };
 
   outputs = inputs:
