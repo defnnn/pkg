@@ -1,6 +1,6 @@
 {
   inputs = {
-    wrapper.url = github:defn/pkg?dir=wrapper&ref=v0.0.30-rc5;
+    wrapper.url = github:defn/pkg?dir=wrapper&ref=v0.0.30-rc7;
 
     c.url = github:defn/pkg?dir=c&ref=v0.0.10;
     tilt.url = github:defn/pkg?dir=tilt&ref=v0.0.4;
@@ -17,9 +17,7 @@
     inputs.wrapper.flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import inputs.wrapper.nixpkgs { inherit system; };
-        wrap = inputs.wrapper.wrap { other = inputs; inherit system; };
-        slug = "defn-pkg-dev";
-        version = "0.0.1";
+        wrap = inputs.wrapper.wrap { other = inputs; inherit system; inherit site; };
         buildInputs = [
           pkgs.jq
           pkgs.fzf
@@ -35,7 +33,9 @@
           inputs.glow.defaultPackage.${system}
           inputs.gum.defaultPackage.${system}
         ];
+        site = import ./config.nix;
       in
+      with site;
       rec {
         devShell = wrap.devShell;
         defaultPackage = pkgs.stdenv.mkDerivation
@@ -55,9 +55,8 @@
             propagatedBuildInputs = buildInputs;
 
             meta = with pkgs.lib; {
-              homepage = "https://defn.sh/${slug}";
-              description = "common dev tools";
-              platforms = platforms.linux;
+              inherit homepage;
+              inherit description;
             };
           };
       }
