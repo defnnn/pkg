@@ -10,7 +10,7 @@
       config = rec {
         slug = "defn-pkg-caddy";
         version = "2.6.2";
-        homepage = "https://defn.sh/${slug}";
+        homepage = "https://github.com/defn/pkg/tree/master/${slug}";
         description = "caddy";
 
         url_template = input: "https://github.com/caddyserver/caddy/releases/download/v${input.version}/caddy_${input.version}_${input.os}_${input.arch}.tar.gz";
