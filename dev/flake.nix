@@ -4,55 +4,67 @@
   };
 
   outputs = inputs:
-    rec {
-      wrapper = inputs.wrapper;
+    let
+      prelude = rec {
+        wrapper = inputs.wrapper;
 
-      eachDefaultSystem = wrapper.flake-utils.lib.eachDefaultSystem;
+        eachDefaultSystem = wrapper.flake-utils.lib.eachDefaultSystem;
 
-      main = { inputs, config, handler }:
-        eachDefaultSystem (system:
-          let
-            pkgs = import wrapper.nixpkgs { inherit system; };
-            wrap = wrapper.wrap { other = inputs; inherit system; site = config; };
-          in
-          handler {
-            inherit pkgs;
-            inherit wrap;
-            inherit system;
-          }
-        );
-    } //
-    inputs.wrapper.flake-utils.lib.eachDefaultSystem (system:
-      let
-        site = import ./config.nix;
-        pkgs = import inputs.wrapper.nixpkgs { inherit system; };
-        wrap = inputs.wrapper.wrap { other = inputs; inherit system; inherit site; };
-      in
-      rec {
-        devShell = wrap.devShell;
+        main = { inputs, config, handler }:
+          eachDefaultSystem (system:
+            let
+              pkgs = import wrapper.nixpkgs { inherit system; };
+              wrap = wrapper.wrap { other = inputs; inherit system; site = config; };
+            in
+            handler {
+              inherit pkgs;
+              inherit wrap;
+              inherit system;
+            }
+          );
+      };
+    in
+    prelude // (prelude.main {
+      inherit inputs;
 
-        defaultPackage = wrap.bashBuilder {
-          propagatedBuildInputs = [
-            pkgs.jq
-            pkgs.fzf
-            pkgs.docker
-            pkgs.docker-credential-helpers
-            pkgs.kubectl
-            pkgs.k9s
-            pkgs.pre-commit
-          ];
+      config = rec {
+        slug = "defn-pkg-dev";
+        version = "0.0.1";
+        homepage = "https://defn.sh/${slug}";
+        description = "common dev tools";
+      };
 
-          src = ./.;
+      handler = { pkgs, wrap, system }:
+        let
+          site = import ./config.nix;
+          pkgs = import inputs.wrapper.nixpkgs { inherit system; };
+          wrap = inputs.wrapper.wrap { other = inputs; inherit system; inherit site; };
+        in
+        rec {
+          devShell = wrap.devShell;
 
-          installPhase = ''
-            set +f
-            find $src
-            find .
-            mkdir -p $out/bin
-            cp $src/bin/c-* $out/bin/
-            chmod 755 $out/bin/*
-          '';
+          defaultPackage = wrap.bashBuilder {
+            propagatedBuildInputs = with pkgs; [
+              jq
+              fzf
+              docker
+              docker-credential-helpers
+              kubectl
+              k9s
+              pre-commit
+            ];
+
+            src = ./.;
+
+            installPhase = ''
+              set +f
+              find $src
+              find .
+              mkdir -p $out/bin
+              cp $src/bin/c-* $out/bin/
+              chmod 755 $out/bin/*
+            '';
+          };
         };
-      }
-    );
+    });
 }
