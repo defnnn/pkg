@@ -20,6 +20,7 @@
             inherit site;
             inherit pkgs;
             inherit wrap;
+            inherit system;
           }
         );
     } //
