@@ -1,59 +1,57 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/22.05";
-    flake-utils.url = "github:numtide/flake-utils";
-    home.url = "github:defn/dev?dir=dev&ref=v0.0.4";
+    dev.url = github:defn/pkg?dir=dev&ref=v0.0.54;
   };
 
-  outputs =
-    { self
-    , nixpkgs
-    , flake-utils
-    , home
-    }:
-    flake-utils.lib.eachDefaultSystem (system:
-    let
-      pkgs = import nixpkgs { inherit system; };
-    in
-    rec {
-      devShell =
-        pkgs.mkShell rec {
-          buildInputs = with pkgs; [
-            home.defaultPackage.${system}
-            defaultPackage
-          ];
-        };
+  outputs = inputs:
+    inputs.dev.main {
+      inherit inputs;
 
-      defaultPackage =
-        with import nixpkgs { inherit system; };
-        stdenv.mkDerivation rec {
-          name = "${slug}-${version}";
+      config = rec {
+        slug = "defn-pkg-caddy";
+        version = "2.6.2";
+        homepage = "https://defn.sh/${slug}";
+        description = "caddy";
 
-          slug = "caddy";
-          version = "2.6.2";
-          arch = if system == "x86_64-linux" then "amd64" else "arm64";
+        url_template = input: "https://github.com/caddyserver/caddy/releases/download/v${input.version}/caddy_${input.version}_${input.os}_${input.arch}.tar.gz";
 
-          src = pkgs.fetchurl {
-            url = "https://github.com/caddyserver/caddy/releases/download/v${version}/caddy_${version}_linux_${arch}.tar.gz";
-            sha256 = if arch == "amd64" then "sha256-WvDuZaAiAQi3uWMisEGKvNpSbV9/7Fr66gKfGuvMpio=" else "sha256-DZvYw67zsu1tc7/Tn6kIxGrjlEsvY5nGqJV8RWCbM84=";
+        downloads = {
+          "x86_64-linux" = rec {
+            inherit version;
+            os = "linux";
+            arch = "amd64";
+            sha256 = "sha256-WvDuZaAiAQi3uWMisEGKvNpSbV9/7Fr66gKfGuvMpio=";
           };
-
-          sourceRoot = ".";
-
-          installPhase = ''
-            mkdir -p $out/bin
-            install -m 0755 caddy $out/bin/caddy
-          '';
-
-          propagatedBuildInputs = [
-          ];
-
-          meta = with lib;
-            {
-              homepage = "https://defn.sh/${slug}";
-              description = "${slug}";
-              platforms = platforms.linux;
-            };
+          "aarch64-linux" = rec {
+            inherit version;
+            os = "linux";
+            arch = "arm64";
+            sha256 = "sha256-DZvYw67zsu1tc7/Tn6kIxGrjlEsvY5nGqJV8RWCbM84=";
+          };
+          "x86_64-darwin" = rec {
+            inherit version;
+            os = "darwin";
+            arch = "amd64";
+            sha256 = "sha256-K1LJVGyxXb9gzJTVobSuyoMNIR+uRVLiWg/oiMkU9qc=";
+          };
+          "aarch64-darwin" = rec {
+            inherit version;
+            os = "darwin";
+            arch = "x86_64";
+            sha256 = " sha256-K1LJVGyxXb9gzJTVobSuyoMNIR+uRVLiWg/oiMkU9qc=";
+          };
         };
-    });
+
+        installPhase = { src }: ''
+          install -m 0755 -d $out $out/bin
+          install -m 0755 caddy $out/bin/caddy
+        '';
+      };
+
+      handler = { pkgs, wrap, system }:
+        rec {
+          devShell = wrap.devShell;
+          defaultPackage = wrap.downloadBuilder { };
+        };
+    };
 }
