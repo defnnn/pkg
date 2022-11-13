@@ -8,6 +8,20 @@
       wrapper = inputs.wrapper;
 
       eachDefaultSystem = wrapper.flake-utils.lib.eachDefaultSystem;
+
+      main = { inputs, config, handler }:
+        eachDefaultSystem (system:
+          let
+            site = import config;
+            pkgs = import wrapper.nixpkgs { inherit system; };
+            wrap = wrapper.wrap { other = inputs; inherit system; inherit site; };
+          in
+          handler {
+            inherit site;
+            inherit pkgs;
+            inherit wrap;
+          }
+        );
     } //
     inputs.wrapper.flake-utils.lib.eachDefaultSystem (system:
       let
@@ -17,6 +31,7 @@
       in
       rec {
         devShell = wrap.devShell;
+
         defaultPackage = wrap.bashBuilder {
           propagatedBuildInputs = [
             pkgs.jq
