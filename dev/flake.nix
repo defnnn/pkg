@@ -1,6 +1,6 @@
 {
   inputs = {
-    wrapper.url = github:defn/pkg?dir=wrapper&ref=v0.0.30-rc7;
+    wrapper.url = github:defn/pkg?dir=wrapper&ref=v0.0.30-rc9;
 
     c.url = github:defn/pkg?dir=c&ref=v0.0.10;
     tilt.url = github:defn/pkg?dir=tilt&ref=v0.0.4;
