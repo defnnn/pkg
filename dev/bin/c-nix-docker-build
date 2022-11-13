@@ -16,6 +16,7 @@ function main {
 
     n build "$build"
     sudo rm -rf nix/store
+    mkdir -p nix/store
     time for a in $(nix-store -qR ./result); do rsync -ia $a nix/store/; done
 
     (
