@@ -54,7 +54,7 @@
         bashBuilder = { propagatedBuildInputs ? [ ], buildInputs ? [ ], installPhase ? "mkdir -p $out" }:
           pkgs.stdenv.mkDerivation
             rec {
-              name = "${slug}-${version}";
+              name = "${site.slug}-${site.version}";
 
               dontUnpack = true;
 
