@@ -61,8 +61,8 @@
               inherit propagatedBuildInputs;
               inherit buildInputs;
 
-              src = input.src;
-              installPhase = input.installPhase;
+              src = input.src ? null;
+              installPhase = input.installPhase ? null;
 
               meta = with pkgs.lib; with site; {
                 inherit homepage;
