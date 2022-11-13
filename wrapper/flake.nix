@@ -51,7 +51,7 @@
               };
             };
 
-        bashBuilder = input@{ propagatedBuildInputs ? [ ], buildInputs ? [ ], src ? ./., installPhase ? "mkdir -p $out" }:
+        bashBuilder = input@{ propagatedBuildInputs ? [ ], buildInputs ? [ ], src, installPhase}:
           pkgs.stdenv.mkDerivation
             rec {
               name = "${site.slug}-${site.version}";
