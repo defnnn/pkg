@@ -31,16 +31,11 @@
         slug = "defn-pkg-dev";
         version = "0.0.1";
         homepage = "https://defn.sh/${slug}";
-        description = "common dev tools";
+        description = "common dev tools, patterns";
       };
 
       handler = { pkgs, wrap, system }:
-        let
-          site = import ./config.nix;
-          pkgs = import inputs.wrapper.nixpkgs { inherit system; };
-          wrap = inputs.wrapper.wrap { other = inputs; inherit system; inherit site; };
-        in
-        rec {
+        {
           devShell = wrap.devShell;
 
           defaultPackage = wrap.bashBuilder {
