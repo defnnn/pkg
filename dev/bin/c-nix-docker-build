@@ -28,6 +28,7 @@ function main {
         done
         echo COPY app /app/
 
+        echo WORKDIR /app
         echo ENTRYPOINT [ '"/app/bin"' ]
         echo "ENV PATH $(for a in nix/store/*/; do echo -n "/$a/bin:"; done)/bin"
     ) > Dockerfile
