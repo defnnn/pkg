@@ -59,8 +59,8 @@ root:
         && chmod u+s /usr/bin/sudo
 
     RUN echo ${TAILSCALE} \
-        && curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/focal.noarmor.gpg | tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null \
-        && curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/focal.tailscale-keyring.list | tee /etc/apt/sources.list.d/tailscale.list \
+        && curl -fsSL https://pkgs.tailscale.com/unstable/ubuntu/focal.noarmor.gpg | tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null \
+        && curl -fsSL https://pkgs.tailscale.com/unstable/ubuntu/focal.tailscale-keyring.list | tee /etc/apt/sources.list.d/tailscale.list \
         && apt-get update \
         && apt install -y tailscale
 
