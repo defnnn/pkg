@@ -10,7 +10,7 @@ ubuntu:
 
 root:
     ARG arch
-    ARG TAILSCALE=1.32.1
+    ARG TAILSCALE=1.33.257
 
     FROM +ubuntu --arch=${arch}
 
