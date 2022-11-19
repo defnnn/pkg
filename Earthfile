@@ -161,6 +161,8 @@ alpine-nix-pkg:
 
     FROM alpine
 
+    RUN apk add bash
+
     RUN (echo '#!/usr/bin/env bash'; echo 'source /.bashrc; exec "$@"') | tee /entrypoint && chmod 755 /entrypoint
     ENTRYPOINT ["/entrypoint"]
 
