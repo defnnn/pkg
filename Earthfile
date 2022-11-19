@@ -33,6 +33,8 @@ root:
             apt-transport-https software-properties-common wget curl git xz-utils make \
             tzdata locales \
             sudo tini \
+        && apt-get install -y --no-install-recommends \
+            procps iptables net-tools dnsutils wireguard-tools openresolv \
         && apt purge -y nano
 
     RUN groupadd -g 1000 ubuntu && useradd -u 1000 -d /home/ubuntu -s /bin/bash -g ubuntu -M ubuntu \
