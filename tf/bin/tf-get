@@ -3,7 +3,7 @@
 function main {
 	set -efu
 
-	exec get -update "$@"
+	exec terraform get -update "$@"
 }
 
 source sub "$0" "$@"
