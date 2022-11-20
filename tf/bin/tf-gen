@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
 function main {
-	set -efu
+	set -eu
 
-	cue export --out json > main.tf.json
-	git add main.tf.json
+	cue cmd gen
+	git add *.tf.json
 	pc || true
-	git add main.tf.json
+	git add *.tf.json
 	pc || true
 }
 
