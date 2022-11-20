@@ -34,7 +34,7 @@ root:
             tzdata locales \
             sudo tini \
         && apt-get install -y --no-install-recommends \
-            procps iptables net-tools dnsutils wireguard-tools openresolv \
+            procps iptables net-tools iputils-ping dnsutils wireguard-tools openresolv \
         && apt purge -y nano
 
     RUN groupadd -g 1000 ubuntu && useradd -u 1000 -d /home/ubuntu -s /bin/bash -g ubuntu -M ubuntu \
