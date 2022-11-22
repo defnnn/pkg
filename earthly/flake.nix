@@ -1,61 +1,55 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/22.05";
-    flake-utils.url = "github:numtide/flake-utils";
-    home.url = "github:defn/dev?dir=dev&ref=v0.0.2";
+    dev.url = github:defn/pkg?dir=dev&ref=v0.0.62;
   };
 
-  outputs =
-    { self
-    , nixpkgs
-    , flake-utils
-    , home
-    }:
-    flake-utils.lib.eachDefaultSystem (system:
-    let
-      pkgs = import nixpkgs { inherit system; };
-    in
-    {
-      devShell =
-        pkgs.mkShell rec {
-          buildInputs = with pkgs; [
-            home.defaultPackage.${system}
-          ];
+  outputs = inputs: inputs.dev.main {
+    inherit inputs;
+
+    config = rec {
+      slug = "earthly";
+      version = "0.6.30";
+      homepage = "https://github.com/defn/pkg/tree/master/${slug}";
+      description = "${slug}";
+
+      url_template = input: "https://github.com/earthly/earthly/releases/download/v${input.version}/earthly-${input.os}-${input.arch}";
+
+      installPhase = { src }: ''
+        install -m 0755 -d $out $out/bin
+        install -m 0755 $src $out/bin/earthly
+      '';
+
+      downloads = {
+        "x86_64-linux" = rec {
+          inherit version;
+          os = "linux";
+          arch = "amd64";
+          sha256 = "sha256-3jpDPUXOFcHVYwZobOqIIa4guOg/UAviYjgfmlL7Z6k=";
         };
-
-      defaultPackage =
-        with import nixpkgs { inherit system; };
-        stdenv.mkDerivation rec {
-          name = "${slug}-${version}";
-
-          slug = "earthly";
-          version = "0.6.29";
-          arch = if system == "x86_64-linux" then "amd64" else "arm64";
-
-          src = pkgs.fetchurl {
-            url = "https://github.com/earthly/earthly/releases/download/v${version}/earthly-linux-${arch}";
-            sha256 = if arch == "amd64" then "sha256-uiYZekPpUs3qe+RjeRkR06N0N+Ek7mzPIITkiJiqNOU=" else "sha256-0hN6hggSD3q0tQptAiYfiOQsnk7X9lZCq7Jej9U3Qzk=";
-            executable = true;
-          };
-
-          sourceRoot = ".";
-
-          dontUnpack = true;
-
-          installPhase = ''
-            mkdir -p $out/bin
-            install -m 0755 $src $out/bin/earthly
-          '';
-
-          propagatedBuildInputs = [
-          ];
-
-          meta = with lib;
-            {
-              homepage = "https://defn.sh/${slug}";
-              description = "${slug}";
-              platforms = platforms.linux;
-            };
+        "aarch64-linux" = rec {
+          inherit version;
+          os = "linux";
+          arch = "arm64";
+          sha256 = "sha256-xUbCZUamR9rfQENT64qJZqqPGd7JJO921XzmY0l3G6Q=";
         };
-    });
+        "x86_64-darwin" = rec {
+          inherit version;
+          os = "darwin";
+          arch = "amd64";
+          sha256 = "sha256-K1LJVGyxXb9gzJTVobSuyoMNIR+uRVLiWg/oiMkU9qc=";
+        };
+        "aarch64-darwin" = rec {
+          inherit version;
+          os = "darwin";
+          arch = "x86_64";
+          sha256 = " sha256-K1LJVGyxXb9gzJTVobSuyoMNIR+uRVLiWg/oiMkU9qc=";
+        };
+      };
+    };
+
+    handler = { pkgs, wrap, system }: rec {
+      devShell = wrap.devShell;
+      defaultPackage = wrap.downloadBuilder { dontUnpack = true; };
+    };
+  };
 }
