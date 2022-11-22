@@ -28,7 +28,7 @@
               ++ pkgs.lib.lists.foldr hasDefaultPackage [ ] inputsList;
           };
 
-        downloadBuilder = { propagatedBuildInputs ? [ ], buildInputs ? [ ] }:
+        downloadBuilder = { propagatedBuildInputs ? [ ], buildInputs ? [ ], dontUnpack ? false }:
           pkgs.stdenv.mkDerivation
             rec {
               name = "${site.slug}-${site.version}";
@@ -42,6 +42,7 @@
 
               inherit propagatedBuildInputs;
               inherit buildInputs;
+              inherit dontUnpack;
 
               installPhase = site.installPhase { inherit src; };
 
