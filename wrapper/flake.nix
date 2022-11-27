@@ -12,12 +12,26 @@
       let
         pkgs = import inputs.nixpkgs { inherit system; };
         inputsList = (pkgs.lib.attrsets.mapAttrsToList (name: value: value) other);
+        flakeInputs = pkgs.lib.lists.foldr hasDefaultPackage [ ] inputsList;
         hasDefaultPackage = (item: acc:
           acc ++
           (
-            if item ? ${"defaultPackage"}
-            then [ item.defaultPackage.${system} ]
-            else [ ]
+            if item ? ${"slug"}
+            then
+              (
+                (if item.slug.${system} == site.slug
+                then [ ]
+                else
+                  (if item ? ${"defaultPackage"}
+                  then [ item.defaultPackage.${system} ]
+                  else [ ]))
+              )
+            else
+              (
+                if item ? ${"defaultPackage"}
+                then [ item.defaultPackage.${system} ]
+                else [ ]
+              )
           ));
       in
       rec {
@@ -25,7 +39,7 @@
           rec {
             buildInputs =
               [ other.self.defaultPackage.${system} ]
-              ++ pkgs.lib.lists.foldr hasDefaultPackage [ ] inputsList;
+              ++ flakeInputs;
           };
 
         downloadBuilder = { propagatedBuildInputs ? [ ], buildInputs ? [ ], dontUnpack ? false }:
