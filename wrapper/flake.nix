@@ -21,11 +21,12 @@
           ));
       in
       rec {
+        flakeInputs = [ other.self.defaultPackage.${system} ]
+          ++ pkgs.lib.lists.foldr hasDefaultPackage [ ] inputsList;
+
         devShell = pkgs.mkShell
           rec {
-            buildInputs =
-              [ other.self.defaultPackage.${system} ]
-              ++ pkgs.lib.lists.foldr hasDefaultPackage [ ] inputsList;
+            buildInputs = flakeInputs;
           };
 
         downloadBuilder = { propagatedBuildInputs ? [ ], buildInputs ? [ ], dontUnpack ? false }:
