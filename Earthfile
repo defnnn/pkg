@@ -140,6 +140,24 @@ alpine-nix-dir:
         SAVE IMAGE --push ${image}
     END
 
+ubuntu-nix-dir:
+    ARG image
+    ARG arch
+    ARG dir
+    ARG ref
+
+    FROM ubuntu
+
+    RUN (echo '#!/usr/bin/env bash'; echo 'source /.bashrc; exec "$@"') | tee /entrypoint && chmod 755 /entrypoint
+    ENTRYPOINT ["/entrypoint"]
+
+    COPY --symlink-no-follow --dir (+nix-install/* --arch=${arch} --install="github:defn/pkg?dir=${dir}&ref=${ref}") /nix/
+    RUN (echo; echo export PATH=/bin`for a in /nix/store/*/bin; do echo -n ":$a"; done`; echo) >> .bashrc
+
+    IF [ "$image" != "" ]
+        SAVE IMAGE --push ${image}
+    END
+
 nix-pkg:
     ARG image
     ARG arch
@@ -184,8 +202,8 @@ IMAGE:
     ARG dir
     ARG ref
 
-    BUILD --platform=linux/amd64 +alpine-nix-dir --image=${image} --arch=amd64 --dir=${dir} --ref=${ref}
-    BUILD --platform=linux/arm64 +alpine-nix-dir --image=${image} --arch=arm64 --dir=${dir} --ref=${ref}
+    BUILD --platform=linux/amd64 +ubuntu-nix-dir --image=${image} --arch=amd64 --dir=${dir} --ref=${ref}
+    BUILD --platform=linux/arm64 +ubuntu-nix-dir --image=${image} --arch=arm64 --dir=${dir} --ref=${ref}
 
 CI:
     COMMAND
@@ -193,7 +211,7 @@ CI:
     ARG dir
     ARG ref
 
-    FROM +alpine-nix-dir --arch=${USERARCH} --dir=${dir} --ref=${ref}
+    FROM +ubuntu-nix-dir --arch=${USERARCH} --dir=${dir} --ref=${ref}
 
     COPY validate .
 
