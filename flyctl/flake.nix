@@ -1,39 +1,55 @@
 {
-  description = "flyctl";
-
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/22.05";
-    flake-utils.url = "github:numtide/flake-utils";
+    dev.url = github:defn/pkg?dir=dev&ref=dev-0.0.1;
   };
 
-  outputs = { self, nixpkgs, flake-utils }:
-    flake-utils.lib.eachDefaultSystem (system: {
-      defaultPackage =
-        with import nixpkgs { inherit system; };
-        stdenv.mkDerivation rec {
-          name = "${slug}-${version}";
+  outputs = inputs: inputs.dev.main {
+    inherit inputs;
 
-          slug = "flyctl";
-          version = "0.0.429";
-          arch2 = "x86_64"; # arm64
+    config = rec {
+      slug = "flyctl";
+      version = "0.0.435";
+      homepage = "https://github.com/defn/pkg/tree/master/${slug}";
+      description = "${slug}";
 
-          src = pkgs.fetchurl {
-            url = "https://github.com/superfly/flyctl/releases/download/v${version}/flyctl_${version}_Linux_${arch2}.tar.gz";
-            sha256 = "sha256-RaYJVcy/iGidcwZEjHCQF1wqdkr1DFDJJI4XgR6kdik=";
-          };
+      url_template = input: "https://github.com/superfly/flyctl/releases/download/v${input.version}/flyctl_${input.version}_${input.os}_${input.arch}.tar.gz";
 
-          sourceRoot = ".";
+      installPhase = { src }: ''
+        install -m 0755 -d $out $out/bin
+        install -m 0755 flyctl $out/bin/flyctl
+      '';
 
-          installPhase = ''
-            mkdir -p $out/bin
-            install -m 0755 flyctl $out/bin/flyctl
-          '';
-
-          meta = with lib; {
-            homepage = "https://defn.sh/${slug}";
-            description = "${slug}";
-            platforms = platforms.linux;
-          };
+      downloads = {
+        "x86_64-linux" = rec {
+          inherit version;
+          os = "Linux";
+          arch = "x86_64";
+          sha256 = "sha256-hMQ+wcYvdnGnWYTl67Jge9Ei3LcpXhjDQnP7M3VzU9I";
         };
-    });
+        "aarch64-linux" = rec {
+          inherit version;
+          os = "Linux";
+          arch = "arm64";
+          sha256 = "sha256-arOHq2kurbji3jOzaCr42htOnWmwp9GtnYHbU3bLpHQ";
+        };
+        "x86_64-darwin" = rec {
+          inherit version;
+          os = "macOS";
+          arch = "x86_64";
+          sha256 = "sha256-U1hvuZtNA6PWB9MvLcYZbzl0pp7856rLWDuwPx8Ba/M";
+        };
+        "aarch64-darwin" = rec {
+          inherit version;
+          os = "macOS";
+          arch = "arm64";
+          sha256 = "sha256-JEGsWl6/Q3pkX21yLy7X8cdD/GXbVcqQxn6qenUe82w";
+        };
+      };
+    };
+
+    handler = { pkgs, wrap, system }: rec {
+      devShell = wrap.devShell;
+      defaultPackage = wrap.downloadBuilder { };
+    };
+  };
 }
