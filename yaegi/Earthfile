@@ -1,0 +1,16 @@
+VERSION --shell-out-anywhere --use-chmod --use-host-command --earthly-version-arg --use-copy-link --use-registry-for-with-docker 0.6
+
+IMPORT --allow-privileged github.com/defn/pkg:v0.0.71
+
+ARG image
+ARG dir
+ARG ref
+
+image:
+    DO pkg+IMAGE --dir=${dir} --ref=${ref} --image=${image}
+
+ci:
+    DO pkg+CI --dir=${dir} --ref=${ref}
+
+validate:
+    DO pkg+VALIDATE
