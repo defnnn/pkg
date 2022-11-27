@@ -175,3 +175,34 @@ alpine-nix-pkg:
     IF [ "$image" != "" ]
         SAVE IMAGE --push ${image}
     END
+
+
+image:
+    COMMAND
+
+    ARG image
+    ARG dir
+    ARG ref
+
+    ARG image
+    BUILD --platform=linux/amd64 pkg+alpine-nix-dir --image=${image} --arch=amd64 --dir=${dir} --ref=${ref}
+    BUILD --platform=linux/arm64 pkg+alpine-nix-dir --image=${image} --arch=arm64 --dir=${dir} --ref=${ref}
+
+ci:
+    COMMAND
+
+    ARG dir
+    ARG ref
+
+    FROM pkg+alpine-nix-dir --arch=${USERARCH} --dir=${dir} --ref=${ref}
+
+    COPY validate .
+
+    RUN --no-cache /entrypoint ./validate
+
+validate:
+    COMMAND
+
+    LOCALLY
+
+    RUN --no-cache ./validate
