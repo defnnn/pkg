@@ -187,11 +187,11 @@ IMAGE:
     BUILD --platform=linux/amd64 +alpine-nix-dir --image=${image} --arch=amd64 --dir=${dir} --ref=${ref}
     BUILD --platform=linux/arm64 +alpine-nix-dir --image=${image} --arch=arm64 --dir=${dir} --ref=${ref}
 
-ci:
+CI:
     ARG dir
     ARG ref
 
-    FROM alpine-nix-dir --arch=${USERARCH} --dir=${dir} --ref=${ref}
+    FROM +alpine-nix-dir --arch=${USERARCH} --dir=${dir} --ref=${ref}
 
     COPY validate .
 
