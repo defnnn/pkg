@@ -35,6 +35,8 @@
           ));
       in
       rec {
+        inherit flakeInputs;
+
         devShell = pkgs.mkShell
           rec {
             buildInputs =
