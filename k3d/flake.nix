@@ -1,42 +1,55 @@
 {
-  description = "k3d";
-
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/22.05";
-    flake-utils.url = "github:numtide/flake-utils";
+    dev.url = github:defn/pkg?dir=dev&ref=dev-0.0.1;
   };
 
-  outputs = { self, nixpkgs, flake-utils }:
-    flake-utils.lib.eachDefaultSystem (system: {
-      defaultPackage =
-        with import nixpkgs { inherit system; };
-        stdenv.mkDerivation rec {
-          name = "${slug}-${version}";
+  outputs = inputs: inputs.dev.main {
+    inherit inputs;
 
-          slug = "k3d";
-          version = "5.4.6";
-          arch = "amd64"; # arm64
+    config = rec {
+      slug = "k3d";
+      version = "5.4.6";
+      homepage = "https://github.com/defn/pkg/tree/master/${slug}";
+      description = "${slug}";
 
-          src = pkgs.fetchurl {
-            url = "https://github.com/k3d-io/k3d/releases/download/v${version}/k3d-linux-${arch}";
-            sha256 = "sha256-Nc0W0Ld3RHmeYmwX4OAHsJYc7x94Xu9kcBSkGrwtMpU=";
-            executable = true;
-          };
+      url_template = input: "https://github.com/k3d-io/k3d/releases/download/v${input.version}/k3d-${input.os}-${input.arch}";
 
-          sourceRoot = ".";
+      installPhase = { src }: ''
+        install -m 0755 -d $out $out/bin
+        install -m 0755 $src $out/bin/k3d
+      '';
 
-          dontUnpack = true;
-
-          installPhase = ''
-            mkdir -p $out/bin
-            install -m 0755 $src $out/bin/k3d
-          '';
-
-          meta = with lib; {
-            homepage = "https://defn.sh/${slug}";
-            description = "${slug}";
-            platforms = platforms.linux;
-          };
+      downloads = {
+        "x86_64-linux" = rec {
+          inherit version;
+          os = "linux";
+          arch = "amd64";
+          sha256 = "sha256-gHXUDHTJfSZC8V9TXLSNbW6C3xQ/UogzoZPYfKrGoXY";
         };
-    });
+        "aarch64-linux" = rec {
+          inherit version;
+          os = "linux";
+          arch = "arm64";
+          sha256 = "sha256-NtuX37P1tWx80EiSTYer+l9JnGL1JOAOJQD+dfiAVq4";
+        };
+        "x86_64-darwin" = rec {
+          inherit version;
+          os = "darwin";
+          arch = "amd64";
+          sha256 = "sha256-EGP3dHSJ2/aZB6f5sOc3KbhfgvQxDz2KQKRQSkF0ciQ";
+        };
+        "aarch64-darwin" = rec {
+          inherit version;
+          os = "darwin";
+          arch = "arm64";
+          sha256 = "sha256-SGuqGVFXGD+24yt4HdCmOPZi7V+cTYBRAofOljCoAIE";
+        };
+      };
+    };
+
+    handler = { pkgs, wrap, system }: rec {
+      devShell = wrap.devShell;
+      defaultPackage = wrap.downloadBuilder { dontUnpack = true; };
+    };
+  };
 }
