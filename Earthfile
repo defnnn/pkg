@@ -177,7 +177,7 @@ alpine-nix-pkg:
     END
 
 
-image:
+IMAGE:
     COMMAND
 
     ARG image
@@ -188,7 +188,7 @@ image:
     BUILD --platform=linux/amd64 pkg+alpine-nix-dir --image=${image} --arch=amd64 --dir=${dir} --ref=${ref}
     BUILD --platform=linux/arm64 pkg+alpine-nix-dir --image=${image} --arch=arm64 --dir=${dir} --ref=${ref}
 
-ci:
+CI:
     COMMAND
 
     ARG dir
@@ -200,7 +200,7 @@ ci:
 
     RUN --no-cache /entrypoint ./validate
 
-validate:
+VALIDATE:
     COMMAND
 
     LOCALLY
