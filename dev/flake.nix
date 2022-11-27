@@ -39,16 +39,6 @@
           devShell = wrap.devShell;
 
           defaultPackage = wrap.bashBuilder {
-            propagatedBuildInputs = with pkgs; [
-              jq
-              fzf
-              docker
-              docker-credential-helpers
-              kubectl
-              k9s
-              pre-commit
-            ];
-
             src = ./.;
 
             installPhase = ''
