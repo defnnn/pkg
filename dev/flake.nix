@@ -1,6 +1,6 @@
 {
   inputs = {
-    wrapper.url = github:defn/pkg?dir=wrapper&ref=wrapper-0.0.2-rc4;
+    wrapper.url = github:defn/pkg?dir=wrapper&ref=wrapper-0.0.2-rc6;
   };
 
   outputs = inputs:
