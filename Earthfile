@@ -34,7 +34,7 @@ root:
             tzdata locales \
             sudo tini \
         && apt-get install -y --no-install-recommends \
-            procps iptables net-tools iputils-ping dnsutils wireguard-tools openresolv \
+            procps iptables net-tools iputils-ping dnsutils \
         && apt purge -y nano
 
     RUN groupadd -g 1000 ubuntu && useradd -u 1000 -d /home/ubuntu -s /bin/bash -g ubuntu -M ubuntu \
@@ -51,7 +51,6 @@ root:
         && localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
 
     RUN rm -f /usr/bin/gs \
-        && ln -nfs /usr/bin/git-crypt /usr/local/bin/ \
         && mkdir /run/sshd \
         && install -d -m 0755 -o root -g root /run/user \
         && install -d -m 0700 -o ubuntu -g ubuntu /run/user/1000 \
