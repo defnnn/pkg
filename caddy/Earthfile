@@ -1,13 +1,16 @@
 VERSION --shell-out-anywhere --use-chmod --use-host-command --earthly-version-arg --use-copy-link --use-registry-for-with-docker 0.6
 
-IMPORT github.com/defn/pkg
+IMPORT --allow-privileged github.com/defn/pkg:v0.0.71
+
+ARG image
+ARG dir
+ARG ref
 
 image:
-    ARG image
-    BUILD --platform=linux/amd64 pkg+alpine-nix-dir --image=${image} --arch=amd64 --dir=caddy
-    BUILD --platform=linux/arm64 pkg+alpine-nix-dir --image=${image} --arch=arm64 --dir=caddy
+    DO pkg+IMAGE --dir=${dir} --ref=${ref} --image=${image}
 
-dev:
-    FROM pkg+alpine-nix-dir --arch=${USERARCH} --dir=caddy
+ci:
+    DO pkg+CI --dir=${dir} --ref=${ref}
 
-    RUN --no-cache /entrypoint caddy version
+validate:
+    DO pkg+VALIDATE
