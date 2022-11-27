@@ -1,40 +1,55 @@
 {
-  description = "tilt";
-
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/22.05";
-    flake-utils.url = "github:numtide/flake-utils";
+    dev.url = github:defn/pkg?dir=dev&ref=dev-0.0.1;
   };
 
-  outputs = { self, nixpkgs, flake-utils }:
-    flake-utils.lib.eachDefaultSystem (system: {
-      defaultPackage =
-        with import nixpkgs { inherit system; };
-        stdenv.mkDerivation rec {
-          name = "${slug}-${version}";
+  outputs = inputs: inputs.dev.main {
+    inherit inputs;
 
-          slug = "tilt";
-          version = "0.30.11";
-          arch = if system == "x86_64-linux" then "x86_64" else "arm64";
+    config = rec {
+      slug = "tilt";
+      version = "0.30.12";
+      homepage = "https://github.com/defn/pkg/tree/master/${slug}";
+      description = "${slug}";
 
-          src = pkgs.fetchurl {
-            url = "https://github.com/tilt-dev/tilt/releases/download/v${version}/tilt.${version}.linux.${arch}.tar.gz";
-            sha256 = if arch == "x86_64" then "sha256-aRsh+yKmmLF3pquADbhL+Da/qXO0nck8voMx6or4i3U=" else "sha256-Bk76Q15pVGaUtt1sQe58+AjYcba66DRpNKdmXL+62yc=";
-            executable = true;
-          };
+      url_template = input: "https://github.com/tilt-dev/tilt/releases/download/v${input.version}/tilt.${input.version}.${input.os}.${input.arch}.tar.gz";
 
-          sourceRoot = ".";
+      installPhase = { src }: ''
+        install -m 0755 -d $out $out/bin
+        install -m 0755 tilt $out/bin/tilt
+      '';
 
-          installPhase = ''
-            mkdir -p $out/bin
-            install -m 0755 tilt $out/bin/tilt
-          '';
-
-          meta = with lib; {
-            homepage = "https://defn.sh/${slug}";
-            description = "${slug}";
-            platforms = platforms.linux;
-          };
+      downloads = {
+        "x86_64-linux" = rec {
+          inherit version;
+          os = "linux";
+          arch = "x86_64";
+          sha256 = "sha256-kBeGM8AQ69SZJ3tkW2sTA0Bq+AETP3eWbHf3XanRJIQ";
         };
-    });
+        "aarch64-linux" = rec {
+          inherit version;
+          os = "linux";
+          arch = "arm64";
+          sha256 = "sha256-ldhDok0bTgTjdaRN2ymQhznfKqOkuW4SkSj84Ni6Zso";
+        };
+        "x86_64-darwin" = rec {
+          inherit version;
+          os = "mac";
+          arch = "x86_64";
+          sha256 = "sha256-+8T6d1rUfCyNaAEAnDKDxOEk+ZDxI024Bu8LZiaPIwo";
+        };
+        "aarch64-darwin" = rec {
+          inherit version;
+          os = "mac";
+          arch = "arm64";
+          sha256 = "sha256-enJWROtEtGY4EbpcFmoWlis0NPFDzmoAuvm9wJIKiQ4";
+        };
+      };
+    };
+
+    handler = { pkgs, wrap, system }: rec {
+      devShell = wrap.devShell;
+      defaultPackage = wrap.downloadBuilder { };
+    };
+  };
 }
