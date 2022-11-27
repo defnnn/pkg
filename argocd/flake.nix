@@ -1,42 +1,55 @@
 {
-  description = "argocd";
-
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/22.05";
-    flake-utils.url = "github:numtide/flake-utils";
+    dev.url = github:defn/pkg?dir=dev&ref=dev-0.0.1;
   };
 
-  outputs = { self, nixpkgs, flake-utils }:
-    flake-utils.lib.eachDefaultSystem (system: {
-      defaultPackage =
-        with import nixpkgs { inherit system; };
-        stdenv.mkDerivation rec {
-          name = "${slug}-${version}";
+  outputs = inputs: inputs.dev.main {
+    inherit inputs;
 
-          slug = "argocd";
-          version = "2.5.1";
-          arch = "amd64"; # arm64
+    config = rec {
+      slug = "argocd";
+      version = "2.5.2";
+      homepage = "https://github.com/defn/pkg/tree/master/${slug}";
+      description = "${slug}";
 
-          src = pkgs.fetchurl {
-            url = "https://github.com/argoproj/argo-cd/releases/download/v${version}/argocd-linux-${arch}";
-            sha256 = "sha256-VB99zaJWPbAlQKuVQjK/wHsXCMQzAAF/S80Oj5fqrdc=";
-            executable = true;
-          };
+      url_template = input: "https://github.com/argoproj/argo-cd/releases/download/v${input.version}/argocd-${input.os}-${input.arch}";
 
-          sourceRoot = ".";
+      installPhase = { src }: ''
+        install -m 0755 -d $out $out/bin
+        install -m 0755 $src $out/bin/argocd
+      '';
 
-          dontUnpack = true;
-
-          installPhase = ''
-            mkdir -p $out/bin
-            install -m 0755 $src $out/bin/argocd
-          '';
-
-          meta = with lib; {
-            homepage = "https://defn.sh/${slug}";
-            description = "${slug}";
-            platforms = platforms.linux;
-          };
+      downloads = {
+        "x86_64-linux" = rec {
+          inherit version;
+          os = "linux";
+          arch = "amd64";
+          sha256 = "sha256-JJp0CejWAjR2aEIKxMssgoVl/nLRub/7Brv3yBbsOMY";
         };
-    });
+        "aarch64-linux" = rec {
+          inherit version;
+          os = "linux";
+          arch = "arm64";
+          sha256 = "sha256-BR7rM9DVmQMZiRCgfWQUeEF/q30/l6gxaOdTS3xmILQ";
+        };
+        "x86_64-darwin" = rec {
+          inherit version;
+          os = "darwin";
+          arch = "amd64";
+          sha256 = "sha256-riQbBiVJnZlSs2tbQ6ulxf4jpsT8qPpEOGiDViD6vO4";
+        };
+        "aarch64-darwin" = rec {
+          inherit version;
+          os = "darwin";
+          arch = "arm64";
+          sha256 = "sha256-1gOBzg0CFeKi0ip6AdLxpbz2eo9MnLelW4/G+0hA4Aw";
+        };
+      };
+    };
+
+    handler = { pkgs, wrap, system }: rec {
+      devShell = wrap.devShell;
+      defaultPackage = wrap.downloadBuilder { dontUnpack = true; };
+    };
+  };
 }
