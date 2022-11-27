@@ -1,59 +1,55 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/22.05"; # nixpkgs-unstable
-    flake-utils.url = "github:numtide/flake-utils";
-    dev.url = "github:defn/pkg?dir=dev&ref=v0.0.12";
+    dev.url = github:defn/pkg?dir=dev&ref=dev-0.0.1;
   };
 
-  outputs =
-    { self
-    , nixpkgs
-    , flake-utils
-    , dev
-    }:
-    flake-utils.lib.eachDefaultSystem (system:
-    let
-      pkgs = import nixpkgs { inherit system; };
-    in
-    rec {
-      devShell =
-        pkgs.mkShell rec {
-          buildInputs = with pkgs; [
-            dev.defaultPackage.${system}
-            defaultPackage
-          ];
+  outputs = inputs: inputs.dev.main {
+    inherit inputs;
+
+    config = rec {
+      slug = "yaegi";
+      version = "0.14.3";
+      homepage = "https://github.com/defn/pkg/tree/master/${slug}";
+      description = "${slug}";
+
+      url_template = input: "https://github.com/traefik/yaegi/releases/download/v${input.version}/yaegi_v${input.version}_${input.os}_${input.arch}.tar.gz";
+
+      installPhase = { src }: ''
+        install -m 0755 -d $out $out/bin
+        install -m 0755 yaegi $out/bin/yaegi
+      '';
+
+      downloads = {
+        "x86_64-linux" = rec {
+          inherit version;
+          os = "linux";
+          arch = "amd64";
+          sha256 = "sha256-84gIbpT6fYxM3hatsggZQPITocxZjXaxLJd5F1nPYBc";
         };
-
-      defaultPackage =
-        with import nixpkgs { inherit system; };
-        stdenv.mkDerivation rec {
-          name = "${slug}-${version}";
-
-          slug = "yaegi";
-          version = "0.14.3";
-          arch = if system == "x86_64-linux" then "amd64" else "arm64";
-
-          src = pkgs.fetchurl {
-            url = "https://github.com/traefik/yaegi/releases/download/v${version}/yaegi_v${version}_linux_${arch}.tar.gz";
-            sha256 = if arch == "amd64" then "sha256-o3x1FJ+kDzWbGUe+gtUTjvOBQliuHMcYQYfFOXumc+E=" else "sha256-qxsp8riVSPcRJEUAoicqINJ4hU0mIfYQ2/YXvMpA3n0=";
-            executable = true;
-          };
-
-          sourceRoot = ".";
-
-          installPhase = ''
-            mkdir -p $out/bin
-            install -m 0755 yaegi $out/bin/yaegi
-          '';
-
-          propagatedBuildInputs = with pkgs; [
-          ];
-
-          meta = with lib; {
-            homepage = "https://defn.sh/${slug}";
-            description = "${slug}";
-            platforms = platforms.linux;
-          };
+        "aarch64-linux" = rec {
+          inherit version;
+          os = "linux";
+          arch = "arm64";
+          sha256 = "sha256-cRodFRlMELT8jOoYEx/XCD/9zIMrZetwbobWXtWrTIY";
         };
-    });
+        "x86_64-darwin" = rec {
+          inherit version;
+          os = "darwin";
+          arch = "amd64";
+          sha256 = "sha256-kvHOz8eDV0+2+eWelsgsiCUtR863s5A//OKuvdpTdc4";
+        };
+        "aarch64-darwin" = rec {
+          inherit version;
+          os = "darwin";
+          arch = "arm64";
+          sha256 = "sha256-4y6ibjkfhsgn1xQRr8pO2JpYYp1atkT7G/YXnDQg/h4";
+        };
+      };
+    };
+
+    handler = { pkgs, wrap, system }: rec {
+      devShell = wrap.devShell;
+      defaultPackage = wrap.downloadBuilder { };
+    };
+  };
 }
