@@ -1,6 +1,6 @@
 {
   inputs = {
-    dev.url = github:defn/pkg?dir=dev&ref=v0.0.54;
+    dev.url = github:defn/pkg?dir=dev&ref=dev-0.0.1;
   };
 
   outputs = inputs: inputs.dev.main {
@@ -34,15 +34,15 @@
         };
         "x86_64-darwin" = rec {
           inherit version;
-          os = "darwin";
+          os = "mac";
           arch = "amd64";
-          sha256 = "sha256-K1LJVGyxXb9gzJTVobSuyoMNIR+uRVLiWg/oiMkU9qc=";
+          sha256 = "sha256-92EJrr2rGHtB5U4Lt2HwDN+XMDftdmO4OcXKhZtSQD8";
         };
         "aarch64-darwin" = rec {
           inherit version;
-          os = "darwin";
-          arch = "x86_64";
-          sha256 = " sha256-K1LJVGyxXb9gzJTVobSuyoMNIR+uRVLiWg/oiMkU9qc=";
+          os = "mac";
+          arch = "arm64";
+          sha256 = "sha256-XO/u3sM6pzLz4EwmQMDAU6/Xz3Atfir9HaoR8Flb/s4";
         };
       };
     };
