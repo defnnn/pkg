@@ -1,43 +1,55 @@
 {
-  description = "kubectl";
-
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/22.05";
-    flake-utils.url = "github:numtide/flake-utils";
+    dev.url = github:defn/pkg?dir=dev&ref=dev-0.0.1;
   };
 
-  outputs = { self, nixpkgs, flake-utils }:
-    flake-utils.lib.eachDefaultSystem (system: {
-      defaultPackage =
-        with import nixpkgs { inherit system; };
-        stdenv.mkDerivation rec {
-          name = "${slug}-${version}";
+  outputs = inputs: inputs.dev.main {
+    inherit inputs;
 
-          slug = "kubectl";
-          version = "1.24.7";
-          arch = "amd64"; # arm64
+    config = rec {
+      slug = "kubectl";
+      version = "1.24.8";
+      homepage = "https://github.com/defn/pkg/tree/master/${slug}";
+      description = "${slug}";
 
-          src = pkgs.fetchurl {
-            url = "https://dl.k8s.io/release/v${version}/bin/linux/${arch}/kubectl";
-            sha256 = "sha256-8QnvJ4LpaQzNEwVzzozgIFmtWw2nmju/FuDmCzN1Jo4=";
-            executable = true;
-          };
+      url_template = input: "https://dl.k8s.io/release/v${input.version}/bin/${input.os}/${input.arch}/kubectl";
 
-          sourceRoot = ".";
+      installPhase = { src }: ''
+        install -m 0755 -d $out $out/bin
+        install -m 0755 $src $out/bin/kubectl
+      '';
 
-          dontUnpack = true;
-
-          installPhase = ''
-            mkdir -p $out/bin
-            find .
-            install -m 0755 $src $out/bin/kubectl
-          '';
-
-          meta = with lib; {
-            homepage = "https://defn.sh/${slug}";
-            description = "${slug}";
-            platforms = platforms.linux;
-          };
+      downloads = {
+        "x86_64-linux" = rec {
+          inherit version;
+          os = "linux";
+          arch = "amd64";
+          sha256 = "sha256-+TwYdR7HFbTUQ35+zhj+kZSMcb4fJKsCot3hUPVEmFU";
         };
-    });
+        "aarch64-linux" = rec {
+          inherit version;
+          os = "linux";
+          arch = "arm64";
+          sha256 = "sha256-uKwqv8sfoEaV0YCYVY/0g+wsJIiHe1q8QDWlQ1RM3LE";
+        };
+        "x86_64-darwin" = rec {
+          inherit version;
+          os = "darwin";
+          arch = "amd64";
+          sha256 = "sha256-fSpFWqnWvgVBxcUWogNLuFAHt75rxeS8GkU82eQVMKk";
+        };
+        "aarch64-darwin" = rec {
+          inherit version;
+          os = "darwin";
+          arch = "arm64";
+          sha256 = "sha256-raAuw+vpg1iyfF9qTwa9qlR0cIfhqiqO2xP96lRiUMM";
+        };
+      };
+    };
+
+    handler = { pkgs, wrap, system }: rec {
+      devShell = wrap.devShell;
+      defaultPackage = wrap.downloadBuilder { dontUnpack = true; };
+    };
+  };
 }

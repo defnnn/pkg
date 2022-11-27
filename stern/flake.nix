@@ -1,40 +1,55 @@
 {
-  description = "stern";
-
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/22.05";
-    flake-utils.url = "github:numtide/flake-utils";
+    dev.url = github:defn/pkg?dir=dev&ref=dev-0.0.1;
   };
 
-  outputs = { self, nixpkgs, flake-utils }:
-    flake-utils.lib.eachDefaultSystem (system: {
-      defaultPackage =
-        with import nixpkgs { inherit system; };
-        stdenv.mkDerivation rec {
-          name = "${slug}-${version}";
+  outputs = inputs: inputs.dev.main {
+    inherit inputs;
 
-          slug = "stern";
-          version = "1.22.0";
-          arch = "amd64"; # arm64
+    config = rec {
+      slug = "stern";
+      version = "1.22.0";
+      homepage = "https://github.com/defn/pkg/tree/master/${slug}";
+      description = "${slug}";
 
-          src = pkgs.fetchurl {
-            url = "https://github.com/stern/stern/releases/download/v${version}/stern_${version}_linux_${arch}.tar.gz";
-            sha256 = "sha256-bv8CjRBLU8ilPDr3UqUikt2yAktGnOWrBa7i8JVL3nI=";
-          };
+      url_template = input: "https://github.com/stern/stern/releases/download/v${input.version}/stern_${input.version}_${input.os}_${input.arch}.tar.gz";
 
-          sourceRoot = ".";
+      installPhase = { src }: ''
+        install -m 0755 -d $out $out/bin
+        install -m 0755 stern $out/bin/stern
+      '';
 
-          installPhase = ''
-            mkdir -p $out/bin
-            find .
-            install -m 0755 stern $out/bin/stern
-          '';
-
-          meta = with lib; {
-            homepage = "https://defn.sh/${slug}";
-            description = "${slug}";
-            platforms = platforms.linux;
-          };
+      downloads = {
+        "x86_64-linux" = rec {
+          inherit version;
+          os = "linux";
+          arch = "amd64";
+          sha256 = "sha256-bv8CjRBLU8ilPDr3UqUikt2yAktGnOWrBa7i8JVL3nI";
         };
-    });
+        "aarch64-linux" = rec {
+          inherit version;
+          os = "linux";
+          arch = "arm64";
+          sha256 = "sha256-NHRsWLgOjw2zJz/2kaA9XFfxCpE+nGp5H64fQQeu5eU";
+        };
+        "x86_64-darwin" = rec {
+          inherit version;
+          os = "darwin";
+          arch = "amd64";
+          sha256 = "sha256-Pi0G7zWGaxVaqTSdGzN67RFOVtSdf8gkUUPWGAEV/+8";
+        };
+        "aarch64-darwin" = rec {
+          inherit version;
+          os = "darwin";
+          arch = "arm64";
+          sha256 = "sha256-Bm4FYrlirPV2JC6aI6pNYd4hgS1fpiy/4ZimL1gB0oI";
+        };
+      };
+    };
+
+    handler = { pkgs, wrap, system }: rec {
+      devShell = wrap.devShell;
+      defaultPackage = wrap.downloadBuilder { };
+    };
+  };
 }
