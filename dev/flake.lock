@@ -43,17 +43,17 @@
       },
       "locked": {
         "dir": "wrapper",
-        "lastModified": 1669154211,
-        "narHash": "sha256-XsXpxPGgd0RA+aP9ZQi8gs3oAc8EcDtLcbXkxPX6ULY=",
+        "lastModified": 1669532077,
+        "narHash": "sha256-XVt1cF3mNTCKuppJlqSTk0rntLg8N7TTpMXM++xk3bg=",
         "owner": "defn",
         "repo": "pkg",
-        "rev": "e59c7a852d3b003f6178d999d5a38dbb6a766407",
+        "rev": "883f1e035671f94c5f20c9335e0f3e24bc0dd7d9",
         "type": "github"
       },
       "original": {
         "dir": "wrapper",
         "owner": "defn",
-        "ref": "v0.0.61",
+        "ref": "wrapper-0.0.2-rc4",
         "repo": "pkg",
         "type": "github"
       }
