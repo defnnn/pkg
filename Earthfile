@@ -106,13 +106,14 @@ nix-dir:
     ARG image
     ARG arch
     ARG dir
+    ARG ref
 
     FROM +root --arch=${arch}
 
     RUN (echo '#!/usr/bin/env bash'; echo 'source ~ubuntu/.bashrc; exec "$@"') | sudo tee /entrypoint && sudo chmod 755 /entrypoint
     ENTRYPOINT ["/entrypoint"]
 
-    COPY --chown=ubuntu:ubuntu --symlink-no-follow --dir (+nix-install/* --arch=${arch} --install="github:defn/pkg?dir=${dir}") /nix/
+    COPY --chown=ubuntu:ubuntu --symlink-no-follow --dir (+nix-install/* --arch=${arch} --install="github:defn/pkg?dir=${dir}&ref=${ref}") /nix/
     RUN (echo; echo export PATH=/bin`for a in /nix/store/*/bin; do echo -n ":$a"; done`; echo) >> .bashrc
 
     IF [ "$image" != "" ]
@@ -123,6 +124,7 @@ alpine-nix-dir:
     ARG image
     ARG arch
     ARG dir
+    ARG ref
 
     FROM alpine
 
@@ -131,7 +133,7 @@ alpine-nix-dir:
     RUN (echo '#!/usr/bin/env bash'; echo 'source /.bashrc; exec "$@"') | tee /entrypoint && chmod 755 /entrypoint
     ENTRYPOINT ["/entrypoint"]
 
-    COPY --symlink-no-follow --dir (+nix-install/* --arch=${arch} --install="github:defn/pkg?dir=${dir}") /nix/
+    COPY --symlink-no-follow --dir (+nix-install/* --arch=${arch} --install="github:defn/pkg?dir=${dir}&ref=${ref}") /nix/
     RUN (echo; echo export PATH=/bin`for a in /nix/store/*/bin; do echo -n ":$a"; done`; echo) >> .bashrc
 
     IF [ "$image" != "" ]
