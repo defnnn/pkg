@@ -188,6 +188,8 @@ IMAGE:
     BUILD --platform=linux/arm64 +alpine-nix-dir --image=${image} --arch=arm64 --dir=${dir} --ref=${ref}
 
 CI:
+    COMMAND
+
     ARG dir
     ARG ref
 
