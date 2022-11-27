@@ -1,6 +1,6 @@
 {
   inputs = {
-    dev.url = github:defn/pkg?dir=dev&ref=v0.0.62;
+    dev.url = github:defn/pkg?dir=dev&ref=v0.0.63;
   };
 
   outputs = inputs: inputs.dev.main {
@@ -36,13 +36,13 @@
           inherit version;
           os = "darwin";
           arch = "amd64";
-          sha256 = "sha256-K1LJVGyxXb9gzJTVobSuyoMNIR+uRVLiWg/oiMkU9qc=";
+          sha256 = "sha256-x9NRlXhN6Z/sb47zrIsJNWnPELZQ8sxyFyUNgPRiFZY";
         };
         "aarch64-darwin" = rec {
           inherit version;
           os = "darwin";
-          arch = "x86_64";
-          sha256 = " sha256-K1LJVGyxXb9gzJTVobSuyoMNIR+uRVLiWg/oiMkU9qc=";
+          arch = "arm64";
+          sha256 = "sha256-0gDzVOzCBQmsi8WUvyUW/ls2raP2Bq1quWHPhF+OFKo";
         };
       };
     };
