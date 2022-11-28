@@ -3,6 +3,7 @@
     dev.url = github:defn/pkg?dir=dev&ref=dev-0.0.2;
     elasticsearch.url = github:defn/pkg?dir=elasticsearch&ref=elasticsearch-8.5.2;
     kibana.url = github:defn/pkg?dir=kibana&ref=kibana-8.5.2;
+    latest.url = github:NixOS/nixpkgs/nixpkgs-unstable;
   };
 
   outputs = inputs: inputs.dev.main rec {
@@ -18,10 +19,12 @@
     handler = { pkgs, wrap, system }: rec {
       slug = config.slug;
 
+      latest = import inputs.latest { inherit system; };
+
       devShell = wrap.devShell;
       defaultPackage = wrap.nullBuilder {
         propagatedBuildInputs = wrap.flakeInputs ++
-          [ pkgs.nomad ];
+          [ latest.nomad ];
       };
     };
   };
