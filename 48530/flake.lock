@@ -153,17 +153,17 @@
       },
       "locked": {
         "dir": "filebeat",
-        "lastModified": 1669618378,
-        "narHash": "sha256-u7+ZnnxQcPN4ZBai5EXcGRxHKimpJXOLGwLmMwl6Ljo=",
+        "lastModified": 1669619021,
+        "narHash": "sha256-Jnkqgrq8GJ3bkr+c6xDmtygsNxhZkQ9tQkdzXaFqw5o=",
         "owner": "defn",
         "repo": "pkg",
-        "rev": "f489a4fe19ee6c4b8f50403c2eddaae050292167",
+        "rev": "abffd552fc9ce69cd440fc5f0d28c386a788d8a7",
         "type": "github"
       },
       "original": {
         "dir": "filebeat",
         "owner": "defn",
-        "ref": "filebeat-8.5.2",
+        "ref": "filebeat-8.5.2-1",
         "repo": "pkg",
         "type": "github"
       }

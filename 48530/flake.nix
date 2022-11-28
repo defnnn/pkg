@@ -3,7 +3,7 @@
     dev.url = github:defn/pkg?dir=dev&ref=dev-0.0.2;
     elasticsearch.url = github:defn/pkg?dir=elasticsearch&ref=elasticsearch-8.5.2;
     kibana.url = github:defn/pkg?dir=kibana&ref=kibana-8.5.2;
-    filebeat.url = github:defn/pkg?dir=filebeat&ref=filebeat-8.5.2;
+    filebeat.url = github:defn/pkg?dir=filebeat&ref=filebeat-8.5.2-1;
     caddy.url = github:defn/pkg?dir=caddy&ref=caddy-2.6.2;
     latest.url = github:NixOS/nixpkgs/nixpkgs-unstable;
   };
