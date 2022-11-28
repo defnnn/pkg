@@ -19,6 +19,7 @@
         install -m 0755 -d $out $out/bin
         install -m 0755 -d $out $out/data
         install -m 0755 -d $out $out/logs
+        mv $out/filebeat $out/bin/filebeat
         echo -e '#!/usr/bin/env bash\ncd $(dirname $BASH_SOURCE)/..; chmod 755 . logs data logs' > $out/bin/filebeat-fixup
         chmod 755 $out/bin/filebeat-fixup
       '';
