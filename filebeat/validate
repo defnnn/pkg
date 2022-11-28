@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+elasticsearch-fixup
+elasticsearch --version
