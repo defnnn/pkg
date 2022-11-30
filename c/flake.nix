@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/22.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/22.11";
     flake-utils.url = "github:numtide/flake-utils";
     cue-pkg.url = "github:defn/pkg/v0.0.5?dir=cue";
     hof-pkg.url = "github:defn/pkg/v0.0.5?dir=hof";
