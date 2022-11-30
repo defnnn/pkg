@@ -1,10 +1,10 @@
 {
   inputs = {
-    dev.url = github:defn/pkg?dir=dev&ref=dev-0.0.2;
-    elasticsearch.url = github:defn/pkg?dir=elasticsearch&ref=elasticsearch-8.5.2;
-    kibana.url = github:defn/pkg?dir=kibana&ref=kibana-8.5.2;
-    filebeat.url = github:defn/pkg?dir=filebeat&ref=filebeat-8.5.2-1;
-    caddy.url = github:defn/pkg?dir=caddy&ref=caddy-2.6.2;
+    dev.url = github:defn/pkg/dev-0.0.2?dir=dev;
+    elasticsearch.url = github:defn/pkg/elasticsearch-8.5.2?dir=elasticsearch;
+    kibana.url = github:defn/pkg/kibana-8.5.2?dir=kibana;
+    filebeat.url = github:defn/pkg/filebeat-8.5.2-1?dir=filebeat;
+    caddy.url = github:defn/pkg/caddy-2.6.2?dir=caddy;
     latest.url = github:NixOS/nixpkgs/nixpkgs-unstable;
   };
 
