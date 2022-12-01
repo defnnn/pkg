@@ -1,6 +1,6 @@
 {
   inputs = {
-    dev.url = github:defn/pkg/dev-0.0.3?dir=dev;
+    dev.url = github:defn/pkg/dev-0.0.4?dir=dev;
     elasticsearch.url = github:defn/pkg/elasticsearch-8.5.2?dir=elasticsearch;
     kibana.url = github:defn/pkg/kibana-8.5.2?dir=kibana;
     filebeat.url = github:defn/pkg/filebeat-8.5.2-1?dir=filebeat;
@@ -12,19 +12,13 @@
 
     config = rec {
       slug = "48530";
-      version = "0.0.1";
-      homepage = "https://github.com/defn/pkg/tree/master/${slug}";
-      description = "${slug}";
+      version_src = ./VERSION;
+      version = builtins.readFile version_src;
     };
 
     handler = { pkgs, wrap, system }: rec {
-      slug = config.slug;
-
       devShell = wrap.devShell;
-      defaultPackage = wrap.nullBuilder {
-        propagatedBuildInputs = wrap.flakeInputs ++
-          [ pkgs.nomad ];
-      };
+      defaultPackage = wrap.nullBuilder { };
     };
   };
 }
