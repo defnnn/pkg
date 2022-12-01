@@ -1,6 +1,6 @@
 {
   inputs = {
-    wrapper.url = github:defn/pkg/wrapper-0.0.3?dir=wrapper;
+    wrapper.url = github:defn/pkg/wrapper-0.0.5?dir=wrapper;
   };
 
   outputs = inputs:
@@ -16,11 +16,12 @@
               pkgs = import wrapper.nixpkgs { inherit system; };
               wrap = wrapper.wrap { other = inputs; inherit system; site = config; };
             in
-            handler {
-              inherit pkgs;
-              inherit wrap;
-              inherit system;
-            }
+            handler
+              {
+                inherit pkgs;
+                inherit wrap;
+                inherit system;
+              } // { slug = config.slug; }
           );
       };
     in
@@ -29,9 +30,8 @@
 
       config = rec {
         slug = "defn-pkg-dev";
-        version = "0.0.1";
-        homepage = "https://defn.sh/${slug}";
-        description = "common dev tools, patterns";
+        version_src = ./VERSION;
+        version = builtins.readFile version_src;
       };
 
       handler = { pkgs, wrap, system }:
