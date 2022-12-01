@@ -1,6 +1,6 @@
 {
   inputs = {
-    dev.url = github:defn/pkg/v0.0.56?dir=dev;
+    dev.url = github:defn/pkg/dev-0.0.4?dir=dev;
   };
 
   outputs = inputs: inputs.dev.main {
@@ -8,9 +8,8 @@
 
     config = rec {
       slug = "f";
-      version = "0.0.1";
-      homepage = "https://github.com/defn/pkg/tree/master/${slug}";
-      description = "${slug}";
+      version_src = ./VERSION;
+      version = builtins.readFile version_src;
     };
 
     handler = { pkgs, wrap, system }: rec {
