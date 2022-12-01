@@ -61,11 +61,6 @@
               inherit dontUnpack;
 
               installPhase = site.installPhase { inherit src; };
-
-              meta = with pkgs.lib; with site; {
-                inherit homepage;
-                inherit description;
-              };
             };
 
         nullBuilder = input@{ propagatedBuildInputs ? [ ], buildInputs ? [ ] }:
