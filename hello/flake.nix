@@ -1,5 +1,5 @@
 {
-  description = "c: bash script example";
+
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
@@ -46,8 +46,8 @@
             '';
 
             meta = with lib; {
-              homepage = "https://defn.sh/hello";
-              description = "containerizing golang binaries with flake";
+
+
               platforms = platforms.linux;
             };
           };

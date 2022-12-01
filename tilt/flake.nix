@@ -1,16 +1,16 @@
 {
   inputs = {
-    dev.url = github:defn/pkg/dev-0.0.3?dir=dev;
+    dev.url = github:defn/pkg/dev-0.0.4?dir=dev;
   };
 
   outputs = inputs: inputs.dev.main {
     inherit inputs;
 
-    config = rec {
+    config = {
       slug = "tilt";
       version = "0.30.12";
-      homepage = "https://github.com/defn/pkg/tree/master/${slug}";
-      description = "${slug}";
+
+
 
       url_template = input: "https://github.com/tilt-dev/tilt/releases/download/v${input.version}/tilt.${input.version}.${input.os}.${input.arch}.tar.gz";
 
@@ -20,26 +20,26 @@
       '';
 
       downloads = {
-        "x86_64-linux" = rec {
-          inherit version;
+        "x86_64-linux" = {
+          version = vendor;
           os = "linux";
           arch = "x86_64";
           sha256 = "sha256-kBeGM8AQ69SZJ3tkW2sTA0Bq+AETP3eWbHf3XanRJIQ";
         };
-        "aarch64-linux" = rec {
-          inherit version;
+        "aarch64-linux" = {
+          version = vendor;
           os = "linux";
           arch = "arm64";
           sha256 = "sha256-ldhDok0bTgTjdaRN2ymQhznfKqOkuW4SkSj84Ni6Zso";
         };
-        "x86_64-darwin" = rec {
-          inherit version;
+        "x86_64-darwin" = {
+          version = vendor;
           os = "mac";
           arch = "x86_64";
           sha256 = "sha256-+8T6d1rUfCyNaAEAnDKDxOEk+ZDxI024Bu8LZiaPIwo";
         };
-        "aarch64-darwin" = rec {
-          inherit version;
+        "aarch64-darwin" = {
+          version = vendor;
           os = "mac";
           arch = "arm64";
           sha256 = "sha256-enJWROtEtGY4EbpcFmoWlis0NPFDzmoAuvm9wJIKiQ4";
@@ -47,7 +47,7 @@
       };
     };
 
-    handler = { pkgs, wrap, system }: rec {
+    handler = { pkgs, wrap, system }: {
       devShell = wrap.devShell;
       defaultPackage = wrap.downloadBuilder { };
     };

@@ -1,5 +1,5 @@
 {
-  description = "prelude";
+
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/22.11";
@@ -21,8 +21,8 @@
           installPhase = "mkdir -p $out";
 
           meta = with lib; {
-            homepage = "https://defn.sh/${slug}";
-            description = "prelude containers the nixpkgs you should follow";
+
+
             platforms = platforms.linux;
           };
         };

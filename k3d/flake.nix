@@ -1,16 +1,16 @@
 {
   inputs = {
-    dev.url = github:defn/pkg/dev-0.0.3?dir=dev;
+    dev.url = github:defn/pkg/dev-0.0.4?dir=dev;
   };
 
   outputs = inputs: inputs.dev.main {
     inherit inputs;
 
-    config = rec {
+    config = {
       slug = "k3d";
       version = "5.4.6";
-      homepage = "https://github.com/defn/pkg/tree/master/${slug}";
-      description = "${slug}";
+
+
 
       url_template = input: "https://github.com/k3d-io/k3d/releases/download/v${input.version}/k3d-${input.os}-${input.arch}";
 
@@ -20,26 +20,26 @@
       '';
 
       downloads = {
-        "x86_64-linux" = rec {
-          inherit version;
+        "x86_64-linux" = {
+          version = vendor;
           os = "linux";
           arch = "amd64";
           sha256 = "sha256-gHXUDHTJfSZC8V9TXLSNbW6C3xQ/UogzoZPYfKrGoXY";
         };
-        "aarch64-linux" = rec {
-          inherit version;
+        "aarch64-linux" = {
+          version = vendor;
           os = "linux";
           arch = "arm64";
           sha256 = "sha256-NtuX37P1tWx80EiSTYer+l9JnGL1JOAOJQD+dfiAVq4";
         };
-        "x86_64-darwin" = rec {
-          inherit version;
+        "x86_64-darwin" = {
+          version = vendor;
           os = "darwin";
           arch = "amd64";
           sha256 = "sha256-EGP3dHSJ2/aZB6f5sOc3KbhfgvQxDz2KQKRQSkF0ciQ";
         };
-        "aarch64-darwin" = rec {
-          inherit version;
+        "aarch64-darwin" = {
+          version = vendor;
           os = "darwin";
           arch = "arm64";
           sha256 = "sha256-SGuqGVFXGD+24yt4HdCmOPZi7V+cTYBRAofOljCoAIE";
@@ -47,7 +47,7 @@
       };
     };
 
-    handler = { pkgs, wrap, system }: rec {
+    handler = { pkgs, wrap, system }: {
       devShell = wrap.devShell;
       defaultPackage = wrap.downloadBuilder { dontUnpack = true; };
     };

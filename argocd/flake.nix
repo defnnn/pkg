@@ -1,16 +1,17 @@
 {
   inputs = {
-    dev.url = github:defn/pkg/dev-0.0.3?dir=dev;
+    dev.url = github:defn/pkg/dev-0.0.4?dir=dev;
   };
 
   outputs = inputs: inputs.dev.main {
     inherit inputs;
 
-    config = rec {
+    config = {
       slug = "argocd";
-      version = "2.5.2";
-      homepage = "https://github.com/defn/pkg/tree/master/${slug}";
-      description = "${slug}";
+      version_src = ./VERSION;
+      version = builtins.readFile version_src;
+      vendor_src = ./VENDOR;
+      vendor = builtins.readFile vendor_src;
 
       url_template = input: "https://github.com/argoproj/argo-cd/releases/download/v${input.version}/argocd-${input.os}-${input.arch}";
 
@@ -20,26 +21,26 @@
       '';
 
       downloads = {
-        "x86_64-linux" = rec {
-          inherit version;
+        "x86_64-linux" = {
+          version = vendor;
           os = "linux";
           arch = "amd64";
           sha256 = "sha256-JJp0CejWAjR2aEIKxMssgoVl/nLRub/7Brv3yBbsOMY";
         };
-        "aarch64-linux" = rec {
-          inherit version;
+        "aarch64-linux" = {
+          version = vendor;
           os = "linux";
           arch = "arm64";
           sha256 = "sha256-BR7rM9DVmQMZiRCgfWQUeEF/q30/l6gxaOdTS3xmILQ";
         };
-        "x86_64-darwin" = rec {
-          inherit version;
+        "x86_64-darwin" = {
+          version = vendor;
           os = "darwin";
           arch = "amd64";
           sha256 = "sha256-riQbBiVJnZlSs2tbQ6ulxf4jpsT8qPpEOGiDViD6vO4";
         };
-        "aarch64-darwin" = rec {
-          inherit version;
+        "aarch64-darwin" = {
+          version = vendor;
           os = "darwin";
           arch = "arm64";
           sha256 = "sha256-1gOBzg0CFeKi0ip6AdLxpbz2eo9MnLelW4/G+0hA4Aw";
@@ -47,7 +48,7 @@
       };
     };
 
-    handler = { pkgs, wrap, system }: rec {
+    handler = { pkgs, wrap, system }: {
       devShell = wrap.devShell;
       defaultPackage = wrap.downloadBuilder { dontUnpack = true; };
     };

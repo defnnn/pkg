@@ -7,16 +7,16 @@
     caddy.url = github:defn/pkg/caddy-2.6.2?dir=caddy;
   };
 
-  outputs = inputs: inputs.dev.main rec {
+  outputs = inputs: inputs.dev.main {
     inherit inputs;
 
-    config = rec {
+    config = {
       slug = "48530";
       version_src = ./VERSION;
       version = builtins.readFile version_src;
     };
 
-    handler = { pkgs, wrap, system }: rec {
+    handler = { pkgs, wrap, system }: {
       devShell = wrap.devShell;
       defaultPackage = wrap.nullBuilder { };
     };

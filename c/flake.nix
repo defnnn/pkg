@@ -8,13 +8,13 @@
   outputs = inputs: inputs.dev.main {
     inherit inputs;
 
-    config = rec {
+    config = {
       slug = "c";
       version_src = ./VERSION;
       version = builtins.readFile version_src;
     };
 
-    handler = { pkgs, wrap, system }: rec {
+    handler = { pkgs, wrap, system }: {
       devShell = wrap.devShell;
       defaultPackage = wrap.bashBuilder {
         src = ./bin;

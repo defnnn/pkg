@@ -1,5 +1,5 @@
 {
-  description = "steampipe";
+
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/22.11";
@@ -30,8 +30,8 @@
           '';
 
           meta = with lib; {
-            homepage = "https://defn.sh/${slug}";
-            description = "${slug}";
+
+
             platforms = platforms.linux;
           };
         };

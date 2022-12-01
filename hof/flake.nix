@@ -6,7 +6,7 @@
   outputs = inputs: inputs.dev.main {
     inherit inputs;
 
-    config = rec {
+    config = {
       slug = "hof";
       version_src = ./VERSION;
       version = builtins.readFile version_src;

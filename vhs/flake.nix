@@ -1,6 +1,6 @@
 {
   inputs = {
-    dev.url = github:defn/pkg/v0.0.26?dir=dev;
+    dev.url = github:defn/pkg/dev-0.0.4?dir=dev;
   };
 
   outputs = inputs:
@@ -32,9 +32,9 @@
             '';
 
             meta = with pkgs.lib; with site; {
-              inherit homepage;
-              inherit description;
-              platforms = platforms.linux;
+              inherit
+                inherit
+                platforms= platforms. linux;
             };
           };
       }

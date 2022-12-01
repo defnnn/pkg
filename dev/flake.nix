@@ -5,7 +5,7 @@
 
   outputs = inputs:
     let
-      prelude = rec {
+      prelude = {
         wrapper = inputs.wrapper;
 
         eachDefaultSystem = wrapper.flake-utils.lib.eachDefaultSystem;
@@ -28,7 +28,7 @@
     prelude // (prelude.main {
       inherit inputs;
 
-      config = rec {
+      config = {
         slug = "defn-pkg-dev";
         version_src = ./VERSION;
         version = builtins.readFile version_src;
