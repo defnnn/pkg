@@ -1,42 +1,56 @@
 {
-  description = "hof";
-
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/22.11";
-    flake-utils.url = "github:numtide/flake-utils";
+    dev.url = github:defn/pkg/dev-0.0.4?dir=dev;
   };
 
-  outputs = { self, nixpkgs, flake-utils }:
-    flake-utils.lib.eachDefaultSystem (system: {
-      defaultPackage =
-        with import nixpkgs { inherit system; };
-        stdenv.mkDerivation rec {
-          name = "${slug}-${version}";
+  outputs = inputs: inputs.dev.main {
+    inherit inputs;
 
-          slug = "hof";
-          version = "0.6.7";
-          arch = "x86_64"; # arm64
+    config = rec {
+      slug = "hof";
+      version_src = ./VERSION;
+      version = builtins.readFile version_src;
+      vendor_src = ./VENDOR;
+      vendor = builtins.readFile vendor_src;
 
-          src = pkgs.fetchurl {
-            url = "https://github.com/hofstadter-io/hof/releases/download/v${version}/hof_${version}_Linux_${arch}";
-            sha256 = "sha256-dLzKcpgkwk16sItj14Ts6QbQu4heCFSLbQgOQG+tYLw=";
-            executable = true;
-          };
+      url_template = input: "https://github.com/hofstadter-io/hof/releases/download/v${input.version}/hof_${input.version}_${input.os}_${input.arch}";
 
-          sourceRoot = ".";
+      installPhase = { src }: ''
+        install -m 0755 -d $out $out/bin
+        install -m 0755 $src $out/bin/hof
+      '';
 
-          dontUnpack = true;
-
-          installPhase = ''
-            mkdir -p $out/bin
-            install -m 0755 $src $out/bin/hof
-          '';
-
-          meta = with lib; {
-            homepage = "https://defn.sh/${slug}";
-            description = "${slug}";
-            platforms = platforms.linux;
-          };
+      downloads = {
+        "x86_64-linux" = {
+          version = vendor;
+          os = "Linux";
+          arch = "x86_64";
+          sha256 = "sha256-9ETOkA8WYQNEIzDzGnuRoNtS57HFwgyyssKIwjRHuEU=";
         };
-    });
+        "aarch64-linux" = {
+          version = vendor;
+          os = "Linux";
+          arch = "arm64";
+          sha256 = "sha256-c6opqw2Gjl5icjjTorblJKQRI8qAJAS+hQ3H9vUKlWE=";
+        };
+        "x86_64-darwin" = {
+          version = vendor;
+          os = "Darwin";
+          arch = "x86_64";
+          sha256 = "sha256-S0C0spCHPTzSjK8EUQIo0FmjS66lTTyXiSgrjTFOwEo=";
+        };
+        "aarch64-Darwin" = {
+          version = vendor;
+          os = "darwin";
+          arch = "arm64";
+          sha256 = "sha256-JtXaTqFNpv5F7hUykVlNjRZef6k8JppWfFLy+QPNpbE=";
+        };
+      };
+    };
+
+    handler = { pkgs, wrap, system }: {
+      devShell = wrap.devShell;
+      defaultPackage = wrap.downloadBuilder { dontUnpack = true; };
+    };
+  };
 }
