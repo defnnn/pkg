@@ -1,39 +1,56 @@
 {
-  description = "cue";
-
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/22.11";
-    flake-utils.url = "github:numtide/flake-utils";
+    dev.url = github:defn/pkg/dev-0.0.4?dir=dev;
   };
 
-  outputs = { self, nixpkgs, flake-utils }:
-    flake-utils.lib.eachDefaultSystem (system: {
-      defaultPackage =
-        with import nixpkgs { inherit system; };
-        stdenv.mkDerivation rec {
-          name = "${slug}-${version}";
+  outputs = inputs: inputs.dev.main {
+    inherit inputs;
 
-          slug = "cue";
-          version = "0.4.3";
-          arch = if system == "x86_64-linux" then "amd64" else "arm64";
+    config = rec {
+      slug = "cue";
+      version_src = ./VERSION;
+      version = builtins.readFile version_src;
+      vendor_src = ./VENDOR;
+      vendor = builtins.readFile vendor_src;
 
-          src = pkgs.fetchurl {
-            url = "https://github.com/cue-lang/cue/releases/download/v${version}/cue_v${version}_linux_${arch}.tar.gz";
-            sha256 = if arch == "amd64" then "sha256-Xn7LYUtZJqz8NusSWIADkat8bm4Cb6fKy/6SAGusiVw=" else "sha256-qMP0FA0YwyTMafXeTfBWblKeFjbP80AJWkJHV5m/P+0=";
-          };
+      url_template = input: "https://github.com/cue-lang/cue/releases/download/v${input.version}/cue_v${input.version}_${input.os}_${input.arch}.tar.gz";
 
-          sourceRoot = ".";
+      installPhase = { src }: ''
+        install -m 0755 -d $out $out/bin
+        install -m 0755 cue $out/bin/cue
+      '';
 
-          installPhase = ''
-            mkdir -p $out/bin
-            install -m 0755 cue $out/bin/cue
-          '';
-
-          meta = with lib; {
-            homepage = "https://defn.sh/${slug}";
-            description = "${slug}";
-            platforms = platforms.linux;
-          };
+      downloads = {
+        "x86_64-linux" = {
+          version = vendor;
+          os = "linux";
+          arch = "amd64";
+          sha256 = "sha256-Xn7LYUtZJqz8NusSWIADkat8bm4Cb6fKy/6SAGusiVw=";
         };
-    });
+        "aarch64-linux" = {
+          version = vendor;
+          os = "linux";
+          arch = "arm64";
+          sha256 = "sha256-qMP0FA0YwyTMafXeTfBWblKeFjbP80AJWkJHV5m/P+0=";
+        };
+        "x86_64-darwin" = {
+          version = vendor;
+          os = "darwin";
+          arch = "amd64";
+          sha256 = "sha256-EWElTPOLkouHp6wVUtwuEubF2imPnONw2A5VGN22UT0=";
+        };
+        "aarch64-darwin" = {
+          version = vendor;
+          os = "darwin";
+          arch = "arm64";
+          sha256 = "sha256-PYS4WnKI+UMBpHJtz5Wy2SyP95bE1FxHM/vcwEzq8h0=";
+        };
+      };
+    };
+
+    handler = { pkgs, wrap, system }: {
+      devShell = wrap.devShell;
+      defaultPackage = wrap.downloadBuilder { };
+    };
+  };
 }
