@@ -84,11 +84,6 @@
 
               src = input.src;
               installPhase = input.installPhase;
-
-              meta = with pkgs.lib; with site; {
-                inherit homepage;
-                inherit description;
-              };
             };
       };
   };
