@@ -28,7 +28,7 @@
     prelude // (prelude.main {
       inherit inputs;
 
-      config = {
+      config = rec {
         slug = "defn-pkg-dev";
         version_src = ./VERSION;
         version = builtins.readFile version_src;

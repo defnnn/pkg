@@ -6,7 +6,7 @@
   outputs = inputs: inputs.dev.main {
     inherit inputs;
 
-    config = {
+    config = rec {
       slug = "flyctl";
       version = "0.0.435";
 

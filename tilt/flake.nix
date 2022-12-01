@@ -6,7 +6,7 @@
   outputs = inputs: inputs.dev.main {
     inherit inputs;
 
-    config = {
+    config = rec {
       slug = "tilt";
       version = "0.30.12";
 

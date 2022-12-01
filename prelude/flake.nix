@@ -1,30 +1,22 @@
 {
-
-
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/22.11";
-    flake-utils.url = "github:numtide/flake-utils";
+    dev.url = github:defn/pkg/dev-0.0.4?dir=dev;
   };
 
-  outputs = { self, nixpkgs, flake-utils }:
-    flake-utils.lib.eachDefaultSystem (system: {
-      defaultPackage =
-        with import nixpkgs { inherit system; };
-        stdenv.mkDerivation rec {
-          name = "${slug}-${version}";
+  outputs = inputs: inputs.dev.main {
+    inherit inputs;
 
-          slug = "prelude";
-          version = "0.0.2";
+    config = rec {
+      slug = "prelude ";
+      version_src = ./VERSION;
+      version = builtins.readFile version_src;
+      vendor_src = ./VENDOR;
+      vendor = builtins.readFile vendor_src;
+    };
 
-          dontUnpack = true;
-
-          installPhase = "mkdir -p $out";
-
-          meta = with lib; {
-
-
-            platforms = platforms.linux;
-          };
-        };
-    });
+    handler = { pkgs, wrap, system }: {
+      devShell = wrap.devShell;
+      defaultPackage = wrap.nullBuilder { };
+    };
+  };
 }

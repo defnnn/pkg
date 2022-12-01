@@ -6,7 +6,7 @@
   outputs = inputs: inputs.dev.main {
     inherit inputs;
 
-    config = {
+    config = rec {
       slug = "kubectl";
       version = "1.24.8";
 

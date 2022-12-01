@@ -6,7 +6,7 @@
   outputs = inputs: inputs.dev.main {
     inherit inputs;
 
-    config = {
+    config = rec {
       slug = "elasticsearch";
       version = "8.5.2";
 

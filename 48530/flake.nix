@@ -10,7 +10,7 @@
   outputs = inputs: inputs.dev.main {
     inherit inputs;
 
-    config = {
+    config = rec {
       slug = "48530";
       version_src = ./VERSION;
       version = builtins.readFile version_src;
