@@ -18,7 +18,9 @@
 
     handler = { pkgs, wrap, system }: {
       devShell = wrap.devShell;
-      defaultPackage = wrap.nullBuilder { };
+      defaultPackage = wrap.nullBuilder {
+        propagatedBuildInputs = wrap.flakeInputs;
+      };
     };
   };
 }
