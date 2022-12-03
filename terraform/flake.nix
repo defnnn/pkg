@@ -1,6 +1,6 @@
 {
   inputs = {
-    dev.url = github:defn/pkg/dev-0.0.4?dir=dev;
+    dev.url = github:defn/pkg/dev-0.0.5?dir=dev;
   };
 
   outputs = inputs: inputs.dev.main {
@@ -53,6 +53,7 @@
       devShell = wrap.devShell;
       defaultPackage = wrap.downloadBuilder {
         dontUnpack = true;
+        dontFixup = true;
         buildInputs = [ pkgs.unzip ];
       };
     };
