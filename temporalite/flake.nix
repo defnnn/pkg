@@ -1,39 +1,56 @@
 {
-
-
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/22.11";
-    flake-utils.url = "github:numtide/flake-utils";
+    dev.url = github:defn/pkg/dev-0.0.4?dir=dev;
   };
 
-  outputs = { self, nixpkgs, flake-utils }:
-    flake-utils.lib.eachDefaultSystem (system: {
-      defaultPackage =
-        with import nixpkgs { inherit system; };
-        stdenv.mkDerivation rec {
-          name = "${slug}-${version}";
+  outputs = inputs: inputs.dev.main {
+    inherit inputs;
 
-          slug = "temporalite";
-          version = "0.2.0";
-          arch = "amd64"; # arm64
+    config = rec {
+      slug = "temporalite";
+      version_src = ./VERSION;
+      version = builtins.readFile version_src;
+      vendor_src = ./VENDOR;
+      vendor = builtins.readFile vendor_src;
 
-          src = pkgs.fetchurl {
-            url = "https://github.com/temporalio/temporalite/releases/download/v${version}/temporalite_${version}_linux_${arch}.tar.gz";
-            sha256 = "sha256-koGoHTov0j6FXnlrct3Nw9dhht8N76wHIrpYOBCNx9c=";
-          };
+      url_template = input: "https://github.com/temporalio/temporalite/releases/download/v${input.version}/temporalite_${input.version}_${input.os}_${input.arch}.tar.gz";
 
-          sourceRoot = ".";
+      installPhase = { src }: ''
+        install -m 0755 -d $out $out/bin
+        install -m 0755 temporalite $out/bin/temporalite
+      '';
 
-          installPhase = ''
-            mkdir -p $out/bin
-            install -m 0755 temporalite $out/bin/temporalite
-          '';
-
-          meta = with lib; {
-
-
-            platforms = platforms.linux;
-          };
+      downloads = {
+        "x86_64-linux" = {
+          version = vendor;
+          os = "linux";
+          arch = "amd64";
+          sha256 = "sha256-koGoHTov0j6FXnlrct3Nw9dhht8N76wHIrpYOBCNx9c=";
         };
-    });
+        "aarch64-linux" = {
+          version = vendor;
+          os = "linux";
+          arch = "arm64";
+          sha256 = "sha256-8EQZ0K9jrc4LVXNzEtsNEHlKmefoz4WSundqcelHiNc=";
+        };
+        "x86_64-darwin" = {
+          version = vendor;
+          os = "darwin";
+          arch = "amd64";
+          sha256 = "sha256-T9RSjatGG7nMiqexR0Sv5/OjME/FkgJMH/qaV/E9LE8=";
+        };
+        "aarch64-darwin" = {
+          version = vendor;
+          os = "darwin";
+          arch = "arm64";
+          sha256 = "sha256-ed0BR62Y3jJdkT08dY277/RE6GZ85NiXWrt208XuwFo=";
+        };
+      };
+    };
+
+    handler = { pkgs, wrap, system }: {
+      devShell = wrap.devShell;
+      defaultPackage = wrap.downloadBuilder { };
+    };
+  };
 }

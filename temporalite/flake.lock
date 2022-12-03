@@ -1,5 +1,26 @@
 {
   "nodes": {
+    "dev": {
+      "inputs": {
+        "wrapper": "wrapper"
+      },
+      "locked": {
+        "dir": "dev",
+        "lastModified": 1669860195,
+        "narHash": "sha256-TsfWyj7wJJzq1vbLmCNByqdMbQPvlYukb8BFJeH5ZO8=",
+        "owner": "defn",
+        "repo": "pkg",
+        "rev": "037b4c5bfcaae87922457bb4308989bf02a9c8a8",
+        "type": "github"
+      },
+      "original": {
+        "dir": "dev",
+        "owner": "defn",
+        "ref": "dev-0.0.4",
+        "repo": "pkg",
+        "type": "github"
+      }
+    },
     "flake-utils": {
       "locked": {
         "lastModified": 1667395993,
@@ -33,8 +54,29 @@
     },
     "root": {
       "inputs": {
+        "dev": "dev"
+      }
+    },
+    "wrapper": {
+      "inputs": {
         "flake-utils": "flake-utils",
         "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "dir": "wrapper",
+        "lastModified": 1669860123,
+        "narHash": "sha256-KEimXnQ/VyLNrCHjdrOPEChNsVF2OMPcGI//m8TaDPc=",
+        "owner": "defn",
+        "repo": "pkg",
+        "rev": "560192eda38549b2024285e4d2ed83090d81ffc4",
+        "type": "github"
+      },
+      "original": {
+        "dir": "wrapper",
+        "owner": "defn",
+        "ref": "wrapper-0.0.5",
+        "repo": "pkg",
+        "type": "github"
       }
     }
   },
