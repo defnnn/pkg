@@ -10,7 +10,6 @@ ubuntu:
 
 root:
     ARG arch
-    ARG TAILSCALE=1.33.257
 
     FROM +ubuntu --arch=${arch}
 
@@ -59,19 +58,10 @@ root:
     RUN chown -R ubuntu:ubuntu /home/ubuntu \
         && chmod u+s /usr/bin/sudo
 
-    RUN echo ${TAILSCALE} \
-        && curl -fsSL https://pkgs.tailscale.com/unstable/ubuntu/focal.noarmor.gpg | tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null \
-        && curl -fsSL https://pkgs.tailscale.com/unstable/ubuntu/focal.tailscale-keyring.list | tee /etc/apt/sources.list.d/tailscale.list \
-        && apt-get update \
-        && apt install -y tailscale
-
     USER ubuntu
     WORKDIR /home/ubuntu
 
     ENV HOME=/home/ubuntu
-
-    SAVE ARTIFACT /bin/tailscale
-    SAVE ARTIFACT /usr/sbin/tailscaled
 
 nix:
     ARG arch
