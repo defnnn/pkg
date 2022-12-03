@@ -1,11 +1,11 @@
 {
   inputs = {
-    wrapper.url = github:defn/pkg/wrapper-0.0.5?dir=wrapper;
+    wrapper.url = github:defn/pkg/wrapper-0.0.6?dir=wrapper;
   };
 
   outputs = inputs:
     let
-      prelude = {
+      prelude = rec {
         wrapper = inputs.wrapper;
 
         eachDefaultSystem = wrapper.flake-utils.lib.eachDefaultSystem;
