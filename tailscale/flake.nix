@@ -21,13 +21,24 @@
         install -m 0755 */tailscaled $out/bin/tailscaled
       '';
 
-      downloads = {
+      downloads = rec {
         "x86_64-linux" = {
           version = vendor;
           arch = "amd64";
           sha256 = "sha256-0df84XteB2mCtpHWOabyhEzw+tBtTO5suN+4hjIDM0I=";
         };
         "aarch64-linux" = {
+          version = vendor;
+          arch = "arm64";
+          sha256 = "sha256-OZLnrM/nl+AxGKDQmj1rd9zpBWsXCGC8ntILxmF4h3w=";
+        };
+        # these are actually linux, to make nix happy
+        "x86_64-darwin" = {
+          version = vendor;
+          arch = "amd64";
+          sha256 = "sha256-0df84XteB2mCtpHWOabyhEzw+tBtTO5suN+4hjIDM0I=";
+        };
+        "aarch64-darwin" = {
           version = vendor;
           arch = "arm64";
           sha256 = "sha256-OZLnrM/nl+AxGKDQmj1rd9zpBWsXCGC8ntILxmF4h3w=";
