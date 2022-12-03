@@ -7,7 +7,7 @@
     inherit inputs;
 
     config = rec {
-      slug = "caddy";
+      slug = "talscale";
       version_src = ./VERSION;
       version = builtins.readFile version_src;
       vendor_src = ./VENDOR;
