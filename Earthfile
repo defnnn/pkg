@@ -95,6 +95,44 @@ nix-root:
         && chmod 0755 /nix \
         && sudo rm -f /bin/man
 
+nix-ubuntu:
+    ARG arch
+
+    FROM +ubuntu --arch=${arch}
+
+    USER root
+
+    ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+    ENV LANG en_US.UTF-8
+    ENV LANGUAGE en_US:en
+    ENV LC_ALL en_US.UTF-8
+
+    ENV DEBIAN_FRONTEND=noninteractive
+    ENV container=docker
+
+    RUN dpkg-divert --local --rename --add /sbin/udevadm && ln -s /bin/true /sbin/udevadm \
+        && apt-get update \
+        && apt-get upgrade -y \
+        && apt-get install -y --no-install-recommends tzdata locales
+
+    RUN groupadd -g 1000 ubuntu && useradd -u 1000 -d /home/ubuntu -s /bin/bash -g ubuntu -M ubuntu \
+        && echo '%ubuntu ALL=(ALL:ALL) NOPASSWD: ALL' > /etc/sudoers.d/ubuntu \
+        && install -d -m 0700 -o ubuntu -g ubuntu /home/ubuntu
+
+    RUN ln -sf /usr/share/zoneinfo/UTC /etc/localtime \
+        && dpkg-reconfigure -f noninteractive tzdata \
+        && locale-gen en_US.UTF-8 \
+        && localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
+
+    RUN install -d -m 0755 -o root -g root /run/user \
+        && install -d -m 0700 -o ubuntu -g ubuntu /run/user/1000
+
+    RUN chown -R ubuntu:ubuntu /home/ubuntu
+
+    USER ubuntu
+    ENV HOME=/home/ubuntu
+    WORKDIR /home/ubuntu
+
 nix-local:
     FROM +nix-root
 
