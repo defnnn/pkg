@@ -80,6 +80,33 @@ nix:
                 profile install \
                     github:defn/pkg?dir=prelude\&ref=v0.0.5 nixpkgs#nix-direnv nixpkgs#direnv
 
+nix-root:
+    FROM pkg+root
+
+    ENV USER=ubuntu
+    ENV LOCAL_ARCHIVE=/usr/lib/locale/locale-archive
+    ENV LC_ALL=C.UTF-8
+
+    # nix
+    RUN sudo install -d -m 0755 -o ubuntu -g ubuntu /nix
+    RUN curl -L https://nixos.org/nix/install > nix-install.sh \
+        && sh nix-install.sh --no-daemon --no-modify-profile \
+        && rm -f nix-install.sh \
+        && chmod 0755 /nix \
+        && sudo rm -f /bin/man
+
+nix-local:
+    FROM +nix-root
+
+    # flake
+    COPY flake.nix flake.lock VERSION .
+    RUN . ~/.nix-profile/etc/profile.d/nix.sh \
+            && ~/.nix-profile/bin/nix --extra-experimental-features nix-command --extra-experimental-features flakes build path:. \
+            && mkdir store \
+            && sudo mv `/home/ubuntu/.nix-profile/bin/nix-store -q -R ./result` store/
+
+    SAVE ARTIFACT store
+
 nix-install:
     ARG arch
     ARG install
