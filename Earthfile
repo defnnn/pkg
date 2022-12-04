@@ -113,10 +113,10 @@ nix-ubuntu:
     RUN dpkg-divert --local --rename --add /sbin/udevadm && ln -s /bin/true /sbin/udevadm \
         && apt-get update \
         && apt-get upgrade -y \
-        && apt-get install -y --no-install-recommends tzdata locales
+        && apt-get install -y --no-install-recommends tzdata locales \
+        && apt-get clean
 
     RUN groupadd -g 1000 ubuntu && useradd -u 1000 -d /home/ubuntu -s /bin/bash -g ubuntu -M ubuntu \
-        && echo '%ubuntu ALL=(ALL:ALL) NOPASSWD: ALL' > /etc/sudoers.d/ubuntu \
         && install -d -m 0700 -o ubuntu -g ubuntu /home/ubuntu
 
     RUN ln -sf /usr/share/zoneinfo/UTC /etc/localtime \
