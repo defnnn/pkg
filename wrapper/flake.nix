@@ -45,7 +45,7 @@
                 ++ flakeInputs ++ devInputs;
             };
 
-        downloadBuilder = { propagatedBuildInputs ? [ ], buildInputs ? [ ], dontUnpack ? false, dontFixup ? false }:
+        downloadBuilder = { propagatedBuildInputs ? [ ], buildInputs ? [ ], dontUnpack ? false }:
           pkgs.stdenv.mkDerivation
             rec {
               name = "${site.slug}-${site.version}";
@@ -60,7 +60,6 @@
               inherit propagatedBuildInputs;
               inherit buildInputs;
               inherit dontUnpack;
-              inherit dontFixup;
 
               installPhase = site.installPhase { inherit src; };
             };
@@ -80,7 +79,6 @@
               name = "${site.slug}-${site.version}";
 
               dontUnpack = true;
-              dontFixup = true;
 
               inherit propagatedBuildInputs;
               inherit buildInputs;
