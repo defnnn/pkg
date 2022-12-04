@@ -67,6 +67,9 @@
           bashBuilder rec {
             name = "${site.slug}-${site.version}";
 
+            dontUnpack = true;
+            dontFixup = true;
+
             inherit propagatedBuildInputs;
             inherit buildInputs;
 
@@ -76,8 +79,6 @@
 
         bashBuilder = input@{ propagatedBuildInputs ? [ ], buildInputs ? [ ], src, installPhase }:
           pkgs.stdenv.mkDerivation rec {
-            name = "${site.slug}-${site.version}";
-
             dontUnpack = true;
             dontFixup = true;
 
