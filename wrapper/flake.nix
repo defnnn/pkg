@@ -45,8 +45,14 @@
                 ++ flakeInputs ++ devInputs;
             };
 
-        downloadBuilder = { propagatedBuildInputs ? [ ], buildInputs ? [ ], dontUnpack ? false }:
+        downloadBuilder = { propagatedBuildInputs ? [ ], buildInputs ? [ ], dontUnpack ? false, dontFixup ? false }:
           pkgs.stdenv.mkDerivation rec {
+            inherit dontUnpack;
+            inherit dontFixup;
+
+            inherit propagatedBuildInputs;
+            inherit buildInputs;
+
             name = "${site.slug}-${site.version}";
 
             src = with site.downloads.${system}; pkgs.fetchurl {
@@ -56,32 +62,15 @@
 
             sourceRoot = ".";
 
-            inherit dontUnpack;
-
-            inherit propagatedBuildInputs;
-            inherit buildInputs;
-
             installPhase = site.installPhase { inherit src; };
           };
 
-        nullBuilder = input@{ propagatedBuildInputs ? [ ], buildInputs ? [ ] }:
-          bashBuilder rec {
+        bashBuilder = input@{ propagatedBuildInputs ? [ ], buildInputs ? [ ], src, installPhase, dontUnpack ? false, dontFixup ? false }:
+          pkgs.stdenv.mkDerivation rec {
             name = "${site.slug}-${site.version}";
 
-            dontUnpack = true;
-            dontFixup = true;
-
-            inherit propagatedBuildInputs;
-            inherit buildInputs;
-
-            src = ./.;
-            installPhase = "mkdir -p $out";
-          };
-
-        bashBuilder = input@{ propagatedBuildInputs ? [ ], buildInputs ? [ ], src, installPhase }:
-          pkgs.stdenv.mkDerivation rec {
-            dontUnpack = true;
-            dontFixup = true;
+            inherit dontUnpack;
+            inherit dontFixup;
 
             inherit propagatedBuildInputs;
             inherit buildInputs;
@@ -89,6 +78,20 @@
             src = input.src;
             installPhase = input.installPhase;
           };
+
+        nullBuilder = input@{ propagatedBuildInputs ? [ ], buildInputs ? [ ], dontUnpack ? false, dontFixup ? false }:
+          bashBuilder rec {
+            inherit dontUnpack;
+            inherit dontFixup;
+
+            inherit propagatedBuildInputs;
+            inherit buildInputs;
+
+            src = ./.;
+
+            installPhase = "mkdir -p $out";
+          };
+
       };
   };
 }
