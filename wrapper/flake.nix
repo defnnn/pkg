@@ -16,25 +16,22 @@
         hasDefaultPackage = (item: acc:
           acc ++
           (
-            if item ? ${"skip"}
-            then [ ]
-            else
-              (if item ? ${"slug"}
-              then
-                (
-                  (if item.slug.${system} == site.slug
-                  then [ ]
-                  else
-                    (if item ? ${"defaultPackage"}
-                    then [ item.defaultPackage.${system} ]
-                    else [ ]))
-                )
-              else
-                (
-                  if item ? ${"defaultPackage"}
+            if item ? ${"slug"}
+            then
+              (
+                (if item.slug.${system} == site.slug
+                then [ ]
+                else
+                  (if item ? ${"defaultPackage"}
                   then [ item.defaultPackage.${system} ]
-                  else [ ]
-                ))
+                  else [ ]))
+              )
+            else
+              (
+                if item ? ${"defaultPackage"}
+                then [ item.defaultPackage.${system} ]
+                else [ ]
+              )
           ));
       in
       rec {
