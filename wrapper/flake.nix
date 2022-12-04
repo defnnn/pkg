@@ -37,12 +37,13 @@
       rec {
         inherit flakeInputs;
 
-        devShell = pkgs.mkShell
-          rec {
-            buildInputs =
-              [ other.self.defaultPackage.${system} ]
-              ++ flakeInputs;
-          };
+        devShell = { devInputs ? [ ] }:
+          pkgs.mkShell
+            rec {
+              buildInputs =
+                [ other.self.defaultPackage.${system} ]
+                ++ flakeInputs ++ devInputs;
+            };
 
         downloadBuilder = { propagatedBuildInputs ? [ ], buildInputs ? [ ], dontUnpack ? false, dontFixup ? false }:
           pkgs.stdenv.mkDerivation
