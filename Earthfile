@@ -81,7 +81,7 @@ nix:
                     github:defn/pkg?dir=prelude\&ref=v0.0.5 nixpkgs#nix-direnv nixpkgs#direnv
 
 nix-root:
-    FROM pkg+root
+    FROM +root
 
     ENV USER=ubuntu
     ENV LOCAL_ARCHIVE=/usr/lib/locale/locale-archive
