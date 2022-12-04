@@ -46,26 +46,27 @@
             };
 
         downloadBuilder = { propagatedBuildInputs ? [ ], buildInputs ? [ ], dontUnpack ? false }:
-          pkgs.stdenv.mkDerivation
-            rec {
-              name = "${site.slug}-${site.version}";
+          pkgs.stdenv.mkDerivation rec {
+            name = "${site.slug}-${site.version}";
 
-              src = with site.downloads.${system}; pkgs.fetchurl {
-                url = site.url_template site.downloads.${system};
-                inherit sha256;
-              };
-
-              sourceRoot = ".";
-
-              inherit propagatedBuildInputs;
-              inherit buildInputs;
-              inherit dontUnpack;
-
-              installPhase = site.installPhase { inherit src; };
+            src = with site.downloads.${system}; pkgs.fetchurl {
+              url = site.url_template site.downloads.${system};
+              inherit sha256;
             };
 
+            sourceRoot = ".";
+
+            inherit propagatedBuildInputs;
+            inherit buildInputs;
+            inherit dontUnpack;
+
+            installPhase = site.installPhase { inherit src; };
+          };
+
         nullBuilder = input@{ propagatedBuildInputs ? [ ], buildInputs ? [ ] }:
-          bashBuilder {
+          bashBuilder rec {
+            name = "${site.slug}-${site.version}";
+
             inherit propagatedBuildInputs;
             inherit buildInputs;
 
@@ -74,18 +75,18 @@
           };
 
         bashBuilder = input@{ propagatedBuildInputs ? [ ], buildInputs ? [ ], src, installPhase }:
-          pkgs.stdenv.mkDerivation
-            rec {
-              name = "${site.slug}-${site.version}";
+          pkgs.stdenv.mkDerivation rec {
+            name = "${site.slug}-${site.version}";
 
-              dontUnpack = true;
+            dontUnpack = true;
+            dontFixup = true;
 
-              inherit propagatedBuildInputs;
-              inherit buildInputs;
+            inherit propagatedBuildInputs;
+            inherit buildInputs;
 
-              src = input.src;
-              installPhase = input.installPhase;
-            };
+            src = input.src;
+            installPhase = input.installPhase;
+          };
       };
   };
 }
