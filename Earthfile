@@ -250,31 +250,32 @@ alpine-nix-pkg:
     END
 
 
-IMAGE:
+nix-flake:
+    FROM +nix-root
+
+    # rsync
+    RUN . ~/.nix-profile/etc/profile.d/nix.sh \
+        && nix --extra-experimental-features nix-command --extra-experimental-features flakes profile install nixpkgs#rsync
+
+    # flake build
+    RUN mkdir store
+    RUN . ~/.nix-profile/etc/profile.d/nix.sh \
+        && nix --extra-experimental-features nix-command --extra-experimental-features flakes develop \
+            github:defn/pkg/0.0.78?dir=caddy --command true
+
+    COPY flake.nix flake.lock VERSION .
+    RUN . ~/.nix-profile/etc/profile.d/nix.sh \
+        && nix --extra-experimental-features nix-command --extra-experimental-features flakes build \
+        && nix --extra-experimental-features nix-command --extra-experimental-features flakes develop . --command true
+
+FLAKE:
     COMMAND
 
-    ARG image
-    ARG dir
-    ARG ref
+    FROM +nix-flake
 
-    BUILD --platform=linux/amd64 +ubuntu-nix-dir --image=${image} --arch=amd64 --dir=${dir} --ref=${ref}
-    BUILD --platform=linux/arm64 +ubuntu-nix-dir --image=${image} --arch=arm64 --dir=${dir} --ref=${ref}
+    # flake nix-store
+    RUN . ~/.nix-profile/etc/profile.d/nix.sh \
+        && nix --extra-experimental-features nix-command --extra-experimental-features flakes develop . --command \
+            rsync -ia `nix-store -q -R ./result` store/
 
-CI:
-    COMMAND
-
-    ARG dir
-    ARG ref
-
-    FROM +ubuntu-nix-dir --arch=${USERARCH} --dir=${dir} --ref=${ref}
-
-    COPY validate .
-
-    RUN --no-cache /entrypoint ./validate
-
-VALIDATE:
-    COMMAND
-
-    LOCALLY
-
-    RUN --no-cache ./validate
+    SAVE ARTIFACT store
