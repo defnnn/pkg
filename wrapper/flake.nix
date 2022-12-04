@@ -56,9 +56,10 @@
 
             sourceRoot = ".";
 
+            inherit dontUnpack;
+
             inherit propagatedBuildInputs;
             inherit buildInputs;
-            inherit dontUnpack;
 
             installPhase = site.installPhase { inherit src; };
           };
