@@ -249,8 +249,9 @@ alpine-nix-pkg:
         SAVE IMAGE --push ${image}
     END
 
+FLAKE_PRE:
+    COMMAND
 
-nix-flake:
     FROM +nix-root
 
     # rsync
@@ -263,19 +264,17 @@ nix-flake:
         && nix --extra-experimental-features nix-command --extra-experimental-features flakes develop \
             github:defn/pkg/0.0.78?dir=caddy --command true
 
-    COPY flake.nix flake.lock VERSION .
-    RUN . ~/.nix-profile/etc/profile.d/nix.sh \
-        && nix --extra-experimental-features nix-command --extra-experimental-features flakes build \
-        && nix --extra-experimental-features nix-command --extra-experimental-features flakes develop . --command true
 
-FLAKE:
+FLAKE_POST:
     COMMAND
 
-    FROM +nix-flake
+    # COPY flake.nix flake.lock VERSION .
 
-    # flake nix-store
+    # flake build
+    RUN . ~/.nix-profile/etc/profile.d/nix.sh \
+        && nix --extra-experimental-features nix-command --extra-experimental-features flakes build
+
+    # flake store
     RUN . ~/.nix-profile/etc/profile.d/nix.sh \
         && nix --extra-experimental-features nix-command --extra-experimental-features flakes develop . --command \
             rsync -ia `nix-store -q -R ./result` store/
-
-    SAVE ARTIFACT store
