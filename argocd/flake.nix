@@ -1,6 +1,6 @@
 {
   inputs = {
-    dev.url = github:defn/pkg/dev-0.0.4?dir=dev;
+    dev.url = github:defn/pkg/dev-0.0.8?dir=dev;
   };
 
   outputs = inputs: inputs.dev.main {
@@ -8,10 +8,8 @@
 
     config = rec {
       slug = "argocd";
-      version_src = ./VERSION;
-      version = builtins.readFile version_src;
-      vendor_src = ./VENDOR;
-      vendor = builtins.readFile vendor_src;
+      version = builtins.readFile ./VERSION;
+      vendor = builtins.readFile ./VENDOR;
 
       url_template = input: "https://github.com/argoproj/argo-cd/releases/download/v${input.version}/argocd-${input.os}-${input.arch}";
 
@@ -37,7 +35,7 @@
           version = vendor;
           os = "darwin";
           arch = "amd64";
-          sha256 = "sha256-riQbBiVJnZlSs2tbQ6ulxf4jpsT8qPpEOGiDViD6vO4";
+          sha256 = "sha256-HWeEd01Q9kEouseFq1Yhvz3lGY3rO/D/rnQmEJmj+Ho";
         };
         "aarch64-darwin" = {
           version = vendor;
@@ -49,7 +47,7 @@
     };
 
     handler = { pkgs, wrap, system }: {
-      devShell = wrap.devShell;
+      devShell = wrap.devShell {};
       defaultPackage = wrap.downloadBuilder { dontUnpack = true; };
     };
   };
