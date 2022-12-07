@@ -46,9 +46,19 @@
       };
     };
 
-    handler = { pkgs, wrap, system }: {
+    handler = { pkgs, wrap, system }: rec {
       devShell = wrap.devShell;
       defaultPackage = wrap.downloadBuilder { };
+
+      apps.default = {
+        type = "app";
+        program = "${defaultPackage}/bin/tailscale";
+      };
+
+      apps.tailscaled = {
+        type = "app";
+        program = "${defaultPackage}/bin/tailscaled";
+      };
     };
   };
 }
