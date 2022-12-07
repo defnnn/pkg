@@ -38,9 +38,14 @@
       };
     };
 
-    handler = { pkgs, wrap, system }: {
+    handler = { pkgs, wrap, system }: rec {
       devShell = wrap.devShell { };
       defaultPackage = wrap.downloadBuilder { dontUnpack = true; };
+
+      apps.default = {
+        type = "app";
+        program = "${defaultPackage}/bin/acme.sh";
+      };
     };
   };
 }
