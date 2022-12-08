@@ -1,23 +1,22 @@
 {
   inputs = {
-    dev.url = github:defn/pkg/dev-0.0.4?dir=dev;
+    dev.url = github:defn/pkg/dev-0.0.10-rc2?dir=dev;
   };
 
   outputs = inputs: inputs.dev.main {
     inherit inputs;
 
     config = rec {
-      slug = "caddy";
-      version_src = ./VERSION;
-      version = builtins.readFile version_src;
-      vendor_src = ./VENDOR;
-      vendor = builtins.readFile vendor_src;
+      slug = "argo";
+      version = builtins.readFile ./VERSION;
+      vendor = builtins.readFile ./VENDOR;
 
-      url_template = input: "https://github.com/argoproj/argo-workflows/releases/download/v${version}/argo-linux-amd64.gz";
+      url_template = input: "https://github.com/argoproj/argo-workflows/releases/download/v${input.version}/argo-${input.os}-${input.arch}.gz";
 
       installPhase = { src }: ''
+        cat $src | gunzip > argo
         install -m 0755 -d $out $out/bin
-        install -m 0755 caddy $out/bin/caddy
+        install -m 0755 argo $out/bin/argo
       '';
 
       downloads = {
@@ -25,32 +24,37 @@
           version = vendor;
           os = "linux";
           arch = "amd64";
-          sha256 = "sha256-WvDuZaAiAQi3uWMisEGKvNpSbV9/7Fr66gKfGuvMpio=";
+          sha256 = "sha256-tdmwfUdJ2VIT7NsMhm+26HSLm1jgmaHkOl54yJZzAp4="; # x86_64-linux
         };
         "aarch64-linux" = {
           version = vendor;
           os = "linux";
           arch = "arm64";
-          sha256 = "sha256-DZvYw67zsu1tc7/Tn6kIxGrjlEsvY5nGqJV8RWCbM84=";
+          sha256 = "sha256-IOcv/e2O5UyImXL/nfUBQMjMJ5bsuef5mdBsY/qipEI="; # aarch64-linux
         };
         "x86_64-darwin" = {
           version = vendor;
-          os = "mac";
+          os = "darwin";
           arch = "amd64";
-          sha256 = "sha256-92EJrr2rGHtB5U4Lt2HwDN+XMDftdmO4OcXKhZtSQD8";
+          sha256 = "sha256-WOqXgpDIUB9AlgniGs92/PEdOGi/rlTvXrm79tsEGAY="; # x86_64-darwin
         };
         "aarch64-darwin" = {
           version = vendor;
-          os = "mac";
+          os = "darwin";
           arch = "arm64";
-          sha256 = "sha256-XO/u3sM6pzLz4EwmQMDAU6/Xz3Atfir9HaoR8Flb/s4";
+          sha256 = "sha256-D95j02T9b343Vd8wRWXUZ87+9RmoeJ+Pn0I9b/kv9y8="; # aarch64-darwin
         };
       };
     };
 
-    handler = { pkgs, wrap, system }: {
-      devShell = wrap.devShell;
-      defaultPackage = wrap.downloadBuilder { };
-    };
+    handler = { pkgs, wrap, system }:
+      let
+        commonBuild = {
+          dontUnpack = true;
+        };
+      in
+      wrap.genDownloadBuilders commonBuild // {
+        devShell = wrap.devShell;
+      };
   };
 }
