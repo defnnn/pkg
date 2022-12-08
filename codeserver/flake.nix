@@ -1,6 +1,6 @@
 {
   inputs = {
-    dev.url = github:defn/pkg/dev-0.0.4?dir=dev;
+    dev.url = github:defn/pkg/dev-0.0.8?dir=dev;
   };
 
   outputs = inputs: inputs.dev.main {
@@ -51,9 +51,10 @@
     };
 
     handler = { pkgs, wrap, system }: {
-      devShell = wrap.devShell;
+      devShell = wrap.devShell { };
       defaultPackage = wrap.downloadBuilder {
-        buildInputs = [ pkgs.rsync ];
+        dontFixup = true;
+        buildInputs = with pkgs; [ rsync ];
       };
     };
   };
