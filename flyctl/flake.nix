@@ -1,6 +1,6 @@
 {
   inputs = {
-    dev.url = github:defn/pkg/dev-0.0.4?dir=dev;
+    dev.url = github:defn/pkg/dev-0.0.10-rc2?dir=dev;
   };
 
   outputs = inputs: inputs.dev.main {
@@ -8,9 +8,8 @@
 
     config = rec {
       slug = "flyctl";
-      version = "0.0.435";
-
-
+      version = builtins.readFile ./VERSION;
+      vendor = builtins.readFile ./VENDOR;
 
       url_template = input: "https://github.com/superfly/flyctl/releases/download/v${input.version}/flyctl_${input.version}_${input.os}_${input.arch}.tar.gz";
 
@@ -24,32 +23,35 @@
           version = vendor;
           os = "Linux";
           arch = "x86_64";
-          sha256 = "sha256-hMQ+wcYvdnGnWYTl67Jge9Ei3LcpXhjDQnP7M3VzU9I";
+          sha256 = "sha256-LYSab3g9ia6B0aJQ1FRSNYGjE+YBdeOF9S6SxgtMxAY="; # x86_64-linux
         };
         "aarch64-linux" = {
           version = vendor;
           os = "Linux";
           arch = "arm64";
-          sha256 = "sha256-arOHq2kurbji3jOzaCr42htOnWmwp9GtnYHbU3bLpHQ";
+          sha256 = "sha256-O+O7A7wDr5wgampeNd0GnGLGNKoQNvf0niJPro6EHoo="; # aarch64-linux
         };
         "x86_64-darwin" = {
           version = vendor;
           os = "macOS";
           arch = "x86_64";
-          sha256 = "sha256-U1hvuZtNA6PWB9MvLcYZbzl0pp7856rLWDuwPx8Ba/M";
+          sha256 = "sha256-8IjFuy51ad4ukocxwFb9CRYveWzZj9snuXWE6XcrRHs="; # x86_64-darwin
         };
         "aarch64-darwin" = {
           version = vendor;
           os = "macOS";
           arch = "arm64";
-          sha256 = "sha256-JEGsWl6/Q3pkX21yLy7X8cdD/GXbVcqQxn6qenUe82w";
+          sha256 = "sha256-ptq2olmEqv7epVeviTyqJ0jmnti4wIAbPyEp8OQwADQ="; # aarch64-darwin
         };
       };
     };
 
-    handler = { pkgs, wrap, system }: {
-      devShell = wrap.devShell;
-      defaultPackage = wrap.downloadBuilder { };
-    };
+    handler = { pkgs, wrap, system }:
+      let
+        commonBuild = { };
+      in
+      wrap.genDownloadBuilders commonBuild // {
+        devShell = wrap.devShell;
+      };
   };
 }
