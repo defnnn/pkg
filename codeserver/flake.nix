@@ -1,6 +1,6 @@
 {
   inputs = {
-    dev.url = github:defn/pkg/dev-0.0.4?dir=dev;
+    dev.url = github:defn/pkg/dev-0.0.8?dir=dev;
   };
 
   outputs = inputs: inputs.dev.main {
@@ -27,27 +27,34 @@
           version = vendor;
           os = "linux";
           arch = "amd64";
-          sha256 = "sha256-Fui2ANA+7HEKe01jgJhro0FOfjqlA9qQtRjU/QZuIgo=";
+          sha256 = "sha256-LceuYXJrcsNdX+TOwfjBJIJ+ABkKFv4u/Y+OvDwD4gY=";
         };
         "aarch64-linux" = {
           version = vendor;
           os = "linux";
           arch = "arm64";
-          sha256 = "sha256-t7TNd8mS6j6YLTmfDkC5hwfOr34JYO64S6Z09UMVxZU=";
+          sha256 = "sha256-prCpCS6vQM8G1UAzuA78hi4Sj6hIQQI8TPT6xsXANFE=";
         };
         "x86_64-darwin" = {
           version = vendor;
           os = "macos";
           arch = "amd64";
-          sha256 = "sha256-NaRWZbSgK9L88cym/NR+vjVsKDo1a3fU+7XiKiC8HYY=";
+          sha256 = "sha256-w/esOq0RNvswzGwfZAyiTTU3uaxrhqLJ6Nz6M4kEByA=";
+        };
+        "aarch64-darwin" = {
+          version = vendor;
+          os = "macos";
+          arch = "arm64";
+          sha256 = "sha256-w/esOq0RNvswzGwfZAyiTTU3uaxrhqLJ6Nz6M4kEByA=";
         };
       };
     };
 
     handler = { pkgs, wrap, system }: {
-      devShell = wrap.devShell;
+      devShell = wrap.devShell { };
       defaultPackage = wrap.downloadBuilder {
-        buildInputs = [ pkgs.rsync ];
+        dontFixup = true;
+        buildInputs = with pkgs; [ rsync ];
       };
     };
   };
