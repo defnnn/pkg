@@ -1,39 +1,54 @@
 {
-
-
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/22.11";
-    flake-utils.url = "github:numtide/flake-utils";
+    dev.url = github:defn/pkg/dev-0.0.8?dir=dev;
   };
 
-  outputs = { self, nixpkgs, flake-utils }:
-    flake-utils.lib.eachDefaultSystem (system: {
-      defaultPackage =
-        with import nixpkgs { inherit system; };
-        stdenv.mkDerivation rec {
-          name = "${slug}-${version}";
+  outputs = inputs: inputs.dev.main {
+    inherit inputs;
 
-          slug = "step";
-          version = "0.22.0";
-          arch = "amd64"; # arm64
+    config = rec {
+      slug = "step";
+      version = builtins.readFile ./VERSION;
+      vendor = builtins.readFile ./VENDOR;
 
-          src = pkgs.fetchurl {
-            url = "https://github.com/smallstep/cli/releases/download/v${version}/step_linux_${version}_${arch}.tar.gz";
-            sha256 = "sha256-DXmFiiA/Xpfqbd/AkKMpuV5K1ej/WbLEVUd7MncyLgI=";
-          };
+      url_template = input: "https://github.com/smallstep/cli/releases/download/v${input.version}/step_${input.os}_${input.version}_${input.arch}.tar.gz";
 
-          sourceRoot = ".";
+      installPhase = { src }: ''
+        install -m 0755 -d $out $out/bin
+        install -m 0755 */bin/step $out/bin/step
+      '';
 
-          installPhase = ''
-            mkdir -p $out/bin
-            install -m 0755 */bin/step $out/bin/step
-          '';
-
-          meta = with lib; {
-
-
-            platforms = platforms.linux;
-          };
+      downloads = {
+        "x86_64-linux" = {
+          version = vendor;
+          os = "linux";
+          arch = "amd64";
+          sha256 = "sha256-VcdEgQ39k6epscJ2Bq5Vck95af++zhLvWfH55FogUGk=";
         };
-    });
+        "aarch64-linux" = {
+          version = vendor;
+          os = "linux";
+          arch = "arm64";
+          sha256 = "sha256-U43WYxVr5/6F4rV7xCmxI5wy3NXgme59WcSHr0ZTbmQ=";
+        };
+        "x86_64-darwin" = {
+          version = vendor;
+          os = "darwin";
+          arch = "amd64";
+          sha256 = "sha256-piK/e+kI8LeqROTmhpuP5p0ceoJsQxhdhIn9EPQMkGg=";
+        };
+        "aarch64-darwin" = {
+          version = vendor;
+          os = "darwin";
+          arch = "arm64";
+          sha256 = "sha256-QjeRgRFPkgffFF8h5RPwx/a+/LxXOGnlH5mWmiPYStg=";
+        };
+      };
+    };
+
+    handler = { pkgs, wrap, system }: {
+      devShell = wrap.devShell;
+      defaultPackage = wrap.downloadBuilder { };
+    };
+  };
 }

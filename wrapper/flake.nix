@@ -37,56 +37,61 @@
       rec {
         inherit flakeInputs;
 
-        devShell = pkgs.mkShell
-          rec {
-            buildInputs =
-              [ other.self.defaultPackage.${system} ]
-              ++ flakeInputs;
-          };
-
-        downloadBuilder = { propagatedBuildInputs ? [ ], buildInputs ? [ ], dontUnpack ? false, dontFixup ? false }:
-          pkgs.stdenv.mkDerivation
+        devShell = { devInputs ? [ ] }:
+          pkgs.mkShell
             rec {
-              name = "${site.slug}-${site.version}";
-
-              src = with site.downloads.${system}; pkgs.fetchurl {
-                url = site.url_template site.downloads.${system};
-                inherit sha256;
-              };
-
-              sourceRoot = ".";
-
-              inherit propagatedBuildInputs;
-              inherit buildInputs;
-              inherit dontUnpack;
-              inherit dontFixup;
-
-              installPhase = site.installPhase { inherit src; };
+              buildInputs =
+                [ other.self.defaultPackage.${system} ]
+                ++ flakeInputs ++ devInputs;
             };
 
-        nullBuilder = input@{ propagatedBuildInputs ? [ ], buildInputs ? [ ] }:
-          bashBuilder {
+        downloadBuilder = { propagatedBuildInputs ? [ ], buildInputs ? [ ], dontUnpack ? false, dontFixup ? false }:
+          pkgs.stdenv.mkDerivation rec {
+            inherit dontUnpack;
+            inherit dontFixup;
+
+            inherit propagatedBuildInputs;
+            inherit buildInputs;
+
+            name = "${site.slug}-${site.version}";
+
+            src = with site.downloads.${system}; pkgs.fetchurl {
+              url = site.url_template site.downloads.${system};
+              inherit sha256;
+            };
+
+            sourceRoot = ".";
+
+            installPhase = site.installPhase { inherit src; };
+          };
+
+        bashBuilder = input@{ propagatedBuildInputs ? [ ], buildInputs ? [ ], src, installPhase, dontUnpack ? false, dontFixup ? false }:
+          pkgs.stdenv.mkDerivation rec {
+            name = "${site.slug}-${site.version}";
+
+            inherit dontUnpack;
+            inherit dontFixup;
+
+            inherit propagatedBuildInputs;
+            inherit buildInputs;
+
+            src = input.src;
+            installPhase = input.installPhase;
+          };
+
+        nullBuilder = input@{ propagatedBuildInputs ? [ ], buildInputs ? [ ], dontUnpack ? false, dontFixup ? false }:
+          bashBuilder rec {
+            inherit dontUnpack;
+            inherit dontFixup;
+
             inherit propagatedBuildInputs;
             inherit buildInputs;
 
             src = ./.;
+
             installPhase = "mkdir -p $out";
           };
 
-        bashBuilder = input@{ propagatedBuildInputs ? [ ], buildInputs ? [ ], src, installPhase }:
-          pkgs.stdenv.mkDerivation
-            rec {
-              name = "${site.slug}-${site.version}";
-
-              dontUnpack = true;
-              dontFixup = true;
-
-              inherit propagatedBuildInputs;
-              inherit buildInputs;
-
-              src = input.src;
-              installPhase = input.installPhase;
-            };
       };
   };
 }
