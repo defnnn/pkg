@@ -1,6 +1,6 @@
 {
   inputs = {
-    dev.url = github:defn/pkg/dev-0.0.8?dir=dev;
+    dev.url = github:defn/pkg/dev-0.0.10-rc1?dir=dev;
   };
 
   outputs = inputs: inputs.dev.main {
@@ -8,47 +8,71 @@
 
     config = rec {
       slug = "argocd";
+
       version = builtins.readFile ./VERSION;
       vendor = builtins.readFile ./VENDOR;
 
       url_template = input: "https://github.com/argoproj/argo-cd/releases/download/v${input.version}/argocd-${input.os}-${input.arch}";
-
-      installPhase = { src }: ''
-        install -m 0755 -d $out $out/bin
-        install -m 0755 $src $out/bin/argocd
-      '';
 
       downloads = {
         "x86_64-linux" = {
           version = vendor;
           os = "linux";
           arch = "amd64";
-          sha256 = "sha256-JJp0CejWAjR2aEIKxMssgoVl/nLRub/7Brv3yBbsOMY";
+          sha256 = "sha256-IukH7m+cKH6wBif+vjeKDzj+9NrzkVnEzHX3GcVcVpg="; # x86_64-linux
         };
         "aarch64-linux" = {
           version = vendor;
           os = "linux";
           arch = "arm64";
-          sha256 = "sha256-BR7rM9DVmQMZiRCgfWQUeEF/q30/l6gxaOdTS3xmILQ";
+          sha256 = "sha256-iTvUsbG2YVm9K4j+1JbG3sDUeyKw3wqWiUCK6P91Oho="; # aarch64-linux
         };
         "x86_64-darwin" = {
           version = vendor;
           os = "darwin";
           arch = "amd64";
-          sha256 = "sha256-HWeEd01Q9kEouseFq1Yhvz3lGY3rO/D/rnQmEJmj+Ho";
+          sha256 = "sha256-prW+oDDW2RFXBJqvcUPJ/MzWrVZVNf5sBCGlhsnpVxo="; # x86_64-darwin
         };
         "aarch64-darwin" = {
           version = vendor;
           os = "darwin";
           arch = "arm64";
-          sha256 = "sha256-1gOBzg0CFeKi0ip6AdLxpbz2eo9MnLelW4/G+0hA4Aw";
+          sha256 = "sha256-p2GQflkuAP73RrMcWWNu9CPzlzMcEWPMCTWoJL2ioxM="; # aarch64-darwin
         };
       };
+
+      installPhase = { src }: ''
+        install -m 0755 -d $out $out/bin
+        install -m 0755 $src $out/bin/argocd
+      '';
     };
 
-    handler = { pkgs, wrap, system }: {
-      devShell = wrap.devShell {};
-      defaultPackage = wrap.downloadBuilder { dontUnpack = true; };
-    };
+    handler = { pkgs, wrap, system }:
+      let
+        commonBuild = {
+          dontUnpack = true;
+        };
+      in
+      {
+        devShell = wrap.devShell { };
+
+        defaultPackage = wrap.downloadBuilder commonBuild;
+
+        packages."aarch64-linux" = wrap.downloadBuilder (commonBuild // {
+          overrideSystem = "aarch64-linux";
+        });
+
+        packages."x86_64-linux" = wrap.downloadBuilder (commonBuild // {
+          overrideSystem = "x86_64-linux";
+        });
+
+        packages."aarch64-darwin" = wrap.downloadBuilder (commonBuild // {
+          overrideSystem = "aarch64-darwin";
+        });
+
+        packages."x86_64-darwin" = wrap.downloadBuilder (commonBuild // {
+          overrideSystem = "x86_64-darwin";
+        });
+      };
   };
 }
