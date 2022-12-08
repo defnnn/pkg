@@ -1,6 +1,6 @@
 {
   inputs = {
-    dev.url = github:defn/pkg/dev-0.0.10-rc1?dir=dev;
+    dev.url = github:defn/pkg/dev-0.0.10-rc2?dir=dev;
   };
 
   outputs = inputs: inputs.dev.main {
@@ -53,26 +53,8 @@
           dontUnpack = true;
         };
       in
-      {
+      wrap.genDownloadBuilders commonBuild // {
         devShell = wrap.devShell { };
-
-        defaultPackage = wrap.downloadBuilder commonBuild;
-
-        packages."aarch64-linux" = wrap.downloadBuilder (commonBuild // {
-          overrideSystem = "aarch64-linux";
-        });
-
-        packages."x86_64-linux" = wrap.downloadBuilder (commonBuild // {
-          overrideSystem = "x86_64-linux";
-        });
-
-        packages."aarch64-darwin" = wrap.downloadBuilder (commonBuild // {
-          overrideSystem = "aarch64-darwin";
-        });
-
-        packages."x86_64-darwin" = wrap.downloadBuilder (commonBuild // {
-          overrideSystem = "x86_64-darwin";
-        });
       };
   };
 }
