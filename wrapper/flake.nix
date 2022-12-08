@@ -45,7 +45,7 @@
                 ++ flakeInputs ++ devInputs;
             };
 
-        downloadBuilder = { propagatedBuildInputs ? [ ], buildInputs ? [ ], dontUnpack ? false, dontFixup ? false }:
+        downloadBuilder = { propagatedBuildInputs ? [ ], buildInputs ? [ ], dontUnpack ? false, dontFixup ? false, overrideSystem ? system }:
           pkgs.stdenv.mkDerivation rec {
             inherit dontUnpack;
             inherit dontFixup;
@@ -55,8 +55,8 @@
 
             name = "${site.slug}-${site.version}";
 
-            src = with site.downloads.${system}; pkgs.fetchurl {
-              url = site.url_template site.downloads.${system};
+            src = with site.downloads.${overrideSystem}; pkgs.fetchurl {
+              url = site.url_template site.downloads.${overrideSystem};
               inherit sha256;
             };
 
