@@ -1,42 +1,52 @@
 {
-
-
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/22.11";
-    flake-utils.url = "github:numtide/flake-utils";
+    dev.url = github:defn/pkg/dev-0.0.10-rc3?dir=dev;
   };
 
-  outputs = { self, nixpkgs, flake-utils }:
-    flake-utils.lib.eachDefaultSystem (system: {
-      defaultPackage =
-        with import nixpkgs { inherit system; };
-        stdenv.mkDerivation rec {
-          name = "${slug}-${version}";
+  outputs = inputs: inputs.dev.main {
+    inherit inputs;
 
-          slug = "goreleaser";
-          version = "1.12.3";
-          arch = "x86_64"; # arm64
+    config = rec {
+      slug = "goreleaser";
+      version = builtins.readFile ./VERSION;
+      vendor = builtins.readFile ./VENDOR;
 
-          src = pkgs.fetchurl {
-            url = "https://github.com/goreleaser/goreleaser/releases/download/v${version}/goreleaser_Linux_${arch}.tar.gz";
-            sha256 = "sha256-1u+3Fsg87BNKgNHNLb2D2Z0V5gztFrhL1gr0qBMdgrw=";
-            executable = true;
-          };
+      url_template = input: "https://github.com/goreleaser/goreleaser/releases/download/v${input.version}/goreleaser_${input.os}_${input.arch}.tar.gz";
 
-          sourceRoot = ".";
-
-          dontUnpack = true;
-
-          installPhase = ''
-            mkdir -p $out/bin
-            install -m 0755 $src $out/bin/goreleaser
-          '';
-
-          meta = with lib; {
-
-
-            platforms = platforms.linux;
-          };
+      downloads = {
+        "x86_64-linux" = {
+          version = vendor;
+          os = "linux";
+          arch = "x86_64";
+          sha256 = "sha256-E2/s+y4vOnllJ0rV4lcZhdiy+nJLZTaHTwguSwu580Q="; # x86_64-linux
         };
-    });
+        "aarch64-linux" = {
+          version = vendor;
+          os = "linux";
+          arch = "arm64";
+          sha256 = "sha256-MI8uEutBWUIAjNcivLe8E13A03ZBgBifJ/s8OCpWlrA="; # aarch64-linux
+        };
+        "x86_64-darwin" = {
+          version = vendor;
+          os = "darwin";
+          arch = "x86_64";
+          sha256 = "sha256-yJ1iHi4VrgfRilG0lj0n9XScD0jaXwZkU5v7DHl9f+c="; # x86_64-darwin
+        };
+        "aarch64-darwin" = {
+          version = vendor;
+          os = "darwin";
+          arch = "arm64";
+          sha256 = "sha256-+4dbQxS4YwOR9wOy5fL1KsmSsuyv0L6fLK1BFkP/hic="; # aarch64-darwin
+        };
+      };
+
+      installPhase = { src }: ''
+        install -m 0755 -d $out $out/bin
+        install -m 0755 goreleaser $out/bin/goreleaser
+      '';
+    };
+
+    handler = { pkgs, wrap, system }:
+      wrap.genDownloadBuilders { };
+  };
 }

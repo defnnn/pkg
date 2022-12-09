@@ -1,40 +1,52 @@
 {
-
-
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/22.11";
-    flake-utils.url = "github:numtide/flake-utils";
+    dev.url = github:defn/pkg/dev-0.0.10-rc3?dir=dev;
   };
 
-  outputs = { self, nixpkgs, flake-utils }:
-    flake-utils.lib.eachDefaultSystem (system: {
-      defaultPackage =
-        with import nixpkgs { inherit system; };
-        stdenv.mkDerivation rec {
-          name = "${slug}-${version}";
+  outputs = inputs: inputs.dev.main {
+    inherit inputs;
 
-          slug = "buf";
-          version = "1.9.0";
-          arch = "x86_64"; # aarch64
+    config = rec {
+      slug = "buf";
+      version = builtins.readFile ./VERSION;
+      vendor = builtins.readFile ./VENDOR;
 
-          src = pkgs.fetchurl {
-            url = "https://github.com/bufbuild/buf/releases/download/v${version}/buf-Linux-${arch}.tar.gz";
-            sha256 = "sha256-bB5yWLeSc8YAhd+IJaUqXuMGUw5zJ5QskeyEVFzS1Ao=";
-          };
+      url_template = input: "https://github.com/bufbuild/buf/releases/download/v${input.version}/buf-${input.os}-${input.arch}.tar.gz";
 
-          sourceRoot = ".";
-
-          installPhase = ''
-            mkdir -p $out/bin
-            find .
-            install -m 0755 */bin/buf $out/bin/buf
-          '';
-
-          meta = with lib; {
-
-
-            platforms = platforms.linux;
-          };
+      downloads = {
+        "x86_64-linux" = {
+          version = vendor;
+          os = "Linux";
+          arch = "x86_64";
+          sha256 = "sha256-qy1QRQ32XtDCH8UtnaHK1q2lXORZmwWBnetRAMSVWB4="; # x86_64-linux
         };
-    });
+        "aarch64-linux" = {
+          version = vendor;
+          os = "Linux";
+          arch = "aarch64";
+          sha256 = "sha256-PT7UUTKvkxB5IVhezw7cbpSLQmrC4IvzS4fQycmjy3I="; # aarch64-linux
+        };
+        "x86_64-darwin" = {
+          version = vendor;
+          os = "Darwin";
+          arch = "x86_64";
+          sha256 = "sha256-n8qHpJrheQuzHkiT8edBmPGtFepNhXM4og+fBguZMb8="; # x86_64-darwin
+        };
+        "aarch64-darwin" = {
+          version = vendor;
+          os = "Darwin";
+          arch = "aarch64";
+          sha256 = "sha256-aaaQflkuAP73RrMcWWNu9CPzlzMcEWPMCTWoJL2ioxM="; # aarch64-darwin
+        };
+      };
+
+      installPhase = { src }: ''
+        install -m 0755 -d $out $out/bin
+        install -m 0755 buf/bin/buf $out/bin/buf
+      '';
+    };
+
+    handler = { pkgs, wrap, system }:
+      wrap.genDownloadBuilders { };
+  };
 }

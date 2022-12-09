@@ -13,11 +13,6 @@
 
       url_template = input: "https://github.com/hofstadter-io/hof/releases/download/v${input.version}/hof_${input.version}_${input.os}_${input.arch}";
 
-      installPhase = { src }: ''
-        install -m 0755 -d $out $out/bin
-        install -m 0755 $src $out/bin/hof
-      '';
-
       downloads = {
         "x86_64-linux" = {
           version = vendor;
@@ -44,11 +39,14 @@
           sha256 = "sha256-JtXaTqFNpv5F7hUykVlNjRZef6k8JppWfFLy+QPNpbE="; # x86_64-darwin
         };
       };
+
+      installPhase = { src }: ''
+        install -m 0755 -d $out $out/bin
+        install -m 0755 $src $out/bin/hof
+      '';
     };
 
-    handler = { pkgs, wrap, system }: {
-      devShell = wrap.devShell;
-      defaultPackage = wrap.downloadBuilder { dontUnpack = true; };
-    };
+    handler = { pkgs, wrap, system }:
+      wrap.genDownloadBuilders { dontUnpack = true; };
   };
 }

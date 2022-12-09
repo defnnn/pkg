@@ -13,11 +13,6 @@
 
       url_template = input: "https://github.com/cue-lang/cue/releases/download/v${input.version}/cue_v${input.version}_${input.os}_${input.arch}.tar.gz";
 
-      installPhase = { src }: ''
-        install -m 0755 -d $out $out/bin
-        install -m 0755 cue $out/bin/cue
-      '';
-
       downloads = {
         "x86_64-linux" = {
           version = vendor;
@@ -44,11 +39,14 @@
           sha256 = "sha256-PYS4WnKI+UMBpHJtz5Wy2SyP95bE1FxHM/vcwEzq8h0="; # aarch64-darwin
         };
       };
+
+      installPhase = { src }: ''
+        install -m 0755 -d $out $out/bin
+        install -m 0755 cue $out/bin/cue
+      '';
     };
 
-    handler = { pkgs, wrap, system }: {
-      devShell = wrap.devShell;
-      defaultPackage = wrap.downloadBuilder { };
-    };
+    handler = { pkgs, wrap, system }:
+      wrap.genDownloadBuilders { };
   };
 }

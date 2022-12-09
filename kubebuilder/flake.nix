@@ -1,42 +1,52 @@
 {
-
-
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/22.11";
-    flake-utils.url = "github:numtide/flake-utils";
+    dev.url = github:defn/pkg/dev-0.0.10-rc3?dir=dev;
   };
 
-  outputs = { self, nixpkgs, flake-utils }:
-    flake-utils.lib.eachDefaultSystem (system: {
-      defaultPackage =
-        with import nixpkgs { inherit system; };
-        stdenv.mkDerivation rec {
-          name = "${slug}-${version}";
+  outputs = inputs: inputs.dev.main {
+    inherit inputs;
 
-          slug = "kubebuilder";
-          version = "3.7.0";
-          arch = "amd64"; # arm64
+    config = rec {
+      slug = "argocd";
+      version = builtins.readFile ./VERSION;
+      vendor = builtins.readFile ./VENDOR;
 
-          src = pkgs.fetchurl {
-            url = "https://github.com/kubernetes-sigs/kubebuilder/releases/download/v${version}/kubebuilder_linux_${arch}";
-            sha256 = "sha256-QNvPbEMsniQr4m7mqZsez/kwyWwbJPjgRsioSjO0XyE=";
-            executable = true;
-          };
+      url_template = input: "https://github.com/argoproj/argo-cd/releases/download/v${input.version}/argocd-${input.os}-${input.arch}";
 
-          sourceRoot = ".";
-
-          dontUnpack = true;
-
-          installPhase = ''
-            mkdir -p $out/bin
-            install -m 0755 $src $out/bin/kubebuilder
-          '';
-
-          meta = with lib; {
-
-
-            platforms = platforms.linux;
-          };
+      downloads = {
+        "x86_64-linux" = {
+          version = vendor;
+          os = "linux";
+          arch = "amd64";
+          sha256 = "sha256-IukH7m+cKH6wBif+vjeKDzj+9NrzkVnEzHX3GcVcVpg="; # x86_64-linux
         };
-    });
+        "aarch64-linux" = {
+          version = vendor;
+          os = "linux";
+          arch = "arm64";
+          sha256 = "sha256-iTvUsbG2YVm9K4j+1JbG3sDUeyKw3wqWiUCK6P91Oho="; # aarch64-linux
+        };
+        "x86_64-darwin" = {
+          version = vendor;
+          os = "darwin";
+          arch = "amd64";
+          sha256 = "sha256-prW+oDDW2RFXBJqvcUPJ/MzWrVZVNf5sBCGlhsnpVxo="; # x86_64-darwin
+        };
+        "aarch64-darwin" = {
+          version = vendor;
+          os = "darwin";
+          arch = "arm64";
+          sha256 = "sha256-p2GQflkuAP73RrMcWWNu9CPzlzMcEWPMCTWoJL2ioxM="; # aarch64-darwin
+        };
+      };
+
+      installPhase = { src }: ''
+        install -m 0755 -d $out $out/bin
+        install -m 0755 $src $out/bin/argocd
+      '';
+    };
+
+    handler = { pkgs, wrap, system }:
+      wrap.genDownloadBuilders { dontUnpack = true; };
+  };
 }

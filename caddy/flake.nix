@@ -13,11 +13,6 @@
 
       url_template = input: "https://github.com/caddyserver/caddy/releases/download/v${input.version}/caddy_${input.version}_${input.os}_${input.arch}.tar.gz";
 
-      installPhase = { src }: ''
-        install -m 0755 -d $out $out/bin
-        install -m 0755 caddy $out/bin/caddy
-      '';
-
       downloads = {
         "x86_64-linux" = {
           version = vendor;
@@ -44,11 +39,14 @@
           sha256 = "sha256-XO/u3sM6pzLz4EwmQMDAU6/Xz3Atfir9HaoR8Flb/s4"; # aarch64-darwin
         };
       };
+
+      installPhase = { src }: ''
+        install -m 0755 -d $out $out/bin
+        install -m 0755 caddy $out/bin/caddy
+      '';
     };
 
-    handler = { pkgs, wrap, system }: {
-      devShell = wrap.devShell;
-      defaultPackage = wrap.downloadBuilder { };
-    };
+    handler = { pkgs, wrap, system }:
+      wrap.genDownloadBuilders { };
   };
 }

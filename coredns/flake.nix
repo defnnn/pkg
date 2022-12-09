@@ -1,39 +1,52 @@
 {
-
-
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/22.11";
-    flake-utils.url = "github:numtide/flake-utils";
+    dev.url = github:defn/pkg/dev-0.0.10-rc3?dir=dev;
   };
 
-  outputs = { self, nixpkgs, flake-utils }:
-    flake-utils.lib.eachDefaultSystem (system: {
-      defaultPackage =
-        with import nixpkgs { inherit system; };
-        stdenv.mkDerivation rec {
-          name = "${slug}-${version}";
+  outputs = inputs: inputs.dev.main {
+    inherit inputs;
 
-          slug = "coredns";
-          version = "1.10.0";
-          arch = if system == "x86_64-linux" then "amd64" else "arm64";
+    config = rec {
+      slug = "coredns";
+      version = builtins.readFile ./VERSION;
+      vendor = builtins.readFile ./VENDOR;
 
-          src = pkgs.fetchurl {
-            url = "https://github.com/coredns/coredns/releases/download/v${version}/coredns_${version}_linux_${arch}.tgz";
-            sha256 = if arch == "amd64" then "sha256-S0YXRu4fD4d8BSwjoJxDqb4S/+kVXmhiPBaQSq5tJ3w=" else "sha256-0bSgofm+jGlv5XuMlPS60vN3w2ZiNaS1TFCO+TMuSTs=";
-          };
+      url_template = input: "https://github.com/coredns/coredns/releases/download/v${input.version}/coredns_${input.version}_${input.os}_${input.arch}.tgz";
 
-          sourceRoot = ".";
-
-          installPhase = ''
-            mkdir -p $out/bin
-            install -m 0755 coredns $out/bin/coredns
-          '';
-
-          meta = with lib; {
-
-
-            platforms = platforms.linux;
-          };
+      downloads = {
+        "x86_64-linux" = {
+          version = vendor;
+          os = "linux";
+          arch = "x86_64";
+          sha256 = "sha256-aaaH7m+cKH6wBif+vjeKDzj+9NrzkVnEzHX3GcVcVpg="; # x86_64-linux
         };
-    });
+        "aarch64-linux" = {
+          version = vendor;
+          os = "linux";
+          arch = "amd64";
+          sha256 = "sha256-S0YXRu4fD4d8BSwjoJxDqb4S/+kVXmhiPBaQSq5tJ3w="; # aarch64-linux
+        };
+        "x86_64-darwin" = {
+          version = vendor;
+          os = "darwin";
+          arch = "amd64";
+          sha256 = "sha256-/VRbqH6pnAwVuDRPhwWl/DJXSGEYrw/4HzXAUslXuJk="; # x86_64-darwin
+        };
+        "aarch64-darwin" = {
+          version = vendor;
+          os = "darwin";
+          arch = "amd64";
+          sha256 = "sha256-/VRbqH6pnAwVuDRPhwWl/DJXSGEYrw/4HzXAUslXuJk="; # aarch64-darwin
+        };
+      };
+
+      installPhase = { src }: ''
+        install -m 0755 -d $out $out/bin
+        install -m 0755 coredns $out/bin/coredns
+      '';
+    };
+
+    handler = { pkgs, wrap, system }:
+      wrap.genDownloadBuilders { };
+  };
 }

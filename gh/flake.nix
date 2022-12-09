@@ -1,40 +1,52 @@
 {
-
-
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/22.11";
-    flake-utils.url = "github:numtide/flake-utils";
+    dev.url = github:defn/pkg/dev-0.0.10-rc3?dir=dev;
   };
 
-  outputs = { self, nixpkgs, flake-utils }:
-    flake-utils.lib.eachDefaultSystem (system: {
-      defaultPackage =
-        with import nixpkgs { inherit system; };
-        stdenv.mkDerivation rec {
-          name = "${slug}-${version}";
+  outputs = inputs: inputs.dev.main {
+    inherit inputs;
 
-          slug = "gh";
-          version = "2.19.0";
-          arch = "amd64"; # arm64
+    config = rec {
+      slug = "gh";
+      version = builtins.readFile ./VERSION;
+      vendor = builtins.readFile ./VENDOR;
 
-          src = pkgs.fetchurl {
-            url = "https://github.com/cli/cli/releases/download/v${version}/gh_${version}_linux_${arch}.tar.gz";
-            sha256 = "sha256-sdBi8cDURGXk+fElIek+mztlDTh26xV6z4dTR7lx9Ng=";
-          };
+      url_template = input: "https://github.com/cli/cli/releases/download/v${input.version}/gh_${input.version}_${input.os}_${input.arch}.tar.gz";
 
-          sourceRoot = ".";
-
-          installPhase = ''
-            mkdir -p $out/bin
-            find .
-            install -m 0755 */bin/gh $out/bin/gh
-          '';
-
-          meta = with lib; {
-
-
-            platforms = platforms.linux;
-          };
+      downloads = {
+        "x86_64-linux" = {
+          version = vendor;
+          os = "linux";
+          arch = "amd64";
+          sha256 = "sha256-O8fNOy/ZCCIYuCRllWc/VbrbNR2xueYn7sEhvriyZFA="; # x86_64-linux
         };
-    });
+        "aarch64-linux" = {
+          version = vendor;
+          os = "linux";
+          arch = "arm64";
+          sha256 = "sha256-yaqpn9RJa+cUc4YgkxVZ9bqz7cND6oe7sHDZehp4BVQ="; # aarch64-linux
+        };
+        "x86_64-darwin" = {
+          version = vendor;
+          os = "macos";
+          arch = "amd64";
+          sha256 = "sha256-JIOBANiLFv7yccVi210U49KRth8ambOcse3T1SI6M+g="; # x86_64-darwin
+        };
+        "aarch64-darwin" = {
+          version = vendor;
+          os = "macos";
+          arch = "arm64";
+          sha256 = "sha256-aaaQflkuAP73RrMcWWNu9CPzlzMcEWPMCTWoJL2ioxM="; # aarch64-darwin
+        };
+      };
+
+      installPhase = { src }: ''
+        install -m 0755 -d $out $out/bin
+        install -m 0755 */bin/gh $out/bin/gh
+      '';
+    };
+
+    handler = { pkgs, wrap, system }:
+      wrap.genDownloadBuilders { };
+  };
 }

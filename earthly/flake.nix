@@ -8,16 +8,10 @@
 
     config = rec {
       slug = "earthly";
-      version = "0.6.30";
-
-
+      version = builtins.readFile ./VERSION;
+      vendor = builtins.readFile ./VENDOR;
 
       url_template = input: "https://github.com/earthly/earthly/releases/download/v${input.version}/earthly-${input.os}-${input.arch}";
-
-      installPhase = { src }: ''
-        install -m 0755 -d $out $out/bin
-        install -m 0755 $src $out/bin/earthly
-      '';
 
       downloads = {
         "x86_64-linux" = {
@@ -45,11 +39,14 @@
           sha256 = "sha256-0gDzVOzCBQmsi8WUvyUW/ls2raP2Bq1quWHPhF+OFKo"; # aarch64-darwin
         };
       };
+
+      installPhase = { src }: ''
+        install -m 0755 -d $out $out/bin
+        install -m 0755 $src $out/bin/earthly
+      '';
     };
 
-    handler = { pkgs, wrap, system }: {
-      devShell = wrap.devShell;
-      defaultPackage = wrap.downloadBuilder { dontUnpack = true; };
-    };
+    handler = { pkgs, wrap, system }:
+      wrap.genDownloadBuilders { dontUnpack = true; };
   };
 }

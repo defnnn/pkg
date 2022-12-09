@@ -10,8 +10,6 @@
       slug = "kibana";
       version = "8.5.2";
 
-
-
       url_template = input: "https://artifacts.elastic.co/downloads/kibana/kibana-${input.version}-${input.os}-${input.arch}.tar.gz";
 
       installPhase = { src }: ''

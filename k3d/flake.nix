@@ -8,16 +8,10 @@
 
     config = rec {
       slug = "k3d";
-      version = "5.4.6";
-
-
+      version = builtins.readFile ./VERSION;
+      vendor = builtins.readFile ./VENDOR;
 
       url_template = input: "https://github.com/k3d-io/k3d/releases/download/v${input.version}/k3d-${input.os}-${input.arch}";
-
-      installPhase = { src }: ''
-        install -m 0755 -d $out $out/bin
-        install -m 0755 $src $out/bin/k3d
-      '';
 
       downloads = {
         "x86_64-linux" = {
@@ -45,11 +39,14 @@
           sha256 = "sha256-SGuqGVFXGD+24yt4HdCmOPZi7V+cTYBRAofOljCoAIE"; # aarch64-darwin
         };
       };
+
+      installPhase = { src }: ''
+        install -m 0755 -d $out $out/bin
+        install -m 0755 $src $out/bin/k3d
+      '';
     };
 
-    handler = { pkgs, wrap, system }: {
-      devShell = wrap.devShell;
-      defaultPackage = wrap.downloadBuilder { dontUnpack = true; };
-    };
+    handler = { pkgs, wrap, system }:
+      wrap.genDownloadBuilders { dontUnpack = true; };
   };
 }
