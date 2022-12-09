@@ -3,40 +3,50 @@
     dev.url = github:defn/pkg/dev-0.0.10-rc3?dir=dev;
   };
 
-  outputs = inputs:
-    inputs.dev.wrapper.flake-utils.lib.eachDefaultSystem (system:
-      let
-        pkgs = import inputs.dev.wrapper.nixpkgs { inherit system; };
-        wrap = inputs.dev.wrapper.wrap { other = inputs; inherit system; };
-        buildInputs = [
-        ];
-        site = import ./config.nix;
-      in
-      with site;
-      rec {
-        devShell = wrap.devShell;
-        defaultPackage = pkgs.stdenv.mkDerivation
-          rec {
-            name = "${slug}-${version}";
+  outputs = inputs: inputs.dev.main {
+    inherit inputs;
 
-            src = with downloads.${system}; pkgs.fetchurl {
-              url = site.url_template downloads.${system};
-              inherit sha256; # 
-            };
+    config = rec {
+      slug = "vhs";
+      version = builtins.readFile ./VERSION;
+      vendor = builtins.readFile ./VENDOR;
 
-            sourceRoot = ".";
+      url_template = input: "https://github.com/charmbracelet/vhs/releases/download/v${input.version}/vhs_${input.version}_${input.os}_${input.arch}.tar.gz";
 
-            installPhase = ''
-              install -m 0755 -d $out/bin
-              install -m 0755 vhs $out/bin/vhs
-            '';
+      downloads = {
+        "x86_64-linux" = {
+          version = vendor;
+          os = "Linux";
+          arch = "x86_64";
+          sha256 = "sha256-KWeyWZeOt82pmMCpJ9NMIkOKaiMrCSa5XZhMHRSSIpU="; # x86_64-linux
+        };
+        "aarch64-linux" = {
+          version = vendor;
+          os = "Linux";
+          arch = "arm64";
+          sha256 = "sha256-NK/m0d6RkP40GGcVuxnSSYZnYnjCyUNqWwusAr+bMvc="; # aarch64-linux
+        };
+        "x86_64-darwin" = {
+          version = vendor;
+          os = "Darwin";
+          arch = "x86_64";
+          sha256 = "sha256-KjTBzXzd2vEQ9zyJJtDGWipoYSKIZxo/hlWgNw74RRI="; # x86_64-darwin
+        };
+        "aarch64-darwin" = {
+          version = vendor;
+          os = "Darwin";
+          arch = "arm64";
+          sha256 = "sha256-M903PFznHRt1ikUJCxN+etHzEE/EjEn1Gle3Lj/kpuc="; # aarch64-darwin
+        };
+      };
 
-            meta = with pkgs.lib; with site; {
-              inherit
-                inherit
-                platforms= platforms. linux;
-            };
-          };
-      }
-    );
+      installPhase = { src }: ''
+        install -m 0755 -d $out $out/bin
+        install -m 0755 vhs $out/bin/vhs
+      '';
+    };
+
+    handler = { pkgs, wrap, system }:
+      wrap.genDownloadBuilders { };
+  };
 }
