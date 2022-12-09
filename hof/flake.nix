@@ -32,7 +32,7 @@
           arch = "x86_64";
           sha256 = "sha256-S0C0spCHPTzSjK8EUQIo0FmjS66lTTyXiSgrjTFOwEo="; # x86_64-darwin
         };
-        "aarch64-Darwin" = {
+        "aarch64-darwin" = {
           version = vendor;
           os = "darwin";
           arch = "arm64";
