@@ -77,7 +77,7 @@
 
             src = with site.downloads.${overrideSystem}; pkgs.fetchurl {
               url = site.url_template site.downloads.${overrideSystem};
-              inherit sha256;
+              inherit sha256; # x86_64-darwin
             };
 
             sourceRoot = ".";

@@ -21,19 +21,19 @@
       downloads = {
         "x86_64-linux" = {
           version = vendor;
-          sha256 = "sha256-T3a/X9Gc7sSD1KwAFYhJbOEihtquNgrtknd4bhXIVKk=";
+          sha256 = "sha256-T3a/X9Gc7sSD1KwAFYhJbOEihtquNgrtknd4bhXIVKk="; # x86_64-linux
         };
         "aarch64-linux" = {
           version = vendor;
-          sha256 = "sha256-T3a/X9Gc7sSD1KwAFYhJbOEihtquNgrtknd4bhXIVKk=";
+          sha256 = "sha256-T3a/X9Gc7sSD1KwAFYhJbOEihtquNgrtknd4bhXIVKk="; # aarch64-linux
         };
         "x86_64-darwin" = {
           version = vendor;
-          sha256 = "sha256-T3a/X9Gc7sSD1KwAFYhJbOEihtquNgrtknd4bhXIVKk=";
+          sha256 = "sha256-T3a/X9Gc7sSD1KwAFYhJbOEihtquNgrtknd4bhXIVKk="; # x86_64-darwin
         };
         "aarch64-darwin" = {
           version = vendor;
-          sha256 = "sha256-T3a/X9Gc7sSD1KwAFYhJbOEihtquNgrtknd4bhXIVKk=";
+          sha256 = "sha256-T3a/X9Gc7sSD1KwAFYhJbOEihtquNgrtknd4bhXIVKk="; # aarch64-darwin
         };
       };
     };

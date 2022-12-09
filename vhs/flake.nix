@@ -21,7 +21,7 @@
 
             src = with downloads.${system}; pkgs.fetchurl {
               url = site.url_template downloads.${system};
-              inherit sha256;
+              inherit sha256; # 
             };
 
             sourceRoot = ".";

@@ -11,7 +11,7 @@ rec {
       version = vendor;
       os = "linux";
       arch = "x86_64";
-      sha256 = "sha256-K1LJVGyxXb9gzJTVobSuyoMNIR+uRVLiWg/oiMkU9qc=";
+      sha256 = "sha256-K1LJVGyxXb9gzJTVobSuyoMNIR+uRVLiWg/oiMkU9qc="; # x86_64-linux
     };
   };
 
