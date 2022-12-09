@@ -1,6 +1,6 @@
 {
   inputs = {
-    dev.url = github:defn/pkg/dev-0.0.4?dir=dev;
+    dev.url = github:defn/pkg/dev-0.0.10-rc3?dir=dev;
     cue.url = "github:defn/pkg/cue-0.4.3?dir=cue";
     hof.url = "github:defn/pkg/hof-0.6.7?dir=hof";
   };

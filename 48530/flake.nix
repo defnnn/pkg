@@ -1,6 +1,6 @@
 {
   inputs = {
-    dev.url = github:defn/pkg/dev-0.0.4?dir=dev;
+    dev.url = github:defn/pkg/dev-0.0.10-rc3?dir=dev;
     elasticsearch.url = github:defn/pkg/elasticsearch-8.5.2?dir=elasticsearch;
     kibana.url = github:defn/pkg/kibana-8.5.2?dir=kibana;
     filebeat.url = github:defn/pkg/filebeat-8.5.2-1?dir=filebeat;

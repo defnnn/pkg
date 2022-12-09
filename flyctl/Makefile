@@ -1,1 +1,1 @@
-../argocd/Makefile
+../Makefile
