@@ -2,7 +2,7 @@
   inputs = {
     dev.url = github:defn/pkg/dev-0.0.10?dir=dev;
     cue.url = "github:defn/pkg/cue-0.4.3-1?dir=cue";
-    hof.url = "github:defn/pkg/hof-0.6.7-1?dir=hof";
+    hof.url = "github:defn/pkg/hof-0.6.7-2?dir=hof";
   };
 
   outputs = inputs: inputs.dev.main {
