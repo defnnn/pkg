@@ -1,3 +1,6 @@
+test:
+	nix develop --command ./validate
+
 reset:
 	for a in {x86_64,aarch64}-{linux,darwin}; do perl -pe "s{(sha256-...)}{sha256-aaa} if m{# $$a}" -i flake.nix; done
 

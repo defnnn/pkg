@@ -8,48 +8,45 @@
 
     config = rec {
       slug = "tilt";
-      version = "0.30.12";
-
-
+      version = builtins.readFile ./VERSION;
+      vendor = builtins.readFile ./VENDOR;
 
       url_template = input: "https://github.com/tilt-dev/tilt/releases/download/v${input.version}/tilt.${input.version}.${input.os}.${input.arch}.tar.gz";
+      downloads = {
+        "x86_64-linux" = {
+          version = vendor;
+          os = "linux";
+          arch = "x86_64";
+          sha256 = "sha256-geird6LIIOTpNyM3sZnC4bRVp8IcFrHIXNQ89/iOcVM="; # x86_64-linux
+        };
+        "aarch64-linux" = {
+          version = vendor;
+          os = "linux";
+          arch = "arm64";
+          sha256 = "sha256-qK3S+8Aaqclog7wGnYrkqFyEsAVtec+km6LlwCj7PfM="; # aarch64-linux
+        };
+        "x86_64-darwin" = {
+          version = vendor;
+          os = "mac";
+          arch = "x86_64";
+          sha256 = "sha256-/yekgSfDFjt7IFmAZK0PuxpcthPccn33ScfxOXNFgKE="; # x86_64-darwin
+        };
+        "aarch64-darwin" = {
+          version = vendor;
+          os = "mac";
+          arch = "arm64";
+          sha256 = "sha256-FKhu6vQgbVd6zsqVnCpih7IZUx89677DIqYAOXeofFk="; # aarch64-darwin
+        };
+      };
 
       installPhase = { src }: ''
         install -m 0755 -d $out $out/bin
         install -m 0755 tilt $out/bin/tilt
       '';
 
-      downloads = {
-        "x86_64-linux" = {
-          version = vendor;
-          os = "linux";
-          arch = "x86_64";
-          sha256 = "sha256-kBeGM8AQ69SZJ3tkW2sTA0Bq+AETP3eWbHf3XanRJIQ"; # x86_64-linux
-        };
-        "aarch64-linux" = {
-          version = vendor;
-          os = "linux";
-          arch = "arm64";
-          sha256 = "sha256-ldhDok0bTgTjdaRN2ymQhznfKqOkuW4SkSj84Ni6Zso"; # aarch64-linux
-        };
-        "x86_64-darwin" = {
-          version = vendor;
-          os = "mac";
-          arch = "x86_64";
-          sha256 = "sha256-+8T6d1rUfCyNaAEAnDKDxOEk+ZDxI024Bu8LZiaPIwo"; # x86_64-darwin
-        };
-        "aarch64-darwin" = {
-          version = vendor;
-          os = "mac";
-          arch = "arm64";
-          sha256 = "sha256-enJWROtEtGY4EbpcFmoWlis0NPFDzmoAuvm9wJIKiQ4"; # aarch64-darwin
-        };
-      };
     };
 
-    handler = { pkgs, wrap, system }: {
-      devShell = wrap.devShell;
-      defaultPackage = wrap.downloadBuilder { };
-    };
+    handler = { pkgs, wrap, system }:
+      wrap.genDownloadBuilders { };
   };
 }
