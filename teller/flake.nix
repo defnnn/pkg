@@ -1,40 +1,52 @@
 {
-
-
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/22.11";
-    flake-utils.url = "github:numtide/flake-utils";
+    dev.url = github:defn/pkg/dev-0.0.10-rc3?dir=dev;
   };
 
-  outputs = { self, nixpkgs, flake-utils }:
-    flake-utils.lib.eachDefaultSystem (system: {
-      defaultPackage =
-        with import nixpkgs { inherit system; };
-        stdenv.mkDerivation rec {
-          name = "${slug}-${version}";
+  outputs = inputs: inputs.dev.main {
+    inherit inputs;
 
-          slug = "teller";
-          version = "1.5.6";
-          arch = "x86_64"; # arm64
+    config = rec {
+      slug = "teller";
+      version = builtins.readFile ./VERSION;
+      vendor = builtins.readFile ./VENDOR;
 
-          src = pkgs.fetchurl {
-            url = "https://github.com/tellerops/teller/releases/download/v${version}/teller_${version}_Linux_${arch}.tar.gz";
-            sha256 = "sha256-L6LI4jc2P3aaoRwpbPJuWf9MLkiPTCooxzqRgHLS6JM=";
-            executable = true;
-          };
+      url_template = input: "https://github.com/tellerops/teller/releases/download/v${input.version}/teller_${input.version}_${input.os}_${input.arch}.tar.gz";
 
-          sourceRoot = ".";
-
-          installPhase = ''
-            mkdir -p $out/bin
-            install -m 0755 $src $out/bin/teller
-          '';
-
-          meta = with lib; {
-
-
-            platforms = platforms.linux;
-          };
+      downloads = {
+        "x86_64-linux" = {
+          version = vendor;
+          os = "Linux";
+          arch = "x86_64";
+          sha256 = "sha256-VyT1DsFfCRx+hVeyEvUhbEk77jDkevVK5UMK4y3e7hQ="; # x86_64-linux
         };
-    });
+        "aarch64-linux" = {
+          version = vendor;
+          os = "Linux";
+          arch = "arm64";
+          sha256 = "sha256-X00ApBJt9uh13tuBZp7HHhACufewiP0XWCYfA6Z9pnk="; # aarch64-linux
+        };
+        "x86_64-darwin" = {
+          version = vendor;
+          os = "Darwin";
+          arch = "x86_64";
+          sha256 = "sha256-AEia8MpO3Ypi4dRl48AvtNr8ZJXzq/LZbGovTFYbXdQ="; # x86_64-darwin
+        };
+        "aarch64-darwin" = {
+          version = vendor;
+          os = "Darwin";
+          arch = "arm64";
+          sha256 = "sha256-/d7sduvkUXvL26J6rr7yrTxpzX0ciGj5Iiv3363WJ+c="; # aarch64-darwin
+        };
+      };
+
+      installPhase = { src }: ''
+        install -m 0755 -d $out $out/bin
+        install -m 0755 teller $out/bin/teller
+      '';
+    };
+
+    handler = { pkgs, wrap, system }:
+      wrap.genDownloadBuilders { };
+  };
 }

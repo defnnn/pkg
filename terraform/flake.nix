@@ -13,12 +13,6 @@
 
       url_template = input: "https://releases.hashicorp.com/terraform/${input.version}/terraform_${input.version}_${input.os}_${input.arch}.zip";
 
-      installPhase = { src }: ''
-        install -m 0755 -d $out $out/bin
-        unzip $src
-        install -m 0755 terraform $out/bin/terraform
-      '';
-
       downloads = {
         "x86_64-linux" = {
           version = vendor;
@@ -45,15 +39,19 @@
           sha256 = "sha256-8cILIYDJgr3ag4SxMWIJ0g/FXe9PA1Tq16Ko4EyJ9U4="; # aarch64-darwin
         };
       };
+
+      installPhase = { src }: ''
+        install -m 0755 -d $out $out/bin
+        unzip $src
+        install -m 0755 terraform $out/bin/terraform
+      '';
     };
 
-    handler = { pkgs, wrap, system }: {
-      devShell = wrap.devShell;
-      defaultPackage = wrap.downloadBuilder {
+    handler = { pkgs, wrap, system }:
+      wrap.genDownloadBuilders {
         dontUnpack = true;
         dontFixup = true;
         buildInputs = [ pkgs.unzip ];
       };
-    };
   };
 }
