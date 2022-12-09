@@ -8,10 +8,8 @@
 
     config = rec {
       slug = "prelude ";
-      version_src = ./VERSION;
-      version = builtins.readFile version_src;
-      vendor_src = ./VENDOR;
-      vendor = builtins.readFile vendor_src;
+      version = builtins.readFile ./VERSION;
+      vendor = builtins.readFile ./VENDOR;
     };
 
     handler = { pkgs, wrap, system }: {

@@ -8,10 +8,8 @@
 
     config = rec {
       slug = "temporalite";
-      version_src = ./VERSION;
-      version = builtins.readFile version_src;
-      vendor_src = ./VENDOR;
-      vendor = builtins.readFile vendor_src;
+      version = builtins.readFile ./VERSION;
+      vendor = builtins.readFile ./VENDOR;
 
       url_template = input: "https://github.com/temporalio/temporalite/releases/download/v${input.version}/temporalite_${input.version}_${input.os}_${input.arch}.tar.gz";
 

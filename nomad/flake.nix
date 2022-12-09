@@ -8,10 +8,8 @@
 
     config = rec {
       slug = "nomad";
-      version_src = ./VERSION;
-      version = builtins.readFile version_src;
-      vendor_src = ./VENDOR;
-      vendor = builtins.readFile vendor_src;
+      version = builtins.readFile ./VERSION;
+      vendor = builtins.readFile ./VENDOR;
 
       url_template = input: "https://releases.hashicorp.com/nomad/${input.version}/nomad_${input.version}_${input.os}_${input.arch}.zip";
 

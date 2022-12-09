@@ -8,10 +8,8 @@
 
     config = rec {
       slug = "hof";
-      version_src = ./VERSION;
-      version = builtins.readFile version_src;
-      vendor_src = ./VENDOR;
-      vendor = builtins.readFile vendor_src;
+      version = builtins.readFile ./VERSION;
+      vendor = builtins.readFile ./VENDOR;
 
       url_template = input: "https://github.com/hofstadter-io/hof/releases/download/v${input.version}/hof_${input.version}_${input.os}_${input.arch}";
 

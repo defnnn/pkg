@@ -8,8 +8,7 @@
 
     config = rec {
       slug = "f";
-      version_src = ./VERSION;
-      version = builtins.readFile version_src;
+      version = builtins.readFile ./VERSION;
     };
 
     handler = { pkgs, wrap, system }: {
