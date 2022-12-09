@@ -1,11 +1,11 @@
 {
   inputs = {
     dev.url = github:defn/pkg/dev-0.0.10?dir=dev;
-    elasticsearch.url = github:defn/pkg/elasticsearch-8.5.2?dir=elasticsearch;
-    kibana.url = github:defn/pkg/kibana-8.5.2?dir=kibana;
+    elasticsearch.url = github:defn/pkg/elasticsearch-8.5.2-1?dir=elasticsearch;
+    kibana.url = github:defn/pkg/kibana-8.5.2-1?dir=kibana;
     filebeat.url = github:defn/pkg/filebeat-8.5.2-1?dir=filebeat;
-    caddy.url = github:defn/pkg/caddy-2.6.2-1?dir=caddy;
-    nomad.url = github:defn/pkg/nomad-1.4.3?dir=nomad;
+    caddy.url = github:defn/pkg/caddy-2.6.2-2?dir=caddy;
+    nomad.url = github:defn/pkg/nomad-1.4.3-2?dir=nomad;
   };
 
   outputs = inputs: inputs.dev.main {
