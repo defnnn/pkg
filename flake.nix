@@ -1,7 +1,6 @@
 {
   inputs = {
     dev.url = github:defn/pkg/dev-0.0.10-rc3?dir=dev;
-    caddy.url = github:defn/pkg/caddy-2.6.2?dir=caddy;
   };
 
   outputs = inputs: inputs.dev.main {
@@ -14,11 +13,9 @@
     };
 
     handler = { pkgs, wrap, system }: {
-      devShell = wrap.devShell;
       defaultPackage = wrap.nullBuilder { };
 
       packages.dev = inputs.dev.defaultPackage.${system};
-      packages.caddy = inputs.caddy.defaultPackage.${system};
     };
   };
 }

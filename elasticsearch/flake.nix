@@ -8,18 +8,10 @@
 
     config = rec {
       slug = "elasticsearch";
-      version = "8.5.2";
-
-
+      version = builtins.readFile ./VERSION;
+      vendor = builtins.readFile ./VENDOR;
 
       url_template = input: "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-${input.version}-${input.os}-${input.arch}.tar.gz";
-
-      installPhase = { src }: ''
-        rsync -ia elasticsearch*/ $out
-        install -m 0755 -d $out $out/data
-        echo -e '#!/usr/bin/env bash\ncd $(dirname $BASH_SOURCE)/..; chmod 755 . logs config data' > $out/bin/elasticsearch-fixup
-        chmod 755 $out/bin/elasticsearch-fixup
-      '';
 
       downloads = {
         "x86_64-linux" = {
@@ -47,13 +39,15 @@
           sha256 = "sha256-Li8JfPP3F4g55nLNHeSKsxrY6fhJI+i5f6G/FzIEHbA="; # aarch64-darwin
         };
       };
+
+      installPhase = { src }: ''
+        rsync -ia elasticsearch*/ $out
+      '';
     };
 
-    handler = { pkgs, wrap, system }: {
-      devShell = wrap.devShell;
-      defaultPackage = wrap.downloadBuilder {
+    handler = { pkgs, wrap, system }:
+      wrap.genDownloadBuilders {
         buildInputs = [ pkgs.rsync ];
       };
-    };
   };
 }

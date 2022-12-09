@@ -8,16 +8,10 @@
 
     config = rec {
       slug = "kibana";
-      version = "8.5.2";
+      version = builtins.readFile ./VERSION;
+      vendor = builtins.readFile ./VENDOR;
 
       url_template = input: "https://artifacts.elastic.co/downloads/kibana/kibana-${input.version}-${input.os}-${input.arch}.tar.gz";
-
-      installPhase = { src }: ''
-        rsync -ia kibana*/ $out
-        install -m 0755 -d $out $out/data
-        echo -e '#!/usr/bin/env bash\ncd $(dirname $BASH_SOURCE)/..; chmod 755 . logs config data' > $out/bin/kibana-fixup
-        chmod 755 $out/bin/kibana-fixup
-      '';
 
       downloads = {
         "x86_64-linux" = {
@@ -45,13 +39,15 @@
           sha256 = "sha256-yUkNua3xANsXxZqPmr2ZLyB81Z/WQXF7b7lIyxfaNB0="; # aarch64-darwin
         };
       };
+
+      installPhase = { src }: ''
+        rsync -ia kibana*/ $out
+      '';
     };
 
-    handler = { pkgs, wrap, system }: {
-      devShell = wrap.devShell;
-      defaultPackage = wrap.downloadBuilder {
+    handler = { pkgs, wrap, system }:
+      wrap.genDownloadBuilders {
         buildInputs = [ pkgs.rsync ];
       };
-    };
   };
 }
