@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-elasticsearch --version
-kibana --version
-filebeat version
-caddy version
-nomad version
