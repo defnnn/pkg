@@ -1,8 +1,8 @@
 rec {
   slug = "defn-pkg-vhs";
   version = "0.1.1";
-  
-  
+
+
   url_template = input: "https://github.com/charmbracelet/vhs/releases/download/v${input.version}/vhs_${input.version}_${input.os}_${input.arch}.tar.gz";
   downloads = {
     "x86_64-linux" = {

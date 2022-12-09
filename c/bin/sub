@@ -80,7 +80,7 @@ function call-main {
 
 function sub-main {
   local cmd="$1"; shift
-  local bare_cmd="${cmd##*/}" 
+  local bare_cmd="${cmd##*/}"
 
   sdebug
   sdebug "cmd: $cmd"

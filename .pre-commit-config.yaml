@@ -4,6 +4,7 @@ repos:
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
+        exclude: VERSION|VENDOR
       - id: check-json
       - id: check-yaml
       - id: check-toml

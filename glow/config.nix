@@ -1,8 +1,8 @@
 rec {
   slug = "defn-pkg-glow";
   version = "1.4.1";
-  
-  
+
+
   url_template = input: "https://github.com/charmbracelet/glow/releases/download/v${input.version}/glow_${input.version}_${input.os}_${input.arch}.tar.gz";
   downloads = {
     "x86_64-linux" = {
