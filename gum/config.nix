@@ -1,8 +1,8 @@
 rec {
   slug = "defn-pkg-gum";
   version = "0.8.0";
-
-
+  
+  
 
   url_template = input: "https://github.com/charmbracelet/gum/releases/download/v${input.version}/gum_${input.version}_${input.os}_${input.arch}.tar.gz";
 
@@ -20,3 +20,4 @@ rec {
     install -m 0755 gum $out/bin/gum
   '';
 }
+
