@@ -8,16 +8,10 @@
 
     config = rec {
       slug = "stern";
-      version = "1.22.0";
-
-
+      version = builtins.readFile ./VERSION;
+      vendor = builtins.readFile ./VENDOR;
 
       url_template = input: "https://github.com/stern/stern/releases/download/v${input.version}/stern_${input.version}_${input.os}_${input.arch}.tar.gz";
-
-      installPhase = { src }: ''
-        install -m 0755 -d $out $out/bin
-        install -m 0755 stern $out/bin/stern
-      '';
 
       downloads = {
         "x86_64-linux" = {
@@ -45,11 +39,14 @@
           sha256 = "sha256-Bm4FYrlirPV2JC6aI6pNYd4hgS1fpiy/4ZimL1gB0oI"; # aarch64-darwin
         };
       };
+
+      installPhase = { src }: ''
+        install -m 0755 -d $out $out/bin
+        install -m 0755 stern $out/bin/stern
+      '';
     };
 
-    handler = { pkgs, wrap, system }: {
-      devShell = wrap.devShell;
-      defaultPackage = wrap.downloadBuilder { };
-    };
+    handler = { pkgs, wrap, system }:
+      wrap.genDownloadBuilders { };
   };
 }

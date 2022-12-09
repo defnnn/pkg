@@ -13,11 +13,6 @@
 
       url_template = input: "https://github.com/smallstep/cli/releases/download/v${input.version}/step_${input.os}_${input.version}_${input.arch}.tar.gz";
 
-      installPhase = { src }: ''
-        install -m 0755 -d $out $out/bin
-        install -m 0755 */bin/step $out/bin/step
-      '';
-
       downloads = {
         "x86_64-linux" = {
           version = vendor;
@@ -44,11 +39,14 @@
           sha256 = "sha256-QjeRgRFPkgffFF8h5RPwx/a+/LxXOGnlH5mWmiPYStg="; # aarch64-darwin
         };
       };
+
+      installPhase = { src }: ''
+        install -m 0755 -d $out $out/bin
+        install -m 0755 */bin/step $out/bin/step
+      '';
     };
 
-    handler = { pkgs, wrap, system }: {
-      devShell = wrap.devShell;
-      defaultPackage = wrap.downloadBuilder { };
-    };
+    handler = { pkgs, wrap, system }:
+      wrap.genDownloadBuilders { };
   };
 }

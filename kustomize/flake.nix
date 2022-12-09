@@ -8,16 +8,10 @@
 
     config = rec {
       slug = "kustomize";
-      version = "4.5.7";
-
-
+      version = builtins.readFile ./VERSION;
+      vendor = builtins.readFile ./VENDOR;
 
       url_template = input: "https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv${input.version}/kustomize_v${input.version}_${input.os}_${input.arch}.tar.gz";
-
-      installPhase = { src }: ''
-        install -m 0755 -d $out $out/bin
-        install -m 0755 kustomize $out/bin/kustomize
-      '';
 
       downloads = {
         "x86_64-linux" = {
@@ -45,11 +39,14 @@
           sha256 = "sha256-PB6Llc70/25S1fS4xluNnQa3X0LRy0CYbB1ncp2CQRo"; # aarch64-darwin
         };
       };
+
+      installPhase = { src }: ''
+        install -m 0755 -d $out $out/bin
+        install -m 0755 kustomize $out/bin/kustomize
+      '';
     };
 
-    handler = { pkgs, wrap, system }: {
-      devShell = wrap.devShell;
-      defaultPackage = wrap.downloadBuilder { };
-    };
+    handler = { pkgs, wrap, system }:
+      wrap.genDownloadBuilders { };
   };
 }

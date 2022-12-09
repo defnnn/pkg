@@ -8,48 +8,45 @@
 
     config = rec {
       slug = "kubectl";
-      version = "1.24.8";
-
-
+      version = builtins.readFile ./VERSION;
+      vendor = builtins.readFile ./VENDOR;
 
       url_template = input: "https://dl.k8s.io/release/v${input.version}/bin/${input.os}/${input.arch}/kubectl";
-
-      installPhase = { src }: ''
-        install -m 0755 -d $out $out/bin
-        install -m 0755 $src $out/bin/kubectl
-      '';
 
       downloads = {
         "x86_64-linux" = {
           version = vendor;
           os = "linux";
           arch = "amd64";
-          sha256 = "sha256-+TwYdR7HFbTUQ35+zhj+kZSMcb4fJKsCot3hUPVEmFU"; # x86_64-linux
+          sha256 = "sha256-fhPzO3N5tsJcOuBV5Dies+7xaOVj83tcXxvmcuRraG4="; # x86_64-linux
         };
         "aarch64-linux" = {
           version = vendor;
           os = "linux";
           arch = "arm64";
-          sha256 = "sha256-uKwqv8sfoEaV0YCYVY/0g+wsJIiHe1q8QDWlQ1RM3LE"; # aarch64-linux
+          sha256 = "sha256-9ZxSLPX524JsZPKDZJRqy2vLaVdmkpH6Kbkmt4ErW74="; # aarch64-linux
         };
         "x86_64-darwin" = {
           version = vendor;
           os = "darwin";
           arch = "amd64";
-          sha256 = "sha256-fSpFWqnWvgVBxcUWogNLuFAHt75rxeS8GkU82eQVMKk"; # x86_64-darwin
+          sha256 = "sha256-QtEQkAbJ3fAvfKSyvF/6OTtqw5DD8bYEc/DoaoPGPA0="; # x86_64-darwin
         };
         "aarch64-darwin" = {
           version = vendor;
           os = "darwin";
           arch = "arm64";
-          sha256 = "sha256-raAuw+vpg1iyfF9qTwa9qlR0cIfhqiqO2xP96lRiUMM"; # aarch64-darwin
+          sha256 = "sha256-zG3RC3FaY489x1Gsoz+lt4v4T4O0Ywf2zSKp8hu8pdw="; # aarch64-darwin
         };
       };
+
+      installPhase = { src }: ''
+        install -m 0755 -d $out $out/bin
+        install -m 0755 $src $out/bin/kubectl
+      '';
     };
 
-    handler = { pkgs, wrap, system }: {
-      devShell = wrap.devShell;
-      defaultPackage = wrap.downloadBuilder { dontUnpack = true; };
-    };
+    handler = { pkgs, wrap, system }:
+      wrap.genDownloadBuilders { dontUnpack = true; };
   };
 }

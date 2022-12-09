@@ -13,7 +13,6 @@
     };
 
     handler = { pkgs, wrap, system }: {
-      devShell = wrap.devShell;
       defaultPackage = wrap.nullBuilder { };
     };
   };
