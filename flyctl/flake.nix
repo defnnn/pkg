@@ -1,6 +1,6 @@
 {
   inputs = {
-    dev.url = github:defn/pkg/dev-0.0.10-rc2?dir=dev;
+    dev.url = github:defn/pkg/dev-0.0.10-rc3?dir=dev;
   };
 
   outputs = inputs: inputs.dev.main {
@@ -12,11 +12,6 @@
       vendor = builtins.readFile ./VENDOR;
 
       url_template = input: "https://github.com/superfly/flyctl/releases/download/v${input.version}/flyctl_${input.version}_${input.os}_${input.arch}.tar.gz";
-
-      installPhase = { src }: ''
-        install -m 0755 -d $out $out/bin
-        install -m 0755 flyctl $out/bin/flyctl
-      '';
 
       downloads = {
         "x86_64-linux" = {
@@ -44,14 +39,14 @@
           sha256 = "sha256-ptq2olmEqv7epVeviTyqJ0jmnti4wIAbPyEp8OQwADQ="; # aarch64-darwin
         };
       };
+
+      installPhase = { src }: ''
+        install -m 0755 -d $out $out/bin
+        install -m 0755 flyctl $out/bin/flyctl
+      '';
     };
 
     handler = { pkgs, wrap, system }:
-      let
-        commonBuild = { };
-      in
-      wrap.genDownloadBuilders commonBuild // {
-        devShell = wrap.devShell;
-      };
+      wrap.genDownloadBuilders { };
   };
 }

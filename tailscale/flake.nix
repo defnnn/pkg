@@ -13,7 +13,7 @@
 
       url_template = input: "https://pkgs.tailscale.com/stable/tailscale_${input.version}_${input.arch}.tgz";
 
-      downloads = rec {
+      downloads = {
         "x86_64-linux" = {
           version = vendor;
           arch = "amd64";

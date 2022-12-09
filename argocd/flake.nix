@@ -1,6 +1,6 @@
 {
   inputs = {
-    dev.url = github:defn/pkg/dev-0.0.10-rc2?dir=dev;
+    dev.url = github:defn/pkg/dev-0.0.10-rc3?dir=dev;
   };
 
   outputs = inputs: inputs.dev.main {
@@ -8,7 +8,6 @@
 
     config = rec {
       slug = "argocd";
-
       version = builtins.readFile ./VERSION;
       vendor = builtins.readFile ./VENDOR;
 
@@ -48,13 +47,6 @@
     };
 
     handler = { pkgs, wrap, system }:
-      let
-        commonBuild = {
-          dontUnpack = true;
-        };
-      in
-      wrap.genDownloadBuilders commonBuild // {
-        devShell = wrap.devShell { };
-      };
+      wrap.genDownloadBuilders { dontUnpack = true; };
   };
 }

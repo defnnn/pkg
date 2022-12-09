@@ -1,6 +1,6 @@
 {
   inputs = {
-    dev.url = github:defn/pkg/dev-0.0.10-rc2?dir=dev;
+    dev.url = github:defn/pkg/dev-0.0.10-rc3?dir=dev;
   };
 
   outputs = inputs: inputs.dev.main {
@@ -12,12 +12,6 @@
       vendor = builtins.readFile ./VENDOR;
 
       url_template = input: "https://github.com/argoproj/argo-workflows/releases/download/v${input.version}/argo-${input.os}-${input.arch}.gz";
-
-      installPhase = { src }: ''
-        cat $src | gunzip > argo
-        install -m 0755 -d $out $out/bin
-        install -m 0755 argo $out/bin/argo
-      '';
 
       downloads = {
         "x86_64-linux" = {
@@ -45,16 +39,15 @@
           sha256 = "sha256-D95j02T9b343Vd8wRWXUZ87+9RmoeJ+Pn0I9b/kv9y8="; # aarch64-darwin
         };
       };
+
+      installPhase = { src }: ''
+        cat $src | gunzip > argo
+        install -m 0755 -d $out $out/bin
+        install -m 0755 argo $out/bin/argo
+      '';
     };
 
     handler = { pkgs, wrap, system }:
-      let
-        commonBuild = {
-          dontUnpack = true;
-        };
-      in
-      wrap.genDownloadBuilders commonBuild // {
-        devShell = wrap.devShell;
-      };
+      wrap.genDownloadBuilders { dontUnpack = true; };
   };
 }
