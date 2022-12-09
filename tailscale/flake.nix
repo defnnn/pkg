@@ -1,6 +1,6 @@
 {
   inputs = {
-    dev.url = github:defn/pkg/dev-0.0.10-rc2?dir=dev;
+    dev.url = github:defn/pkg/dev-0.0.10-rc3?dir=dev;
   };
 
   outputs = inputs: inputs.dev.main {
@@ -46,12 +46,9 @@
 
     handler = { pkgs, wrap, system }:
       let
-        commonBuild = { };
-        builds = wrap.genDownloadBuilders commonBuild;
+        builds = wrap.genDownloadBuilders { };
       in
       builds // {
-        devShell = wrap.devShell { };
-
         apps.default = {
           type = "app";
           program = "${builds.defaultPackage}/bin/tailscale";
