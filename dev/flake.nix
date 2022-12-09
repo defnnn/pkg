@@ -14,13 +14,18 @@
           let
             pkgs = import wrapper.nixpkgs { inherit system; };
             wrap = wrapper.wrap { other = inputs; inherit system; site = config; };
+            handled = handler
+              {
+                inherit pkgs;
+                inherit wrap;
+                inherit system;
+              };
+            defaults = {
+              slug = config.slug;
+              devShell = wrap.devShell { };
+            };
           in
-          handler
-            {
-              inherit pkgs;
-              inherit wrap;
-              inherit system;
-            } // { slug = config.slug; }
+          defaults // handled
         );
       };
     in
@@ -29,13 +34,10 @@
 
       config = rec {
         slug = "defn-pkg-dev";
-        version_src = ./VERSION;
-        version = builtins.readFile version_src;
+        version = builtins.readFile ./VERSION;
       };
 
       handler = { pkgs, wrap, system }: {
-        devShell = wrap.devShell { };
-
         defaultPackage = wrap.bashBuilder {
           src = ./.;
 
