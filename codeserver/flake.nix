@@ -35,7 +35,7 @@
         "aarch64-darwin" = {
           version = vendor;
           os = "macos";
-          arch = "arm64";
+          arch = "amd64"; # code-server not avaialble for darwin arm64
           sha256 = "sha256-w/esOq0RNvswzGwfZAyiTTU3uaxrhqLJ6Nz6M4kEByA="; # aarch64-darwin
         };
       };
