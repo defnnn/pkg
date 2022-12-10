@@ -85,9 +85,9 @@
             installPhase = site.installPhase { inherit src; };
           };
 
-        bashBuilder = input@{ propagatedBuildInputs ? [ ], buildInputs ? [ ], src, installPhase, dontUnpack ? false, dontFixup ? false }:
+        bashBuilder = input@{ propagatedBuildInputs ? [ ], buildInputs ? [ ], src, installPhase, dontUnpack ? false, dontFixup ? false, slug ? "${site.slug}" }:
           pkgs.stdenv.mkDerivation rec {
-            name = "${site.slug}-${site.version}";
+            name = "${slug}-${site.version}";
 
             inherit dontUnpack;
             inherit dontFixup;
@@ -114,6 +114,8 @@
 
         yaegiBuilder = { src, inputs }: bashBuilder {
           inherit src;
+
+          slug = "${site.slug}-yaegi";
 
           installPhase = ''
             set -exu
