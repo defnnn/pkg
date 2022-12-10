@@ -10,7 +10,7 @@
 
         eachDefaultSystem = wrapper.flake-utils.lib.eachDefaultSystem;
 
-        main = { inputs, config, handler }: eachDefaultSystem (system:
+        main = { inputs, config, handler, src ? "" }: eachDefaultSystem (system:
           let
             pkgs = import wrapper.nixpkgs { inherit system; };
             wrap = wrapper.wrap { other = inputs; inherit system; site = config; };
@@ -19,6 +19,9 @@
                 inherit pkgs;
                 inherit wrap;
                 inherit system;
+                builders = if src == "" then { } else {
+                  yaegi = wrap.yaegiBuilder { inherit src; inherit inputs; };
+                };
               };
             defaults = {
               slug = config.slug;
@@ -37,7 +40,7 @@
         version = builtins.readFile ./VERSION;
       };
 
-      handler = { pkgs, wrap, system }: {
+      handler = { pkgs, wrap, system, builders }: {
         defaultPackage = wrap.bashBuilder {
           src = ./.;
 
