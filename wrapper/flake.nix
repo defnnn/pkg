@@ -112,7 +112,7 @@
             installPhase = "mkdir -p $out";
           };
 
-        yaegiBuilder = { src }: wrap.bashBuilder {
+        yaegiBuilder = { src }: bashBuilder {
           inherit src;
 
           installPhase = ''
