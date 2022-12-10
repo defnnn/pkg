@@ -120,7 +120,7 @@
           installPhase = ''
             set -exu
             mkdir -p $out/bin
-            for a in $src/y/*/*.go; do
+            for a in $src/yg/*/*.go; do
               dst="$(basename "''${a%.go}")"
               (
                 echo "#!${inputs.yaegi.defaultPackage.${system}}/bin/yaegi"
@@ -132,6 +132,25 @@
           '';
         };
 
+        bbBuilder = { src, inputs }: bashBuilder {
+          inherit src;
+
+          slug = "${site.slug}-bb";
+
+          installPhase = ''
+            set -exu
+            mkdir -p $out/bin
+            for a in $src/bb/*/*.clj; do
+              dst="$(basename "''${a%.clj}")"
+              (
+                echo "#!${inputs.bb.defaultPackage.${system}}/bin/bb"
+                echo
+                cat $a
+              ) > $out/bin/$dst
+              chmod 755 $out/bin/$dst
+            done
+          '';
+        };
       };
   };
 }
