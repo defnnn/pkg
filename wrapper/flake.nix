@@ -112,6 +112,24 @@
             installPhase = "mkdir -p $out";
           };
 
+        yaegiBuilder = { src }: wrap.bashBuilder {
+          inherit src;
+
+          installPhase = ''
+            set -exu
+            mkdir -p $out/bin
+            for a in $src/y/*/*.go; do
+              dst="$(basename "''${a%.go}")"
+              (
+                echo "#!${inputs.yaegi.defaultPackage.${system}}/bin/yaegi"
+                echo
+                cat $a
+              ) > $out/bin/$dst
+              chmod 755 $out/bin/$dst
+            done
+          '';
+        };
+
       };
   };
 }
