@@ -114,7 +114,6 @@
 
         yaegiBuilder = { src, inputs }: bashBuilder {
           inherit src;
-          inherit inputs;
 
           installPhase = ''
             set -exu
