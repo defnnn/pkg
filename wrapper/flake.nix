@@ -112,8 +112,9 @@
             installPhase = "mkdir -p $out";
           };
 
-        yaegiBuilder = { src }: bashBuilder {
+        yaegiBuilder = { src, inputs }: bashBuilder {
           inherit src;
+          inherit inputs;
 
           installPhase = ''
             set -exu
