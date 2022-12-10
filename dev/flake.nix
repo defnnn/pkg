@@ -1,6 +1,6 @@
 {
   inputs = {
-    wrapper.url = github:defn/pkg/wrapper-0.0.11-rc6?dir=wrapper;
+    wrapper.url = github:defn/pkg/wrapper-0.0.11-rc7?dir=wrapper;
   };
 
   outputs = inputs:
@@ -21,6 +21,7 @@
                 inherit system;
                 builders = if src == "" then { } else {
                   yaegi = wrap.yaegiBuilder { inherit src; inherit inputs; };
+                  bb = wrap.bbBuilder { inherit src; inherit inputs; };
                 };
               };
             defaults = {
