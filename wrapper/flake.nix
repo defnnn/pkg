@@ -144,6 +144,7 @@
           installPhase = ''
             set -exu
             export GOCACHE=''${TMPDIR}/.cache/go-cache
+            go get $src
             go build -o $out $src/*.go
             chmod 0755 $out
           '';
