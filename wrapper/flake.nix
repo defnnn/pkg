@@ -145,7 +145,6 @@
             set -exu
             export GOCACHE=''${TMPDIR}/.cache/go-cache
             cd $src
-            go get 
             go build -o $out *.go
             chmod 0755 $out
           '';
