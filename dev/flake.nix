@@ -19,10 +19,11 @@
                 inherit pkgs;
                 inherit wrap;
                 inherit system;
+
                 builders = if src == "" then { } else {
                   yaegi = wrap.yaegiBuilder { inherit src; inherit inputs; };
                   bb = wrap.bbBuilder { inherit src; inherit inputs; };
-                  go = wrap.goBuilder;
+                  go = props: wrap.goBuilder ({ inherit src; buildInputs = [ pkgs.go ]; } // props);
                 };
               };
             defaults = {
