@@ -134,6 +134,7 @@
 
         goBuilder = { src, cmd ? ".", buildInputs ? [ ] }: bashBuilder {
           inherit src;
+          inherit cmd;
           inherit buildInputs;
 
           slug = "${ site. slug}-go";
