@@ -11,11 +11,13 @@
 
         eachDefaultSystem = wrapper.flake-utils.lib.eachDefaultSystem;
 
+        gomod2nixOverlay = inputs.gomod2nix.overlays.default;
+
         main = { inputs, config, handler, src ? "" }: eachDefaultSystem (system:
           let
             pkgs = import wrapper.nixpkgs {
               inherit system;
-              overlays = [ inputs.gomod2nix.overlays.default ];
+              overlays = [ gomod2nixOverlay ];
             };
             wrap = wrapper.wrap { other = inputs; inherit system; site = config; };
             handled = handler
