@@ -33,7 +33,7 @@ root:
             tzdata locales \
             sudo tini \
         && apt-get install -y --no-install-recommends \
-            procps iptables net-tools iputils-ping dnsutils \
+            procps iptables net-tools iputils-ping iproute2 dnsutils \
         && apt purge -y nano
 
     RUN groupadd -g 1000 ubuntu && useradd -u 1000 -d /home/ubuntu -s /bin/bash -g ubuntu -M ubuntu \
@@ -54,6 +54,7 @@ root:
         && install -d -m 0755 -o root -g root /run/user \
         && install -d -m 0700 -o ubuntu -g ubuntu /run/user/1000 \
         && install -d -m 0700 -o kuma -g kuma /run/user/1001
+        && ln -nfs /home/ubuntu/.nix-profile/bin/pinentry /usr/local/bin/pinentry
 
     RUN chown -R ubuntu:ubuntu /home/ubuntu \
         && chmod u+s /usr/bin/sudo
