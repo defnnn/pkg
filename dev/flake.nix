@@ -1,6 +1,6 @@
 {
   inputs = {
-    wrapper.url = github:defn/pkg/wrapper-0.0.11-rc19?dir=wrapper;
+    wrapper.url = github:defn/pkg/wrapper-0.0.11-rc20?dir=wrapper;
     gomod2nix.url = github:nix-community/gomod2nix/v1.5.0;
   };
 
@@ -13,7 +13,7 @@
 
         gomod2nixOverlay = inputs.gomod2nix.overlays.default;
 
-        main = { inputs, config, handler, src ? "" }: eachDefaultSystem (system:
+        main = { inputs, config, handler, src }: eachDefaultSystem (system:
           let
             pkgs = import wrapper.nixpkgs {
               inherit system;
@@ -29,7 +29,6 @@
                 builders = if src == "" then { } else {
                   yaegi = wrap.yaegiBuilder { inherit src; inherit inputs; };
                   bb = wrap.bbBuilder { inherit src; inherit inputs; };
-                  go = props: wrap.goBuilder ({ inherit src; buildInputs = [ pkgs.go ]; } // props);
                 };
               };
             defaults = {
@@ -46,7 +45,9 @@
     prelude // (prelude.main {
       inherit inputs;
 
-      config = rec {
+      src = ./.;
+
+      config = {
         slug = "defn-pkg-dev";
         version = builtins.readFile ./VERSION;
       };
