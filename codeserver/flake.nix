@@ -45,6 +45,7 @@
         rsync -ia . $out/lib/.
         mv -f $out/lib/code-server-${vendor}-*  $out/lib/code-server-${vendor}
         ln -fs $out/lib/code-server-${vendor}/bin/code-server $out/bin/code-server
+        ln -fs $out/lib/code-server-${vendor}/lib/vscode/bin/helpers/browser.sh $out/bin/browser.sh
       '';
     };
 
