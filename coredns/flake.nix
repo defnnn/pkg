@@ -17,14 +17,14 @@
         "x86_64-linux" = {
           version = vendor;
           os = "linux";
-          arch = "x86_64";
-          sha256 = "sha256-aaaH7m+cKH6wBif+vjeKDzj+9NrzkVnEzHX3GcVcVpg="; # x86_64-linux
+          arch = "amd64";
+          sha256 = "sha256-S0YXRu4fD4d8BSwjoJxDqb4S/+kVXmhiPBaQSq5tJ3w="; # x86_64-linux
         };
         "aarch64-linux" = {
           version = vendor;
           os = "linux";
-          arch = "amd64";
-          sha256 = "sha256-S0YXRu4fD4d8BSwjoJxDqb4S/+kVXmhiPBaQSq5tJ3w="; # aarch64-linux
+          arch = "arm64";
+          sha256 = "sha256-0bSgofm+jGlv5XuMlPS60vN3w2ZiNaS1TFCO+TMuSTs="; # aarch64-linux
         };
         "x86_64-darwin" = {
           version = vendor;
