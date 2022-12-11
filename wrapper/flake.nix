@@ -132,6 +132,19 @@
           '';
         };
 
+        goBuilder = { src, inputs, cmd ? ".", buildInputs ? [ ] }: bashBuilder {
+          inherit src;
+          inherit buildInputs;
+
+          slug = "${ site. slug}-go";
+
+          installPhase = ''
+            set -exu
+            go build -o $out $src/$cmd/*.go
+            chmod 0755 $out
+          '';
+        };
+
         bbBuilder = { src, inputs }: bashBuilder {
           inherit src;
 
