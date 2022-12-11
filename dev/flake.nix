@@ -1,6 +1,6 @@
 {
   inputs = {
-    wrapper.url = github:defn/pkg/wrapper-0.0.11-rc20?dir=wrapper;
+    wrapper.url = github:defn/pkg/wrapper-0.0.11?dir=wrapper;
     gomod2nix.url = github:nix-community/gomod2nix/v1.5.0;
   };
 
