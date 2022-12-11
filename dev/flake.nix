@@ -1,6 +1,6 @@
 {
   inputs = {
-    wrapper.url = github:defn/pkg/wrapper-0.0.11-rc8?dir=wrapper;
+    wrapper.url = github:defn/pkg/wrapper-0.0.11-rc9?dir=wrapper;
   };
 
   outputs = inputs:
@@ -22,6 +22,7 @@
                 builders = if src == "" then { } else {
                   yaegi = wrap.yaegiBuilder { inherit src; inherit inputs; };
                   bb = wrap.bbBuilder { inherit src; inherit inputs; };
+                  go = wrap.goBuilder;
                 };
               };
             defaults = {
