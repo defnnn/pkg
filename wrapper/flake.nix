@@ -136,6 +136,9 @@
           src = "${src}/${cmd}";
           inherit buildInputs;
 
+          dontUnpack = true;
+          dontFixup = true;
+
           slug = "${ site. slug}-go";
 
           installPhase = ''
