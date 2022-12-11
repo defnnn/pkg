@@ -132,25 +132,6 @@
           '';
         };
 
-        goBuilder = { src, cmd ? ".", buildInputs ? [ ] }: bashBuilder {
-          src = "${src}/${cmd}";
-          inherit buildInputs;
-
-          dontUnpack = true;
-          dontFixup = true;
-
-          slug = "${ site. slug}-go";
-
-          installPhase = ''
-            set -exu
-            export GOCACHE=''${TMPDIR}/.cache/go-build
-            export GOMODCACHE=''${TMPDIR}/.cache/go-module
-            cd $src
-            go build -o $out *.go
-            chmod 0755 $out
-          '';
-        };
-
         bbBuilder = { src, inputs }: bashBuilder {
           inherit src;
 
