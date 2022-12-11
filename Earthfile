@@ -53,7 +53,7 @@ root:
         && mkdir /run/sshd \
         && install -d -m 0755 -o root -g root /run/user \
         && install -d -m 0700 -o ubuntu -g ubuntu /run/user/1000 \
-        && install -d -m 0700 -o kuma -g kuma /run/user/1001
+        && install -d -m 0700 -o kuma -g kuma /run/user/1001 \
         && ln -nfs /home/ubuntu/.nix-profile/bin/pinentry /usr/local/bin/pinentry
 
     RUN chown -R ubuntu:ubuntu /home/ubuntu \
