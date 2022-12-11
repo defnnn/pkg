@@ -133,15 +133,14 @@
         };
 
         goBuilder = { src, cmd ? ".", buildInputs ? [ ] }: bashBuilder {
-          inherit src;
-          inherit cmd;
+          src = "${src}/${cmd}";
           inherit buildInputs;
 
           slug = "${ site. slug}-go";
 
           installPhase = ''
             set -exu
-            go build -o $out $src/$cmd/*.go
+            go build -o $out $src/*.go
             chmod 0755 $out
           '';
         };
