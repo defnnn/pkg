@@ -1,6 +1,7 @@
 {
   inputs = {
     wrapper.url = github:defn/pkg/wrapper-0.0.11-rc19?dir=wrapper;
+    gomod2nix.url = github:nix-community/gomod2nix/v1.5.0;
   };
 
   outputs = inputs:
@@ -12,7 +13,10 @@
 
         main = { inputs, config, handler, src ? "" }: eachDefaultSystem (system:
           let
-            pkgs = import wrapper.nixpkgs { inherit system; };
+            pkgs = import wrapper.nixpkgs {
+              inherit system;
+              overlays = [ inputs.gomod2nix.overlays.default ];
+            };
             wrap = wrapper.wrap { other = inputs; inherit system; site = config; };
             handled = handler
               {
@@ -45,6 +49,8 @@
 
       handler = { pkgs, wrap, system, builders }: {
         defaultPackage = wrap.bashBuilder {
+          propagatedBuildInputs = [ pkgs.gomod2nix ];
+
           src = ./.;
 
           installPhase = ''
