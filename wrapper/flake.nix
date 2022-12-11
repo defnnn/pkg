@@ -132,7 +132,7 @@
           '';
         };
 
-        goBuilder = { src, inputs, cmd ? ".", buildInputs ? [ ] }: bashBuilder {
+        goBuilder = { src, cmd ? ".", buildInputs ? [ ] }: bashBuilder {
           inherit src;
           inherit buildInputs;
 
