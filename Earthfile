@@ -133,6 +133,9 @@ nix-ubuntu:
 
     USER ubuntu
     ENV HOME=/home/ubuntu
+    ENV USER=ubuntu
+    ENV LOCAL_ARCHIVE=/usr/lib/locale/locale-archive
+    ENV LC_ALL=C.UTF-8
     WORKDIR /home/ubuntu
 
 nix-local:
