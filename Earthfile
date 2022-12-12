@@ -139,6 +139,9 @@ nix-ubuntu:
     ENV LC_ALL=C.UTF-8
     WORKDIR /home/ubuntu
 
+    ENTRYPOINT ["/entrypoint"]
+    CMD []
+
 nix-local:
     FROM +nix-root
 
