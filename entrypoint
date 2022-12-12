@@ -3,7 +3,7 @@
 set -exfu
 
 # put every nix store into the path
-set+f; for a in /nix/store/*/bin; do PATH="$PATH:$a"; done; set -e
+set +f; for a in /nix/store/*/bin; do PATH="$PATH:$a"; done; set -e
 
 # one of the nix stores has an executable "nix-entrypoint"
 exec "nix-entrypoint" "$@"
