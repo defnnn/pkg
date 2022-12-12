@@ -130,8 +130,13 @@ nix-ubuntu:
 
     RUN chown -R ubuntu:ubuntu /home/ubuntu
 
+    COPY entrypoint /entrypoint
+
     USER ubuntu
     ENV HOME=/home/ubuntu
+    ENV USER=ubuntu
+    ENV LOCAL_ARCHIVE=/usr/lib/locale/locale-archive
+    ENV LC_ALL=C.UTF-8
     WORKDIR /home/ubuntu
 
 nix-local:
