@@ -5,7 +5,7 @@
     yaegi.url = github:defn/pkg/yaegi-0.14.3-1?dir=yaegi;
   };
 
-  outputs = dev-inputs@{ inputs }:
+  outputs = inputs:
     let
       prelude = rec {
         wrapper = inputs.wrapper;
@@ -13,6 +13,8 @@
         eachDefaultSystem = wrapper.flake-utils.lib.eachDefaultSystem;
 
         gomod2nixOverlay = inputs.gomod2nix.overlays.default;
+
+        dev-inputs = inputs;
 
         main = { inputs, config, handler, src }: eachDefaultSystem (system:
           let
