@@ -129,6 +129,8 @@ nix-ubuntu:
 
     RUN chown -R ubuntu:ubuntu /home/ubuntu
 
+    COPY entrypoint /entrypoint
+
     USER ubuntu
     ENV HOME=/home/ubuntu
     WORKDIR /home/ubuntu
