@@ -5,7 +5,7 @@
     yaegi.url = github:defn/pkg/yaegi-0.14.3-1?dir=yaegi;
   };
 
-  outputs = inputs:
+  outputs = dev-inputs@{ inputs }:
     let
       prelude = rec {
         wrapper = inputs.wrapper;
@@ -28,7 +28,7 @@
                 inherit system;
 
                 builders = if src == "" then { } else {
-                  yaegi = wrap.yaegiBuilder { inherit src; inputs = { yaegi = inputs.yaegi; } // inputs; };
+                  yaegi = wrap.yaegiBuilder { inherit src; inputs = { yaegi = dev-inputs.yaegi; } // inputs; };
                   bb = wrap.bbBuilder { inherit src; inherit inputs; };
                 };
               };
