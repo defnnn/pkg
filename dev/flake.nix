@@ -2,6 +2,7 @@
   inputs = {
     wrapper.url = github:defn/pkg/wrapper-0.0.11?dir=wrapper;
     gomod2nix.url = github:nix-community/gomod2nix/v1.5.0;
+    yaegi.url = github:defn/pkg/yaegi-0.14.3-1?dir=yaegi;
   };
 
   outputs = inputs:
@@ -27,7 +28,7 @@
                 inherit system;
 
                 builders = if src == "" then { } else {
-                  yaegi = wrap.yaegiBuilder { inherit src; inherit inputs; };
+                  yaegi = wrap.yaegiBuilder { inherit src; inputs = { yaegi = inputs.yaegi; } // inputs; };
                   bb = wrap.bbBuilder { inherit src; inherit inputs; };
                 };
               };
