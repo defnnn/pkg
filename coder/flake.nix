@@ -18,25 +18,25 @@
           version = vendor;
           os = "linux";
           arch = "amd64";
-          sha256 = "sha256-aaauYXJrcsNdX+TOwfjBJIJ+ABkKFv4u/Y+OvDwD4gY="; # x86_64-linux
+          sha256 = "sha256-FRgXJAER+9vFzQ/TM4K14jM+0DE9fb2BfyUCtC/oLqA="; # x86_64-linux
         };
         "aarch64-linux" = {
           version = vendor;
           os = "linux";
           arch = "arm64";
-          sha256 = "sha256-aaapCS6vQM8G1UAzuA78hi4Sj6hIQQI8TPT6xsXANFE="; # aarch64-linux
+          sha256 = "sha256-4KkwP0VYFszUUkIPVa9m5L0ZlFGnF6O/Hv8uZOjvkTE="; # aarch64-linux
         };
         "x86_64-darwin" = {
           version = vendor;
           os = "linux"; # coder forget running this on macos
           arch = "amd64";
-          sha256 = "sha256-aaasOq0RNvswzGwfZAyiTTU3uaxrhqLJ6Nz6M4kEByA="; # x86_64-darwin
+          sha256 = "sha256-FRgXJAER+9vFzQ/TM4K14jM+0DE9fb2BfyUCtC/oLqA="; # x86_64-darwin
         };
         "aarch64-darwin" = {
           version = vendor;
           os = "linux";
           arch = "amd64"; # coder not avaialble for darwin arm64
-          sha256 = "sha256-aaasOq0RNvswzGwfZAyiTTU3uaxrhqLJ6Nz6M4kEByA="; # aarch64-darwin
+          sha256 = "sha256-FRgXJAER+9vFzQ/TM4K14jM+0DE9fb2BfyUCtC/oLqA="; # aarch64-darwin
         };
       };
 
