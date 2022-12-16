@@ -1,7 +1,7 @@
 {
   inputs = {
     wrapper.url = github:defn/pkg/wrapper-0.0.11?dir=wrapper;
-    gomod2nix.url = github:nix-community/gomod2nix/v1.5.0;
+    gomod2nix.url = github:defn/gomod2nix/1.5.0-1;
     yaegi.url = github:defn/pkg/yaegi-0.14.3-1?dir=yaegi;
   };
 
