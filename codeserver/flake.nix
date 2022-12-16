@@ -18,29 +18,30 @@
           version = vendor;
           os = "linux";
           arch = "amd64";
-          sha256 = "sha256-3Z6Y3E3GQPPy8MNzTW4Mp2N/fFYbIaps1JEjc/C0CQk="; # x86_64-linux
+          sha256 = "sha256-PqecncA1ROoGq+faZgwbwOQ3YzcHAhHZj/qMM4ic1X4="; # x86_64-linux
         };
         "aarch64-linux" = {
           version = vendor;
           os = "linux";
           arch = "arm64";
-          sha256 = "sha256-TnB8rVW4GiMv515u8ZVDn9w+oba0yR1n3QN2AzvJyGw="; # aarch64-linux
+          sha256 = "sha256-bp/ttybrE7XvYKd78Woe6ZEWhLfiEekO7noOnoK6yeQ="; # aarch64-linux
         };
         "x86_64-darwin" = {
           version = vendor;
           os = "macos";
           arch = "amd64";
-          sha256 = "sha256-/3GxgbrPodskOtG/iYLTEuHN4C0bJhuhoZuRRmTZSVk="; # x86_64-darwin
+          sha256 = "sha256-7DmroZS0B525OvXCOHUfc/sX8f4a7spzdxxcLvKQ5Ok="; # x86_64-darwin
         };
         "aarch64-darwin" = {
           version = vendor;
           os = "macos";
           arch = "amd64"; # code-server not avaialble for darwin arm64
-          sha256 = "sha256-/3GxgbrPodskOtG/iYLTEuHN4C0bJhuhoZuRRmTZSVk="; # aarch64-darwin
+          sha256 = "sha256-7DmroZS0B525OvXCOHUfc/sX8f4a7spzdxxcLvKQ5Ok="; # aarch64-darwin
         };
       };
 
       installPhase = { src }: ''
+        set -x
         install -m 0755 -d $out $out/bin $out/lib
         rsync -ia . $out/lib/.
         mv -f $out/lib/code-server-${vendor}-*  $out/lib/code-server-${vendor}
