@@ -11,32 +11,36 @@
       version = builtins.readFile ./VERSION;
       vendor = builtins.readFile ./VENDOR;
 
-      url_template = input: "https://github.com/coder/coder/releases/download/v${input.version}/coder_${input.version}_${input.os}_${input.arch}.tar.gz";
+      url_template = input: "${input.url}";
 
       downloads = {
-        "x86_64-linux" = {
+        "x86_64-linux" = rec {
           version = vendor;
           os = "linux";
           arch = "amd64";
-          sha256 = "sha256-J3L3zS7bJbaT16HNaajHOmd2O9BKebJGlOQ0/NGTrlM="; # x86_64-linux
+          sha256 = "sha256-hv76VVzsRhduG/90+v/gORp7/HkBFCelp2dZh7va4uo="; # x86_64-linux
+          url = "https://github.com/coder/coder/releases/download/v${version}/coder_${version}_${os}_${arch}.tar.gz";
         };
-        "aarch64-linux" = {
+        "aarch64-linux" = rec {
           version = vendor;
           os = "linux";
           arch = "arm64";
-          sha256 = "sha256-MzuWwrISRlwh7npk7E0+9jz6pGrHpWE/mVQM8+JrL8Y="; # aarch64-linux
+          sha256 = "sha256-9pgTjXcy+YMQstgQ2OqR9iqTdcIsPhVWFLLT7Y7LzkE="; # aarch64-linux
+          url = "https://github.com/coder/coder/releases/download/v${version}/coder_${version}_${os}_${arch}.tar.gz";
         };
-        "x86_64-darwin" = {
+        "x86_64-darwin" = rec {
           version = vendor;
-          os = "linux"; # coder forget running this on macos
+          os = "darwin";
           arch = "amd64";
-          sha256 = "sha256-J3L3zS7bJbaT16HNaajHOmd2O9BKebJGlOQ0/NGTrlM="; # x86_64-darwin
+          sha256 = "sha256-oZIxR2qPm+KpEwg3TYzlcpHFzi0XAYXhcJwvOAucIdg="; # x86_64-darwin
+          url = "https://github.com/coder/coder/releases/download/v${version}/coder_${version}_${os}_${arch}.zip";
         };
-        "aarch64-darwin" = {
+        "aarch64-darwin" = rec {
           version = vendor;
-          os = "linux";
-          arch = "amd64"; # coder not avaialble for darwin arm64
-          sha256 = "sha256-J3L3zS7bJbaT16HNaajHOmd2O9BKebJGlOQ0/NGTrlM="; # aarch64-darwin
+          os = "darwin";
+          arch = "arm64";
+          sha256 = "sha256-MrVxDWo0HKFS2asGEd3O6J8Ld24sUfPlFmf1Pse9RgY="; # aarch64-darwin
+          url = "https://github.com/coder/coder/releases/download/v${version}/coder_${version}_${os}_${arch}.zip";
         };
       };
 
@@ -49,6 +53,8 @@
     handler = { pkgs, wrap, system }:
       wrap.genDownloadBuilders {
         dontFixup = true;
+
+        buildInputs = [ pkgs.unzip ];
       };
   };
 }
