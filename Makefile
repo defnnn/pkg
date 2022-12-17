@@ -13,6 +13,6 @@ sha:
 release:
 	 git tag $$(cat VERSION ); git push origin $$(cat VERSION )
 
-version:
+ver:
 	echo -n $(shell basename $(shell pwd))-$(version) > VERSION
 	if test -f VENDOR; then echo -n $(version) > VENDOR; fi
