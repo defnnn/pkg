@@ -1,10 +1,12 @@
 {
   inputs = {
-    dev.url = github:defn/pkg/dev-0.0.10?dir=dev;
+    dev.url = github:defn/pkg/dev-0.0.14?dir=dev;
   };
 
   outputs = inputs: inputs.dev.main {
     inherit inputs;
+
+    src = ./.;
 
     config = rec {
       slug = "code-server";
@@ -50,10 +52,19 @@
       '';
     };
 
-    handler = { pkgs, wrap, system }:
-      wrap.genDownloadBuilders {
-        dontFixup = true;
-        buildInputs = with pkgs; [ rsync ];
+    handler = { pkgs, wrap, system, builders }:
+      let
+        this = wrap.genDownloadBuilders
+          {
+            dontFixup = true;
+            buildInputs = with pkgs; [ rsync ];
+          };
+      in
+      this // {
+        apps.default = {
+          type = "app";
+          program = "${this.defaultPackage}/bin/code-server";
+        };
       };
   };
 }
