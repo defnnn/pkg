@@ -15,7 +15,7 @@ release:
 
 version ver:
 	echo -n $(shell basename $(shell pwd))-$(version) > VERSION
-	if test -f VENDOR; then echo -n $(version) > VENDOR; fi   25  for a in */; do (cd $a && nix build --print-out-paths | cachix push defn); done
+	if test -f VENDOR; then echo -n $(version) > VENDOR; fi 
 
 cache-input:
 	nix flake archive --json | jq -r '.path,(.inputs|to_entries[].value.path)' | cachix push defn
