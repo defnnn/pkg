@@ -286,7 +286,7 @@ FLAKE_POST:
 
     # flake build
     RUN . ~/.nix-profile/etc/profile.d/nix.sh \
-        && cd build && nix --extra-experimental-features nix-command --extra-experimental-features flakes build
+        && cd build && git add . && nix --extra-experimental-features nix-command --extra-experimental-features flakes build
 
     # flake store
     RUN ~/.nix-profile/bin/rsync -ia `nix-store -q -R ./build/result` store/ >/dev/null
