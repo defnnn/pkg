@@ -1,7 +1,20 @@
 {
   inputs = {
-    wrapper.url = github:defn/pkg/wrapper-0.0.11?dir=wrapper;
-    gomod2nix.url = github:defn/gomod2nix/1.5.0-1;
+    nixpkgs.url = github:NixOS/nixpkgs?rev=4d2b37a84fad1091b9de401eb450aae66f1a741e;
+    flake-utils.url = github:numtide/flake-utils?rev=04c1b180862888302ddfb2e3ad9eaa63afc60cf8;
+
+    wrapper = {
+      url = github:defn/pkg/wrapper-0.0.11?dir=wrapper;
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
+
+    gomod2nix = {
+      url = github:defn/gomod2nix/1.5.0-1;
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.utils.follows = "flake-utils";
+    };
+
     yaegi.url = github:defn/pkg/yaegi-0.14.3-1?dir=yaegi;
   };
 
