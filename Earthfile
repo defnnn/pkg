@@ -263,6 +263,11 @@ FLAKE_PRE:
 
     FROM +nix-root
 
+    # cachix
+    RUN . ~/.nix-profile/etc/profile.d/nix.sh \
+        && nix --extra-experimental-features nix-command --extra-experimental-features flakes profile install nixpkgs#cachix \
+        && cachix use defn
+
     # rsync
     RUN . ~/.nix-profile/etc/profile.d/nix.sh \
         && nix --extra-experimental-features nix-command --extra-experimental-features flakes profile install nixpkgs#rsync
