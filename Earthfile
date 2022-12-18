@@ -282,13 +282,9 @@ FLAKE_PRE:
 FLAKE_POST:
     COMMAND
 
-    # COPY flake.nix flake.lock VERSION .
-
     # flake build
     RUN . ~/.nix-profile/etc/profile.d/nix.sh \
-        && nix --extra-experimental-features nix-command --extra-experimental-features flakes build
+        && cd build && nix --extra-experimental-features nix-command --extra-experimental-features flakes build
 
     # flake store
-    RUN . ~/.nix-profile/etc/profile.d/nix.sh \
-        && nix --extra-experimental-features nix-command --extra-experimental-features flakes develop . --command \
-            rsync -ia `nix-store -q -R ./result` store/
+    RUN ~/.nix-profile/bin/rsync -ia `nix-store -q -R ./build/result` store/ >/dev/null
