@@ -8,11 +8,15 @@
     nixpkgs = inputs.nixpkgs;
     flake-utils = inputs.flake-utils;
 
-    wrap = { other, system, site }:
+    wrap = { other, system, site, src }:
       let
+        inherit src;
+
         pkgs = import inputs.nixpkgs { inherit system; };
+
         inputsList = (pkgs.lib.attrsets.mapAttrsToList (name: value: value) other);
         flakeInputs = pkgs.lib.lists.foldr hasDefaultPackage [ ] inputsList;
+
         hasDefaultPackage = (item: acc:
           acc ++
           (
@@ -35,6 +39,8 @@
           ));
       in
       rec {
+        inherit src;
+
         inherit flakeInputs;
 
         devShell = { devInputs ? [ ] }:
@@ -85,7 +91,7 @@
             installPhase = site.installPhase { inherit src; };
           };
 
-        bashBuilder = input@{ propagatedBuildInputs ? [ ], buildInputs ? [ ], src, installPhase, dontUnpack ? false, dontFixup ? false, slug ? "${site.slug}" }:
+        bashBuilder = input@{ propagatedBuildInputs ? [ ], buildInputs ? [ ], installPhase, dontUnpack ? false, dontFixup ? false, slug ? "${site.slug}" }:
           pkgs.stdenv.mkDerivation rec {
             name = "${slug}-${site.version}";
 
@@ -112,7 +118,7 @@
             installPhase = "mkdir -p $out";
           };
 
-        yaegiBuilder = { src, inputs }: bashBuilder {
+        yaegiBuilder = { inputs }: bashBuilder rec {
           inherit src;
 
           slug = "${site.slug}-yaegi";
@@ -132,7 +138,7 @@
           '';
         };
 
-        bbBuilder = { src, inputs }: bashBuilder {
+        bbBuilder = { inputs }: bashBuilder rec {
           inherit src;
 
           slug = "${site.slug}-bb";
