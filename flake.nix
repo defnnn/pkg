@@ -13,7 +13,9 @@
     };
 
     handler = { pkgs, wrap, system }: {
-      defaultPackage = wrap.nullBuilder { };
+      defaultPackage = wrap.nullBuilder {
+        propagatedBuildInputs = with pkgs; [ cachix ];
+      };
 
       packages.dev = inputs.dev.defaultPackage.${system};
     };
