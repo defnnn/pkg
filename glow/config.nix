@@ -1,5 +1,5 @@
 rec {
-  slug = "defn-pkg-glow";
+  slug = builtins.readFile ./SLUG;
   version = "1.4.1";
 
 

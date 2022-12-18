@@ -84,7 +84,7 @@
         '';
       };
 
-      handler = { pkgs, wrap, system }:
+      handler = { pkgs, wrap, system, builders }:
         wrap.genDownloadBuilders { };
     };
 }

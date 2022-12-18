@@ -1,13 +1,15 @@
 {
   inputs = {
-    dev.url = github:defn/pkg/dev-0.0.10?dir=dev;
+    dev.url = github:defn/pkg/dev-0.0.16?dir=dev;
   };
 
-  outputs = inputs: inputs.dev.main {
+  outputs = inputs: inputs.dev.main rec {
     inherit inputs;
 
+    src = builtins.path { path = ./.; name = config.slug; };
+
     config = rec {
-      slug = "acme";
+      slug = builtins.readFile ./SLUG;
       version = builtins.readFile ./VERSION;
       vendor = builtins.readFile ./VENDOR;
 
@@ -38,7 +40,7 @@
       '';
     };
 
-    handler = { pkgs, wrap, system }:
+    handler = { pkgs, wrap, system, builders }:
       let
         builds = wrap.genDownloadBuilders { dontUnpack = true; };
       in

@@ -1,5 +1,5 @@
 rec {
-  slug = "defn-pkg-gum";
+  slug = builtins.readFile ./SLUG;
   version = "0.8.0";
 
 

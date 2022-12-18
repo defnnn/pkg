@@ -1,15 +1,15 @@
 {
   inputs = {
-    dev.url = github:defn/pkg/dev-0.0.14?dir=dev;
+    dev.url = github:defn/pkg/dev-0.0.16?dir=dev;
   };
 
-  outputs = inputs: inputs.dev.main {
+  outputs = inputs: inputs.dev.main rec {
     inherit inputs;
 
-    src = ./.;
+    src = builtins.path { path = ./.; name = config.slug; };
 
     config = rec {
-      slug = "code-server";
+      slug = builtins.readFile ./SLUG;
       version = builtins.readFile ./VERSION;
       vendor = builtins.readFile ./VENDOR;
 

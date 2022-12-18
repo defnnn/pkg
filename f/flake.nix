@@ -1,17 +1,19 @@
 {
   inputs = {
-    dev.url = github:defn/pkg/dev-0.0.10?dir=dev;
+    dev.url = github:defn/pkg/dev-0.0.16?dir=dev;
   };
 
-  outputs = inputs: inputs.dev.main {
+  outputs = inputs: inputs.dev.main rec {
     inherit inputs;
 
+    src = builtins.path { path = ./.; name = config.slug; };
+
     config = rec {
-      slug = "f";
+      slug = builtins.readFile ./SLUG;
       version = builtins.readFile ./VERSION;
     };
 
-    handler = { pkgs, wrap, system }: {
+    handler = { pkgs, wrap, system, builders }: {
       defaultPackage = wrap.bashBuilder {
         src = ./bin;
         installPhase = ''

@@ -1,5 +1,5 @@
 rec {
-  slug = "defn-pkg-vhs";
+  slug = builtins.readFile ./SLUG;
   version = "0.1.1";
 
 
