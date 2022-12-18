@@ -72,8 +72,6 @@
         defaultPackage = wrap.bashBuilder {
           inherit src;
 
-          propagatedBuildInputs = [ pkgs.gomod2nix ];
-
           installPhase = ''
             set +f
             find $src
