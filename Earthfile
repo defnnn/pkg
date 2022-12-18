@@ -29,7 +29,7 @@ root:
         && apt-get update \
         && apt-get upgrade -y \
         && apt-get install -y --no-install-recommends \
-            apt-transport-https software-properties-common wget curl git xz-utils make \
+            wget curl git xz-utils make \
             tzdata locales \
             sudo tini \
         && apt-get install -y --no-install-recommends \
