@@ -13,6 +13,15 @@ sha:
 release:
 	 git tag $$(cat VERSION ); git push origin $$(cat VERSION )
 
-version:
+version ver:
 	echo -n $(shell basename $(shell pwd))-$(version) > VERSION
-	if test -f VENDOR; then echo -n $(version) > VENDOR; fi
+	if test -f VENDOR; then echo -n $(version) > VENDOR; fi   25  for a in */; do (cd $a && nix build --print-out-paths | cachix push defn); done
+
+cache-input:
+	nix flake archive --json | jq -r '.path,(.inputs|to_entries[].value.path)' | cachix push defn
+
+cache-build:
+	nix build --json | jq -r '.[].outputs | to_entries[].value' | cachix push defn
+
+cache:
+	$(MAKE) cache-input cache-build
