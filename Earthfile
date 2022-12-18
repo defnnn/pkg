@@ -278,6 +278,9 @@ FLAKE_PRE:
         && nix --extra-experimental-features nix-command --extra-experimental-features flakes develop \
             github:defn/pkg/0.0.78?dir=caddy --command true
 
+    # builx prep
+    RUN mkdir build && cd build && git init
+
 
 FLAKE_POST:
     COMMAND
