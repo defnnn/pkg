@@ -15,7 +15,7 @@
       inputs.utils.follows = "flake-utils";
     };
 
-    yaegi.url = github:defn/pkg/yaegi-0.14.3-1?dir=yaegi;
+    yaegi.url = github:defn/pkg/yaegi-0.14.3-2?dir=yaegi;
   };
 
   outputs = inputs:
@@ -58,21 +58,21 @@
         );
       };
     in
-    prelude // (prelude.main {
+    prelude // (prelude.main rec {
       inherit inputs;
 
-      src = ./.;
+      src = builtins.path { path = ./.; name = config.slug; };
 
       config = {
-        slug = "defn-pkg-dev";
+        slug = builtins.readFile ./SLUG;
         version = builtins.readFile ./VERSION;
       };
 
       handler = { pkgs, wrap, system, builders }: {
         defaultPackage = wrap.bashBuilder {
-          propagatedBuildInputs = [ pkgs.gomod2nix ];
+          inherit src;
 
-          src = ./.;
+          propagatedBuildInputs = [ pkgs.gomod2nix ];
 
           installPhase = ''
             set +f

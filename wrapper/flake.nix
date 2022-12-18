@@ -1,7 +1,7 @@
 {
   inputs = {
-    nixpkgs.url = github:NixOS/nixpkgs/22.11;
-    flake-utils.url = github:numtide/flake-utils;
+    nixpkgs.url = github:NixOS/nixpkgs?rev=4d2b37a84fad1091b9de401eb450aae66f1a741e;
+    flake-utils.url = github:numtide/flake-utils?rev=04c1b180862888302ddfb2e3ad9eaa63afc60cf8;
   };
 
   outputs = inputs: {
@@ -77,7 +77,7 @@
 
             src = with site.downloads.${overrideSystem}; pkgs.fetchurl {
               url = site.url_template site.downloads.${overrideSystem};
-              inherit sha256; # x86_64-darwin
+              inherit sha256;
             };
 
             sourceRoot = ".";
@@ -99,7 +99,7 @@
             installPhase = input.installPhase;
           };
 
-        nullBuilder = input@{ propagatedBuildInputs ? [ ], buildInputs ? [ ], dontUnpack ? false, dontFixup ? false }:
+        nullBuilder = input@{ propagatedBuildInputs ? [ ], buildInputs ? [ ], dontUnpack ? false, dontFixup ? false, slug ? "null-builder" }:
           bashBuilder rec {
             inherit dontUnpack;
             inherit dontFixup;
@@ -107,7 +107,7 @@
             inherit propagatedBuildInputs;
             inherit buildInputs;
 
-            src = ./.;
+            src = builtins.path { path = ./.; name = slug; };
 
             installPhase = "mkdir -p $out";
           };
