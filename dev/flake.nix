@@ -59,8 +59,7 @@
       };
     in
     prelude // (prelude.main rec {
-inherit inputs;
-src = builtins.path { path = ./.; name = config.slug; };
+      inherit inputs;
 
       src = builtins.path { path = ./.; name = config.slug; };
 
