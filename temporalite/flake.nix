@@ -18,13 +18,13 @@
           version = vendor;
           os = "linux";
           arch = "amd64";
-          sha256 = "sha256-aaaoHTov0j6FXnlrct3Nw9dhht8N76wHIrpYOBCNx9c="; # x86_64-linux
+          sha256 = "sha256-pui+Bd9YT6uW0yxFRtBlwTeHeSleIliPnphF5/iA3wI="; # x86_64-linux
         };
         "aarch64-linux" = {
           version = vendor;
           os = "linux";
           arch = "arm64";
-          sha256 = "sha256-aaaZ0K9jrc4LVXNzEtsNEHlKmefoz4WSundqcelHiNc="; # aarch64-linux
+          sha256 = "sha256-bcTYXitKBP6PrV44PkEdjedDIRMG0jCSj6BDGOZLBBU="; # aarch64-linux
         };
         "x86_64-darwin" = {
           version = vendor;
@@ -36,7 +36,7 @@
           version = vendor;
           os = "darwin";
           arch = "arm64";
-          sha256 = "sha256-aaaBR62Y3jJdkT08dY277/RE6GZ85NiXWrt208XuwFo="; # aarch64-darwin
+          sha256 = "sha256-K6jkAJFpC5wCTXgwNSSvKL5NJFa41RivP38TP31EWXc="; # aarch64-darwin
         };
       };
 
