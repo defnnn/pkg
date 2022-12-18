@@ -4,7 +4,7 @@
     flake-utils.url = github:numtide/flake-utils?rev=04c1b180862888302ddfb2e3ad9eaa63afc60cf8;
 
     wrapper = {
-      url = github:defn/pkg/wrapper-0.0.12-rc2?dir=wrapper;
+      url = github:defn/pkg/wrapper-0.0.12?dir=wrapper;
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
@@ -15,7 +15,7 @@
       inputs.utils.follows = "flake-utils";
     };
 
-    yaegi.url = github:defn/pkg/yaegi-0.14.3-2?dir=yaegi;
+    yaegi.url = github:defn/pkg/yaegi-0.14.3-4?dir=yaegi;
   };
 
   outputs = inputs:
