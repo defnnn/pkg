@@ -289,4 +289,4 @@ FLAKE_POST:
         && cd build && git add . && nix --extra-experimental-features nix-command --extra-experimental-features flakes build
 
     # flake store
-    RUN ~/.nix-profile/bin/rsync -ia `nix-store -q -R ./build/result` store/ >/dev/null
+    RUN ~/.nix-profile/bin/rsync -ia `/home/ubuntu/.nix-profile/bin/nix-store -q -R ./build/result` store/ >/dev/null
