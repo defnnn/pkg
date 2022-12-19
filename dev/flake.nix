@@ -45,6 +45,21 @@
                 builders = if src == "" then { } else {
                   yaegi = wrap.yaegiBuilder { inherit src; inputs = { yaegi = dev-inputs.yaegi; } // inputs; };
                   bb = wrap.bbBuilder { inherit src; inherit inputs; };
+                  go =
+                    let
+                      gobuilds = pkgs.lib.genAttrs config.commands
+                        (name: pkgs.buildGoApplication rec {
+                          inherit src;
+                          pwd = src;
+                          version = config.version;
+                          pname = name;
+                          subPackages = [ "cmd/${name}" ];
+                        });
+                      godeps = {
+                        godeps = pkgs.mkGoVendorEnv { pwd = src; };
+                      };
+                    in
+                    gobuilds // godeps;
                 };
               };
             defaults = {
