@@ -10,7 +10,7 @@
     };
 
     gomod2nix = {
-      url = github:defn/gomod2nix/1.5.0-1;
+      url = github:defn/gomod2nix/1.5.0-3;
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.utils.follows = "flake-utils";
     };
