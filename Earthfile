@@ -29,19 +29,14 @@ root:
         && apt-get update \
         && apt-get upgrade -y \
         && apt-get install -y --no-install-recommends \
-            wget curl git xz-utils make \
+            wget curl xz-utils make git direnv \
             tzdata locales \
             sudo tini \
         && apt-get install -y --no-install-recommends \
             procps iptables net-tools iputils-ping iproute2 dnsutils \
-        && apt purge -y nano
-
-    RUN groupadd -g 1000 ubuntu && useradd -u 1000 -d /home/ubuntu -s /bin/bash -g ubuntu -M ubuntu \
-        && echo '%ubuntu ALL=(ALL:ALL) NOPASSWD: ALL' > /etc/sudoers.d/ubuntu \
-        && install -d -m 0700 -o ubuntu -g ubuntu /home/ubuntu
-
-    RUN groupadd -g 1001 kuma && useradd -u 1001 -d /home/kuma -s /bin/bash -g kuma -M kuma \
-        && install -d -m 0700 -o kuma -g kuma /home/kuma
+        && apt purge -y nano \
+        && rm -f /usr/bin/gs \
+        && mkdir /run/sshd
 
     RUN apt update && apt upgrade -y
     RUN ln -sf /usr/share/zoneinfo/UTC /etc/localtime \
@@ -49,9 +44,11 @@ root:
         && locale-gen en_US.UTF-8 \
         && localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
 
-    RUN rm -f /usr/bin/gs \
-        && mkdir /run/sshd \
-        && install -d -m 0755 -o root -g root /run/user \
+    RUN groupadd -g 1000 ubuntu && useradd -u 1000 -d /home/ubuntu -s /bin/bash -g ubuntu -M ubuntu \
+        && echo '%ubuntu ALL=(ALL:ALL) NOPASSWD: ALL' > /etc/sudoers.d/ubuntu \
+        && install -d -m 0700 -o ubuntu -g ubuntu /home/ubuntu
+
+    RUN install -d -m 0755 -o root -g root /run/user \
         && install -d -m 0700 -o ubuntu -g ubuntu /run/user/1000 \
         && install -d -m 0700 -o kuma -g kuma /run/user/1001 \
         && ln -nfs /home/ubuntu/.nix-profile/bin/pinentry /usr/local/bin/pinentry
@@ -61,17 +58,16 @@ root:
 
     USER ubuntu
     WORKDIR /home/ubuntu
-
+    ENV USER=ubuntu
     ENV HOME=/home/ubuntu
+    ENV LOCAL_ARCHIVE=/usr/lib/locale/locale-archive
+    ENV LC_ALL=C.UTF-8
+    CMD []
 
 nix:
     ARG arch
 
     FROM +root --arch=${arch}
-
-    ENV USER=ubuntu
-    ENV LOCAL_ARCHIVE=/usr/lib/locale/locale-archive
-    ENV LC_ALL=C.UTF-8
 
     # nix
     RUN curl -L https://nixos.org/nix/install > nix-install.sh && sh nix-install.sh --no-daemon --no-modify-profile && rm -f nix-install.sh && chmod 0755 /nix && sudo rm -f /bin/man
@@ -79,14 +75,10 @@ nix:
     RUN . ~/.nix-profile/etc/profile.d/nix.sh \
             && ~/.nix-profile/bin/nix --extra-experimental-features nix-command --extra-experimental-features flakes \
                 profile install \
-                    github:defn/pkg?dir=prelude\&ref=v0.0.5 nixpkgs#nix-direnv nixpkgs#direnv
+                    github:defn/pkg?dir=prelude nixpkgs#nix-direnv
 
 nix-root:
     FROM +root
-
-    ENV USER=ubuntu
-    ENV LOCAL_ARCHIVE=/usr/lib/locale/locale-archive
-    ENV LC_ALL=C.UTF-8
 
     # nix
     RUN sudo install -d -m 0755 -o ubuntu -g ubuntu /nix
@@ -133,14 +125,7 @@ nix-ubuntu:
     COPY entrypoint /entrypoint
 
     USER ubuntu
-    ENV HOME=/home/ubuntu
-    ENV USER=ubuntu
-    ENV LOCAL_ARCHIVE=/usr/lib/locale/locale-archive
-    ENV LC_ALL=C.UTF-8
-    WORKDIR /home/ubuntu
-
     ENTRYPOINT ["/entrypoint"]
-    CMD []
 
 nix-local:
     FROM +nix-root
