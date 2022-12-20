@@ -10,6 +10,10 @@ function main {
 
 	local slug="$(cat SLUG)"
 
+	if [[ "" == "$(git rev-parse --show-cdup)" ]]; then
+		slug=
+	fi
+
 	if [[ -f VERSION ]]; then
 		version="$(cat VERSION)"
 	fi
@@ -24,7 +28,7 @@ function main {
 
 	local tag=
 	if [[ -n "${version}" ]]; then
-		tag="${slug}-${version}"
+		tag="${slug:+${slug}-}${version}"
 	else
 		tag="${slug}${vendor:+-${vendor}}${revision:+-${revision}}"
 	fi
