@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+function main {
+	set -efu
+
+	local slug=
+	local version=
+	local vendor=
+	local revision=
+
+	local slug="$(cat SLUG)"
+
+	if [[ -f VERSION ]]; then
+		version="$(cat VERSION)"
+	fi
+
+	if [[ -f VENDOR ]]; then
+		vendor="$(cat VENDOR)"
+	fi
+
+	if [[ -f REVISION ]]; then
+		revision="$(cat REVISION)"
+	fi
+
+	local tag=
+	if [[ -n "${version}" ]]; then
+		tag="${slug}-${version}"
+	else
+		tag="${slug}${vendor:+-${vendor}}${revision:+-${revision}}"
+	fi
+
+	echo "${tag}"
+}
+
+source sub "$0" "$@"
