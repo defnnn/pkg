@@ -16,10 +16,10 @@ function main {
 
 	if [[ -f VENDOR ]]; then
 		vendor="$(cat VENDOR)"
-	fi
 
-	if [[ -f REVISION ]]; then
-		revision="$(cat REVISION)"
+		if [[ -f REVISION ]]; then
+			revision="$(cat REVISION)"
+		fi
 	fi
 
 	local tag=

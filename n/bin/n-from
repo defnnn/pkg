@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+function main {
+	set -efu
+
+	git log --decorate . | grep '(tag: ' | grep ^commit | head -1 | awk '{print $NF}' | cut -d')' -f1
+}
+
+source sub "$0" "$@"
