@@ -3,7 +3,7 @@
 function main {
 	set -efu
 
-	echo hello
+	exec nix "$@"
 }
 
 source sub "$0" "$@"
