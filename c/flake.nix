@@ -1,6 +1,6 @@
 {
   inputs = {
-    dev.url = github:defn/pkg/dev-0.0.17?dir=dev;
+    dev.url = github:defn/pkg/dev-0.0.18?dir=dev;
     cue.url = "github:defn/pkg/cue-0.4.3-3?dir=cue";
     hof.url = "github:defn/pkg/hof-0.6.7-4?dir=hof";
   };
@@ -24,7 +24,10 @@
           chmod 755 $out/bin/*
         '';
 
-        propagatedBuildInputs = wrap.flakeInputs;
+        propagatedBuildInputs = [
+          inputs.cue.defaultPackage.${system}
+          inputs.hof.defaultPackage.${system}
+        ];
       };
     };
   };
