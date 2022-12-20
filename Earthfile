@@ -30,7 +30,7 @@ root:
         && apt-get upgrade -y \
         && apt-get install -y --no-install-recommends \
             wget curl xz-utils make git direnv \
-            tzdata locales \
+            tzdata locales ca-certificates \
             sudo tini \
         && apt-get install -y --no-install-recommends \
             procps iptables net-tools iputils-ping iproute2 dnsutils \
