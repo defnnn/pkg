@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+function main {
+	set -efu
+
+    nix build --json | jq -r '.[].outputs | to_entries[].value' | xargs nix copy --to 'file:///tmp/cache/nix?compression-level=0&parallel-compression=true'
+}
+
+source sub "$0" "$@"

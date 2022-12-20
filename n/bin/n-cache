@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+function main {
+	set -efu
+
+	n cache input
+	n cache build
+}
+
+source sub "$0" "$@"
