@@ -1,7 +1,7 @@
 {
   inputs = {
     dev.url = github:defn/pkg/dev-0.0.18?dir=dev;
-    c.url = github:defn/pkg/c-0.0.2?dir=c;
+    c.url = github:defn/pkg/c-0.0.3?dir=c;
     n.url = github:defn/pkg/n-0.0.5?dir=n;
     f.url = github:defn/pkg/f-0.0.1-3?dir=f;
     tf.url = github:defn/pkg/tf-0.0.1-3?dir=tf;
