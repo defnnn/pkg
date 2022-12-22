@@ -46,21 +46,10 @@
         genDownloadBuilders = commonBuild: {
           defaultPackage = downloadBuilder commonBuild;
 
-          packages."aarch64-linux" = downloadBuilder (commonBuild // {
-            overrideSystem = "aarch64-linux";
-          });
-
-          packages."x86_64-linux" = downloadBuilder (commonBuild // {
-            overrideSystem = "x86_64-linux";
-          });
-
-          packages."aarch64-darwin" = downloadBuilder (commonBuild // {
-            overrideSystem = "aarch64-darwin";
-          });
-
-          packages."x86_64-darwin" = downloadBuilder (commonBuild // {
-            overrideSystem = "x86_64-darwin";
-          });
+          package = pkgs.lib.genAttrs [ "aarch64-linux" "x86_64-linux" "aarch64-darwin" "x86_64-darwin" ]
+            (name: downloadBuilder (commonBuild // {
+              overrideSystem = name;
+            }));
         };
 
         downloadBuilder = { propagatedBuildInputs ? [ ], buildInputs ? [ ], dontUnpack ? false, dontFixup ? false, overrideSystem ? system }:
