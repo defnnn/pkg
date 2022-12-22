@@ -4,9 +4,8 @@
     flake-utils.url = github:numtide/flake-utils?rev=04c1b180862888302ddfb2e3ad9eaa63afc60cf8;
 
     wrapper = {
-      url = github:defn/pkg/wrapper-0.0.12?dir=wrapper;
+      url = github:defn/pkg/wrapper-0.0.13?dir=wrapper;
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
     };
 
     gomod2nix = {
@@ -23,7 +22,7 @@
       prelude = rec {
         wrapper = inputs.wrapper;
 
-        eachDefaultSystem = wrapper.flake-utils.lib.eachDefaultSystem;
+        eachDefaultSystem = inputs.flake-utils.lib.eachDefaultSystem;
 
         gomod2nixOverlay = inputs.gomod2nix.overlays.default;
 
