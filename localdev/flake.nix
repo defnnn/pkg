@@ -4,6 +4,7 @@
     coder.url = github:defn/pkg/coder-0.13.5-0?dir=coder;
     codeserver.url = github:defn/pkg/codeserver-4.9.1-3?dir=codeserver;
     terraform.url = github:defn/pkg/terraform-1.3.4?dir=terraform;
+    latest.url = github:NixOS/nixpkgs?rev=4938e72add339f76d795284cb5a3aae85d02ee53;
   };
 
   outputs = inputs:
@@ -26,12 +27,13 @@
             gotools
             go-tools
             golangci-lint
-            gopls
             go-outline
             gopkgs
             delve
 
             nodejs-18_x
+          ]) ++ (with (import inputs.latest { inherit system; }); [
+            gopls
           ]);
         };
 

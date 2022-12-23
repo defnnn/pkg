@@ -331,6 +331,22 @@
         "type": "github"
       }
     },
+    "latest": {
+      "locked": {
+        "lastModified": 1671043181,
+        "narHash": "sha256-AnXU81L8qX5GR7eo+xReYGjJW279rV1GEdvfWeS9rk0=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "4938e72add339f76d795284cb5a3aae85d02ee53",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "4938e72add339f76d795284cb5a3aae85d02ee53",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1669833724,
@@ -448,6 +464,7 @@
         "coder": "coder",
         "codeserver": "codeserver",
         "dev": "dev_3",
+        "latest": "latest",
         "terraform": "terraform"
       }
     },
