@@ -87,6 +87,10 @@ nix-root:
         && chmod 0755 /nix \
         && sudo rm -f /bin/man
 
+    # nix config
+    RUN mkdir -p ~/.config/nix
+    COPY nix.conf ~/.config/nix/nix.conf
+
 nix-ubuntu:
     ARG arch
 
@@ -246,10 +250,6 @@ FLAKE_PRE:
     COMMAND
 
     FROM +nix-root
-
-    # nix config
-    RUN mkdir -p ~/.config/nix
-    COPY nix.conf ~/.config/nix/nix.conf
 
     # cachix
     RUN --mount=type=cache,target=/tmp/cache/nix \
