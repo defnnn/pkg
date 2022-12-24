@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+function main {
+	set -efu
+
+    nix flake archive --json | jq -r '.path,(.inputs|to_entries[].value.path)'
+    nix build --json | jq -r '.[].outputs | to_entries[].value'
+}
+
+source sub "$0" "$@"

@@ -3,7 +3,7 @@
 function main {
 	set -efu
 
-	n stores | n cache local
+    cachix push "$@"
 }
 
 source sub "$0" "$@"
