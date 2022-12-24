@@ -3,7 +3,11 @@
 function main {
 	set -efu
 
-	n stores | n cache local
+	if [[ "$#" == 0 ]]; then
+		n stores | n cache local
+	else
+		n stores | n cache remote "$@"
+	fi
 }
 
 source sub "$0" "$@"
