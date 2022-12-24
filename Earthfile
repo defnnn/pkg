@@ -247,18 +247,28 @@ FLAKE_PRE:
 
     FROM +nix-root
 
+    # nix config
+    RUN mkdir -p ~/.config/nix
+    COPY nix.conf ~/.config/nix/nix.conf
+
     # cachix
-    RUN . ~/.nix-profile/etc/profile.d/nix.sh \
+    RUN --mount=type=cache,target=/tmp/cache/nix \
+        sudo install -d -m 0755 -o ubuntu -g ubuntu /tmp/cache/nix \
+        && . ~/.nix-profile/etc/profile.d/nix.sh \
         && nix --extra-experimental-features nix-command --extra-experimental-features flakes profile install nixpkgs#cachix \
         && cachix use defn
 
     # rsync
-    RUN . ~/.nix-profile/etc/profile.d/nix.sh \
+    RUN --mount=type=cache,target=/tmp/cache/nix \
+        sudo install -d -m 0755 -o ubuntu -g ubuntu /tmp/cache/nix \
+        && . ~/.nix-profile/etc/profile.d/nix.sh \
         && nix --extra-experimental-features nix-command --extra-experimental-features flakes profile install nixpkgs#rsync
 
     # flake build
     RUN mkdir store
-    RUN . ~/.nix-profile/etc/profile.d/nix.sh \
+    RUN --mount=type=cache,target=/tmp/cache/nix \
+        sudo install -d -m 0755 -o ubuntu -g ubuntu /tmp/cache/nix \
+        && . ~/.nix-profile/etc/profile.d/nix.sh \
         && nix --extra-experimental-features nix-command --extra-experimental-features flakes develop \
             github:defn/pkg/0.0.78?dir=caddy --command true
 
@@ -269,8 +279,15 @@ FLAKE_POST:
     COMMAND
 
     # flake build
-    RUN . ~/.nix-profile/etc/profile.d/nix.sh \
+    RUN --mount=type=cache,target=/tmp/cache/nix \
+        sudo install -d -m 0755 -o ubuntu -g ubuntu /tmp/cache/nix \
+        && . ~/.nix-profile/etc/profile.d/nix.sh \
         && cd build && git add . && nix --extra-experimental-features nix-command --extra-experimental-features flakes build
+        
+    # cache
+    RUN --mount=type=cache,target=/tmp/cache/nix --secret CACHIX_AUTH_TOKEN --secret CACHIX_SIGNING_KEY \
+        sudo install -d -m 0755 -o ubuntu -g ubuntu /tmp/cache/nix \
+        && (~/.nix-profile/bin/nix path-info --all | ~/bin/e n cache)
 
     # flake store
     RUN ~/.nix-profile/bin/rsync -ia `/home/ubuntu/.nix-profile/bin/nix-store -q -R ./build/result` store/ >/dev/null
