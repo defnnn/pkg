@@ -251,13 +251,6 @@ FLAKE_PRE:
 
     FROM +nix-root
 
-    # cachix
-    RUN --mount=type=cache,target=/tmp/cache/nix \
-        sudo install -d -m 0755 -o ubuntu -g ubuntu /tmp/cache/nix \
-        && . ~/.nix-profile/etc/profile.d/nix.sh \
-        && nix profile install nixpkgs#cachix \
-        && cachix use defn
-
     # rsync
     RUN --mount=type=cache,target=/tmp/cache/nix \
         sudo install -d -m 0755 -o ubuntu -g ubuntu /tmp/cache/nix \
@@ -272,7 +265,7 @@ FLAKE_PRE:
         && nix develop \
             github:defn/pkg/0.0.78?dir=caddy --command true
 
-    # builx prep
+    # build prep
     RUN mkdir build && cd build && git init
 
 FLAKE_POST:
