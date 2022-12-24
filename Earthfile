@@ -287,7 +287,7 @@ FLAKE_POST:
     # cache
     RUN --mount=type=cache,target=/tmp/cache/nix --secret CACHIX_AUTH_TOKEN --secret CACHIX_SIGNING_KEY \
         sudo install -d -m 0755 -o ubuntu -g ubuntu /tmp/cache/nix \
-        && (~/.nix-profile/bin/nix path-info --all | ~/bin/e n cache)
+        && (~/.nix-profile/bin/nix path-info --all | xargs nix copy --verbose --to 'file:///tmp/cache/nix?compression-level=0&parallel-compression=true')
 
     # flake store
     RUN ~/.nix-profile/bin/rsync -ia `/home/ubuntu/.nix-profile/bin/nix-store -q -R ./build/result` store/ >/dev/null
