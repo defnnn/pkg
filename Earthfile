@@ -89,7 +89,7 @@ nix-root:
 
     # nix config
     RUN mkdir -p ~/.config/nix
-    COPY nix.conf ~/.config/nix/nix.conf
+    COPY nix.conf /home/ubuntu/.config/nix/nix.conf
 
 nix-ubuntu:
     ARG arch
