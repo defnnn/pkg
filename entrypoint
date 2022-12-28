@@ -4,7 +4,7 @@ set -exfu
 
 # initialize /nix
 if [[ -d /nix-install ]]; then
-    if [[ ! test -d /nix/var/nix/profiles/per-user/ubuntu/profile/. ]]; then
+    if [[ ! -d /nix/var/nix/profiles/per-user/ubuntu/profile/. ]]; then
         rsync -ia /nix-install/. /nix/.
     else
         rsync -ia /nix-install/store/. /nix/store/.
