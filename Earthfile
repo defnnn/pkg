@@ -109,7 +109,7 @@ nix-ubuntu:
     RUN dpkg-divert --local --rename --add /sbin/udevadm && ln -s /bin/true /sbin/udevadm \
         && apt-get update \
         && apt-get upgrade -y \
-        && apt-get install -y --no-install-recommends tzdata locales ca-certificates \
+        && apt-get install -y --no-install-recommends tzdata locales ca-certificates curl xz-utils rsync \
         && apt-get clean
 
     RUN groupadd -g 1000 ubuntu && useradd -u 1000 -d /home/ubuntu -s /bin/bash -g ubuntu -M ubuntu \

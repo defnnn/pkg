@@ -2,6 +2,11 @@
 
 set -exfu
 
+# initialize /nix
+if [[ -d /nix-install ]]; then
+    rsync -ia /nix-install/. /nix/.
+fi
+
 # put every nix store into the path
 set +f; for a in /nix/store/*/bin; do PATH="$PATH:$a"; done; set -e
 
