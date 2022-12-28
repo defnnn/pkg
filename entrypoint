@@ -11,8 +11,17 @@ if [[ -d /nix-install ]]; then
     fi
 fi
 
-# put every nix store into the path
-set +f; for a in /nix/store/*/bin; do PATH="$PATH:$a"; done; set -e
+. /home/ubuntu/.nix-profile/etc/profile.d/nix.sh
+if [[ ! -f ~/.nix-profile/share/nix-direnv/direnvrc ]]; then
+    nix profile install nixpkgs#nix-direnv
+fi
+echo "source $HOME/.nix-profile/share/nix-direnv/direnvrc" > ~/.direnvrc
+
+# initial flake from /app
+cd /app
+eval "$(direnv hook bash)"
+touch flake.nix
+_direnv_hook
 
 # one of the nix stores has an executable "nix-entrypoint"
 exec "nix-entrypoint" "$@"
