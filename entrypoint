@@ -3,7 +3,7 @@
 set -exfu
 
 # initialize /nix
-if [[ -d /nix-install ]]; then
+if [[ -d /nix-install && ! -d /nix/var/nix/profiles/per-user/ubuntu/profile/. ]]; then
     rsync -ia /nix-install/. /nix/.
 fi
 
