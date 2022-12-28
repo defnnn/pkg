@@ -3,8 +3,12 @@
 set -exfu
 
 # initialize /nix
-if [[ -d /nix-install && ! -d /nix/var/nix/profiles/per-user/ubuntu/profile/. ]]; then
-    rsync -ia /nix-install/. /nix/.
+if [[ -d /nix-install ]]; then
+    if [[ ! test -d /nix/var/nix/profiles/per-user/ubuntu/profile/. ]]; then
+        rsync -ia /nix-install/. /nix/.
+    else
+        rsync -ia /nix-install/store/. /nix/store/.
+    fi
 fi
 
 # put every nix store into the path
