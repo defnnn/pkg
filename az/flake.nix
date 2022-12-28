@@ -25,6 +25,7 @@
           inputs.n.defaultPackage.${system}
           inputs.f.defaultPackage.${system}
           inputs.tf.defaultPackage.${system}
+          inputs.gum.defaultPackage.${system}
         ];
       };
     };
