@@ -122,6 +122,7 @@ nix-ubuntu:
 
     RUN install -d -m 0755 -o root -g root /run/user \
         && install -d -m 0700 -o ubuntu -g ubuntu /run/user/1000
+        && install -d -m 0700 -o ubuntu -g ubuntu /app
 
     RUN chown -R ubuntu:ubuntu /home/ubuntu
 
