@@ -130,6 +130,7 @@ nix-ubuntu:
 
     USER ubuntu
     ENTRYPOINT ["/entrypoint"]
+    WORKDIR /app
     ENV USER=ubuntu
     ENV LOCAL_ARCHIVE=/usr/lib/locale/locale-archive
     ENV LC_ALL=C.UTF-8
