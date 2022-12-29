@@ -21,6 +21,7 @@ echo "source $HOME/.nix-profile/share/nix-direnv/direnvrc" > ~/.direnvrc
 cd /app
 eval "$(direnv hook bash)"
 touch flake.nix
+direnv allow
 _direnv_hook
 
 # one of the nix stores has an executable "nix-entrypoint"
