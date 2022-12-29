@@ -121,7 +121,7 @@ nix-ubuntu:
         && localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
 
     RUN install -d -m 0755 -o root -g root /run/user \
-        && install -d -m 0700 -o ubuntu -g ubuntu /run/user/1000
+        && install -d -m 0700 -o ubuntu -g ubuntu /run/user/1000 \
         && install -d -m 0700 -o ubuntu -g ubuntu /app
 
     RUN chown -R ubuntu:ubuntu /home/ubuntu
