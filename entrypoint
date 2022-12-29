@@ -15,7 +15,6 @@ fi
 if [[ ! -f ~/.nix-profile/share/nix-direnv/direnvrc ]]; then
     nix profile install nixpkgs#nix-direnv
 fi
-echo "source $HOME/.nix-profile/share/nix-direnv/direnvrc" > ~/.direnvrc
 
 # initial flake from /app
 cd /app

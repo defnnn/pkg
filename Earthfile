@@ -135,6 +135,8 @@ nix-ubuntu:
     ENV LOCAL_ARCHIVE=/usr/lib/locale/locale-archive
     ENV LC_ALL=C.UTF-8
 
+    COPY .direnvrc /home/ubuntu/.direnvrc
+
 nix-local:
     FROM +nix-root
 
