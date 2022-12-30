@@ -17,11 +17,11 @@ if [[ ! -f ~/.nix-profile/share/nix-direnv/direnvrc ]]; then
 fi
 
 # initial flake from /app
-cd /app
+set +x
 eval "$(direnv hook bash)"
-touch flake.nix
 direnv allow
 _direnv_hook
+set -x
 
 # one of the nix stores has an executable "nix-entrypoint"
 exec "nix-entrypoint" "$@"
