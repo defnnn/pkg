@@ -63,35 +63,7 @@ root:
     ENV LC_ALL=C.UTF-8
     CMD []
 
-nix:
-    ARG arch
-
-    FROM +root --arch=${arch}
-
-    # nix
-    RUN curl -L https://nixos.org/nix/install > nix-install.sh && sh nix-install.sh --no-daemon --no-modify-profile && rm -f nix-install.sh && chmod 0755 /nix && sudo rm -f /bin/man
-
-    RUN . ~/.nix-profile/etc/profile.d/nix.sh \
-            && ~/.nix-profile/bin/nix --extra-experimental-features nix-command --extra-experimental-features flakes \
-                profile install \
-                    github:defn/pkg?dir=prelude nixpkgs#nix-direnv
-
 nix-root:
-    FROM +root
-
-    # nix
-    RUN sudo install -d -m 0755 -o ubuntu -g ubuntu /nix
-    RUN curl -L https://nixos.org/nix/install > nix-install.sh \
-        && sh nix-install.sh --no-daemon --no-modify-profile \
-        && rm -f nix-install.sh \
-        && chmod 0755 /nix \
-        && sudo rm -f /bin/man
-
-    # nix config
-    RUN mkdir -p ~/.config/nix
-    COPY nix.conf /home/ubuntu/.config/nix/nix.conf
-
-nix-ubuntu:
     ARG arch
 
     FROM +ubuntu --arch=${arch}
@@ -137,152 +109,39 @@ nix-ubuntu:
 
     COPY .direnvrc /home/ubuntu/.direnvrc
 
-nix-local:
-    FROM +nix-root
+flake-root:
+    FROM +root
 
-    # flake
-    COPY flake.nix flake.lock VERSION .
-    RUN . ~/.nix-profile/etc/profile.d/nix.sh \
-            && ~/.nix-profile/bin/nix --extra-experimental-features nix-command --extra-experimental-features flakes build path:. \
-            && mkdir store \
-            && sudo mv `/home/ubuntu/.nix-profile/bin/nix-store -q -R ./result` store/
+    # nix
+    RUN sudo install -d -m 0755 -o ubuntu -g ubuntu /nix
+    RUN curl -L https://nixos.org/nix/install > nix-install.sh && sh nix-install.sh --no-daemon --no-modify-profile && rm -f nix-install.sh && chmod 0755 /nix 
 
-    SAVE ARTIFACT store
+    # nix config
+    RUN mkdir -p ~/.config/nix
+    COPY nix.conf /home/ubuntu/.config/nix/nix.conf
 
-nix-install:
-    ARG arch
-    ARG install
+    # rsync
+    RUN . ~/.nix-profile/etc/profile.d/nix.sh && nix profile install nixpkgs#rsync
 
-    FROM +nix --arch=${arch}
+    # flake build
+    RUN . ~/.nix-profile/etc/profile.d/nix.sh && nix develop github:defn/pkg/0.0.78?dir=caddy --command true
 
-    RUN . ~/.nix-profile/etc/profile.d/nix.sh \
-            && ~/.nix-profile/bin/nix --extra-experimental-features nix-command --extra-experimental-features flakes \
-                build ${install} && mkdir store && sudo mv `/home/ubuntu/.nix-profile/bin/nix-store -q -R ./result` store/
+    # build prep
+    RUN mkdir build && cd build && git init
 
-    SAVE ARTIFACT store
-
-nix-dir:
-    ARG image
-    ARG arch
-    ARG dir
-    ARG ref
-
-    FROM +root --arch=${arch}
-
-    RUN (echo '#!/usr/bin/env bash'; echo 'source ~ubuntu/.bashrc; exec "$@"') | sudo tee /entrypoint && sudo chmod 755 /entrypoint
-    ENTRYPOINT ["/entrypoint"]
-
-    COPY --chown=ubuntu:ubuntu --symlink-no-follow --dir (+nix-install/* --arch=${arch} --install="github:defn/pkg?dir=${dir}&ref=${ref}") /nix/
-    RUN (echo; echo export PATH=/bin`for a in /nix/store/*/bin; do echo -n ":$a"; done`; echo) >> .bashrc
-
-    IF [ "$image" != "" ]
-        SAVE IMAGE --push ${image}
-    END
-
-alpine-nix-dir:
-    ARG image
-    ARG arch
-    ARG dir
-    ARG ref
-
-    FROM alpine
-
-    RUN apk add bash gcompat
-
-    RUN (echo '#!/usr/bin/env bash'; echo 'source /.bashrc; exec "$@"') | tee /entrypoint && chmod 755 /entrypoint
-    ENTRYPOINT ["/entrypoint"]
-
-    COPY --symlink-no-follow --dir (+nix-install/* --arch=${arch} --install="github:defn/pkg?dir=${dir}&ref=${ref}") /nix/
-    RUN (echo; echo export PATH=/bin`for a in /nix/store/*/bin; do echo -n ":$a"; done`; echo) >> .bashrc
-
-    IF [ "$image" != "" ]
-        SAVE IMAGE --push ${image}
-    END
-
-ubuntu-nix-dir:
-    ARG image
-    ARG arch
-    ARG dir
-    ARG ref
-
-    FROM ubuntu
-
-    RUN (echo '#!/usr/bin/env bash'; echo 'source /.bashrc; exec "$@"') | tee /entrypoint && chmod 755 /entrypoint
-    ENTRYPOINT ["/entrypoint"]
-
-    COPY --symlink-no-follow --dir (+nix-install/* --arch=${arch} --install="github:defn/pkg?dir=${dir}&ref=${ref}") /nix/
-    RUN (echo; echo export PATH=/bin`for a in /nix/store/*/bin; do echo -n ":$a"; done`; echo) >> .bashrc
-
-    IF [ "$image" != "" ]
-        SAVE IMAGE --push ${image}
-    END
-
-nix-pkg:
-    ARG image
-    ARG arch
-    ARG pkg
-
-    FROM +root --arch=${arch}
-
-    RUN (echo '#!/usr/bin/env bash'; echo 'source ~ubuntu/.bashrc; exec "$@"') | sudo tee /entrypoint && sudo chmod 755 /entrypoint
-    ENTRYPOINT ["/entrypoint"]
-
-    COPY --chown=ubuntu:ubuntu --symlink-no-follow --dir (+nix-install/* --arch=${arch} --install="nixpkgs#${pkg}") /nix/
-    RUN (echo; echo export PATH=/bin`for a in /nix/store/*/bin; do echo -n ":$a"; done`; echo) >> .bashrc
-
-    IF [ "$image" != "" ]
-        SAVE IMAGE --push ${image}
-    END
-
-alpine-nix-pkg:
-    ARG image
-    ARG arch
-    ARG pkg
-
-    FROM alpine
-
-    RUN apk add bash gcompat
-
-    RUN (echo '#!/usr/bin/env bash'; echo 'source /.bashrc; exec "$@"') | tee /entrypoint && chmod 755 /entrypoint
-    ENTRYPOINT ["/entrypoint"]
-
-    COPY --chown=ubuntu:ubuntu --symlink-no-follow --dir (+nix-install/* --arch=${arch} --install="nixpkgs#${pkg}") /nix/
-    RUN (echo; echo export PATH=/bin`for a in /nix/store/*/bin; do echo -n ":$a"; done`; echo) >> .bashrc
-
-    IF [ "$image" != "" ]
-        SAVE IMAGE --push ${image}
-    END
+    # store
+    RUN mkdir store
 
 FLAKE_PRE:
     COMMAND
 
     FROM ghcr.io/defn/dev:latest-flake-root
 
-    # rsync
-    RUN --mount=type=cache,target=/tmp/cache/nix \
-        sudo install -d -m 0755 -o ubuntu -g ubuntu /tmp/cache/nix \
-        && . ~/.nix-profile/etc/profile.d/nix.sh \
-        && nix profile install nixpkgs#rsync
-
-    # flake build
-    RUN mkdir store
-    RUN --mount=type=cache,target=/tmp/cache/nix \
-        sudo install -d -m 0755 -o ubuntu -g ubuntu /tmp/cache/nix \
-        && . ~/.nix-profile/etc/profile.d/nix.sh \
-        && nix develop \
-            github:defn/pkg/0.0.78?dir=caddy --command true
-
-    # build prep
-    RUN mkdir build && cd build && git init
-
 FLAKE_POST:
     COMMAND
 
     # flake build
-    RUN --mount=type=cache,target=/tmp/cache/nix \
-        sudo install -d -m 0755 -o ubuntu -g ubuntu /tmp/cache/nix \
-        && . ~/.nix-profile/etc/profile.d/nix.sh \
-        && cd build && git add . && nix build
+    RUN . ~/.nix-profile/etc/profile.d/nix.sh && cd build && git add . && nix build
         
     # flake store
     RUN ~/.nix-profile/bin/rsync -ia `/home/ubuntu/.nix-profile/bin/nix-store -q -R ./build/result` store/ >/dev/null
