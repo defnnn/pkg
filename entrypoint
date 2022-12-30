@@ -11,7 +11,7 @@ if [[ -d /nix-install ]]; then
     fi
 fi
 
-. /home/ubuntu/.nix-profile/etc/profile.d/nix.sh
+set +x; . /home/ubuntu/.nix-profile/etc/profile.d/nix.sh; set -x
 if [[ ! -f ~/.nix-profile/share/nix-direnv/direnvrc ]]; then
     nix profile install nixpkgs#nix-direnv
 fi
