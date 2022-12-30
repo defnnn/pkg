@@ -256,7 +256,7 @@ alpine-nix-pkg:
 FLAKE_PRE:
     COMMAND
 
-    FROM +nix-root
+    FROM ghcr.io/defn/dev:latest-flake-root
 
     # rsync
     RUN --mount=type=cache,target=/tmp/cache/nix \
