@@ -36,12 +36,12 @@
         inherit flakeInputs;
 
         devShell = { devInputs ? [ ] }:
-          pkgs.mkShell
-            rec {
-              buildInputs =
-                [ other.self.defaultPackage.${system} ]
-                ++ flakeInputs ++ devInputs;
-            };
+          pkgs.stdenvNoCC.mkDerivation {
+            name = "${site.slug}-shell-${site.version}";
+            buildInputs =
+              [ other.self.defaultPackage.${system} ]
+              ++ devInputs;
+          };
 
         genDownloadBuilders = commonBuild: {
           defaultPackage = downloadBuilder commonBuild;
