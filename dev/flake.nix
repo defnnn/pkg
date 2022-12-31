@@ -63,9 +63,7 @@
               };
             defaults = {
               slug = config.slug;
-              devShell = wrap.devShell {
-                devInputs = [ pkgs.gomod2nix ];
-              };
+              devShell = wrap.devShell { };
             };
           in
           defaults // handled
