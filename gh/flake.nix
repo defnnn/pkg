@@ -39,7 +39,7 @@
           version = vendor;
           os = "macos";
           arch = "amd64"; # no arm64 macos
-          sha256 = "sha256-aaaQflkuAP73RrMcWWNu9CPzlzMcEWPMCTWoJL2ioxM="; # aarch64-darwin
+          sha256 = "sha256-lO4DfGGOhlEHwZftWBwymB0/hnjyMVJfDr3Fli0pFL4="; # aarch64-darwin
         };
       };
 
