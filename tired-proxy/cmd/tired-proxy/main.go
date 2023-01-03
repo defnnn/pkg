@@ -47,8 +47,8 @@ func main() {
 		return func(w http.ResponseWriter, r *http.Request) {
 			idle.timer.Reset(idle.idle)
 			log.Println(r.URL)
-			log.Println(r.Header["Host"][0])
-			r.Header.Set("x-ben", r.Header["Host"][0])
+			log.Println(r.Host)
+			r.Header.Set("x-ben", r.Host)
 			r.Host = remote.Host
 			p.ServeHTTP(w, r)
 		}
