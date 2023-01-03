@@ -38,7 +38,7 @@
         "aarch64-darwin" = {
           version = vendor;
           os = "macos";
-          arch = "arm64";
+          arch = "amd64"; # no arm64 macos
           sha256 = "sha256-aaaQflkuAP73RrMcWWNu9CPzlzMcEWPMCTWoJL2ioxM="; # aarch64-darwin
         };
       };
