@@ -46,7 +46,7 @@
         genDownloadBuilders = commonBuild: {
           defaultPackage = downloadBuilder commonBuild;
 
-          package = pkgs.lib.genAttrs [ "aarch64-linux" "x86_64-linux" "aarch64-darwin" "x86_64-darwin" ]
+          packages = pkgs.lib.genAttrs [ "aarch64-linux" "x86_64-linux" "aarch64-darwin" "x86_64-darwin" ]
             (name: downloadBuilder (commonBuild // {
               overrideSystem = name;
             }));
