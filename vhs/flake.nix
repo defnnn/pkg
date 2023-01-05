@@ -1,6 +1,6 @@
 {
   inputs = {
-    dev.url = github:defn/pkg/dev-0.0.17?dir=dev;
+    dev.url = github:defn/pkg/dev-0.0.22?dir=dev;
   };
 
   outputs = inputs: inputs.dev.main rec {
@@ -20,25 +20,25 @@
           version = vendor;
           os = "Linux";
           arch = "x86_64";
-          sha256 = "sha256-KWeyWZeOt82pmMCpJ9NMIkOKaiMrCSa5XZhMHRSSIpU="; # x86_64-linux
+          sha256 = "sha256-5fM5t6Zf1bPebwLoeqcdUDVKUuclMZLSbq3IWFl++0k="; # x86_64-linux
         };
         "aarch64-linux" = {
           version = vendor;
           os = "Linux";
           arch = "arm64";
-          sha256 = "sha256-NK/m0d6RkP40GGcVuxnSSYZnYnjCyUNqWwusAr+bMvc="; # aarch64-linux
+          sha256 = "sha256-X9wiE4kDG4paLv0s87Dg0MB3pm8fms7atG0s1igWyWI="; # aarch64-linux
         };
         "x86_64-darwin" = {
           version = vendor;
           os = "Darwin";
           arch = "x86_64";
-          sha256 = "sha256-KjTBzXzd2vEQ9zyJJtDGWipoYSKIZxo/hlWgNw74RRI="; # x86_64-darwin
+          sha256 = "sha256-ELn0vSS0rkreEUk26UcV8XK3Z/lpn/3ROW/DYal3UL0="; # x86_64-darwin
         };
         "aarch64-darwin" = {
           version = vendor;
           os = "Darwin";
           arch = "arm64";
-          sha256 = "sha256-M903PFznHRt1ikUJCxN+etHzEE/EjEn1Gle3Lj/kpuc="; # aarch64-darwin
+          sha256 = "sha256-ZzRYqlUCfRYGgmgCDtsITyjAcn442pONeCV00/0Heow="; # aarch64-darwin
         };
       };
 
