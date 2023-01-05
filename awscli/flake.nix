@@ -33,12 +33,12 @@
         };
         "x86_64-darwin" = rec {
           version = vendor;
-          sha256 = "sha256-Yaa7BHBdSQnrDVbUZ/5ri1xTqMWTde1SDnAjYSASUHc="; # aarch64-linux
+          sha256 = "sha256-ErItUU3cHcQaAk2nxRWmghrtIJIcRFJsKI8pFNhvBI8="; # aarch64-darwin
           url = "https://awscli.amazonaws.com/AWSCLIV2-${version}.pkg";
         };
         "aarch64-darwin" = rec {
           version = vendor;
-          sha256 = "sha256-YkaaBHBdSQnrDVbUZ/5ri1xTqMWTde1SDnAjYSASUHc="; # aarch64-linux
+          sha256 = "sha256-ErItUU3cHcQaAk2nxRWmghrtIJIcRFJsKI8pFNhvBI8="; # aarch64-darwin
           url = "https://awscli.amazonaws.com/AWSCLIV2-${version}.pkg";
         };
       };
@@ -52,8 +52,9 @@
             ;;
           *.pkg)
               xar -xf $src
-              cd Installer.pkg
-              zcat Payload | (cd $out && cpio -i && mv usr/local/aws-cli awscli/v2 && ln -nfs ../awscli/v2/dist/aws bin/aws && ln -nfs ../awscli/v2/dist/aws_completer bin/aws_completer)
+              mkdir -p $out/bin $out/awscli
+              cd aws-cli.pkg
+              zcat Payload | (cd $out && cpio -i && mkdir awscli/v2 && mv aws-cli awscli/v2/dist && ln -nfs ../awscli/v2/dist/aws ../awscli/v2/dist/aws_completer bin/)
             ;;
         esac 
       '';
