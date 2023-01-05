@@ -33,7 +33,7 @@
         };
         "x86_64-darwin" = rec {
           version = vendor;
-          sha256 = "sha256-ErItUU3cHcQaAk2nxRWmghrtIJIcRFJsKI8pFNhvBI8="; # aarch64-darwin
+          sha256 = "sha256-ErItUU3cHcQaAk2nxRWmghrtIJIcRFJsKI8pFNhvBI8="; # x86_64-darwin
           url = "https://awscli.amazonaws.com/AWSCLIV2-${version}.pkg";
         };
         "aarch64-darwin" = rec {
