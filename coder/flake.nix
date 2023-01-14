@@ -21,28 +21,28 @@
           version = vendor;
           os = "linux";
           arch = "amd64";
-          sha256 = "sha256-MDuMNc37B3ix10dN7IApvD6MdFqAn1Hvnbg/PO+K7hg="; # x86_64-linux
+          sha256 = "sha256-Su43ZUnuwFBJ1JXFoU/79z2AR/nLr6fOIno0NBl+vYg="; # x86_64-linux
           url = "https://github.com/coder/coder/releases/download/v${version}/coder_${version}_${os}_${arch}.tar.gz";
         };
         "aarch64-linux" = rec {
           version = vendor;
           os = "linux";
           arch = "arm64";
-          sha256 = "sha256-hw5iMWfVkkZw4WROwBmIFDidhcxGe4t3VaER9Z9RIeo="; # aarch64-linux
+          sha256 = "sha256-t4kmk5I2NncSZOvfcnf4rBY7+Q40OLzqNMEGhhziJaI="; # aarch64-linux
           url = "https://github.com/coder/coder/releases/download/v${version}/coder_${version}_${os}_${arch}.tar.gz";
         };
         "x86_64-darwin" = rec {
           version = vendor;
           os = "darwin";
           arch = "amd64";
-          sha256 = "sha256-hyV5XQ006YV9CiVWAgkATjgjIjal++lYXP3/2icRpow="; # x86_64-darwin
+          sha256 = "sha256-g+s5y6CrHr5pY52NrDcmvzBQPcp2y7CqFcXqer1qXiI="; # x86_64-darwin
           url = "https://github.com/coder/coder/releases/download/v${version}/coder_${version}_${os}_${arch}.zip";
         };
         "aarch64-darwin" = rec {
           version = vendor;
           os = "darwin";
           arch = "arm64";
-          sha256 = "sha256-ff5sPfCkJM+1fkmcWKAZz/n5hY9H6vzWK76r1Vjb67E="; # aarch64-darwin
+          sha256 = "sha256-sQCFRmTsqeVOcOiRo7K68BiIQWBMCHzy+ntUmy6xsbc="; # aarch64-darwin
           url = "https://github.com/coder/coder/releases/download/v${version}/coder_${version}_${os}_${arch}.zip";
         };
       };
