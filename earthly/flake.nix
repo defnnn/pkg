@@ -1,6 +1,6 @@
 {
   inputs = {
-    dev.url = github:defn/pkg/dev-0.0.17?dir=dev;
+    dev.url = github:defn/pkg/dev-0.0.22?dir=dev;
   };
 
   outputs = inputs: inputs.dev.main rec {
@@ -10,8 +10,9 @@
 
     config = rec {
       slug = builtins.readFile ./SLUG;
-      version = builtins.readFile ./VERSION;
+      revision = builtins.readFile ./REVISION;
       vendor = builtins.readFile ./VENDOR;
+      version = "${slug}-${vendor}";
 
       url_template = input: "https://github.com/earthly/earthly/releases/download/v${input.version}/earthly-${input.os}-${input.arch}";
 
@@ -20,25 +21,25 @@
           version = vendor;
           os = "linux";
           arch = "amd64";
-          sha256 = "sha256-3jpDPUXOFcHVYwZobOqIIa4guOg/UAviYjgfmlL7Z6k="; # x86_64-linux
+          sha256 = "sha256-M05JbIywoB/kVfPc3bZO9ieAQxLZjNHyjZEOIwIOx3k="; # x86_64-linux
         };
         "aarch64-linux" = {
           version = vendor;
           os = "linux";
           arch = "arm64";
-          sha256 = "sha256-xUbCZUamR9rfQENT64qJZqqPGd7JJO921XzmY0l3G6Q="; # aarch64-linux
+          sha256 = "sha256-5I4NX0isWQeXqvFl6UaHVFLRDLR/CMuUb1tWvQciRHY="; # aarch64-linux
         };
         "x86_64-darwin" = {
           version = vendor;
           os = "darwin";
           arch = "amd64";
-          sha256 = "sha256-x9NRlXhN6Z/sb47zrIsJNWnPELZQ8sxyFyUNgPRiFZY"; # x86_64-darwin
+          sha256 = "sha256-My8xfogZrj9ktDv2qUSKw0sz+ZlSdjrbItlCYZJ9zYk="; # x86_64-darwin
         };
         "aarch64-darwin" = {
           version = vendor;
           os = "darwin";
           arch = "arm64";
-          sha256 = "sha256-0gDzVOzCBQmsi8WUvyUW/ls2raP2Bq1quWHPhF+OFKo"; # aarch64-darwin
+          sha256 = "sha256-kG3g++Wqyw0VqM9rKTym8iLcxwdiHV/tjxQvnEFvr0U="; # aarch64-darwin
         };
       };
 
