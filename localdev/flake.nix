@@ -23,6 +23,8 @@
           propagatedBuildInputs = wrap.flakeInputs ++ (with pkgs; [
             bashInteractive
 
+            gcc
+
             go
             gotools
             go-tools
