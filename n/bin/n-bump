@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+function main {
+	set -efu
+
+	if [[ -z "${1:-}" ]]; then
+		local version="$(cat REVISION)"
+		echo "$((version + 1 ))" > REVISION
+	else
+		local version="$1"; shift
+
+		if test -f VENDOR; then
+			echo -n "$version" > VENDOR
+			echo -n 0 > REVISION
+		else
+			echo -n "$version" > VERSION
+		fi
+	fi
+}
+
+source sub "$0" "$@"
