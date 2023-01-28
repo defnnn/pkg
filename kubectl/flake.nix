@@ -1,6 +1,6 @@
 {
   inputs = {
-    dev.url = github:defn/pkg/dev-0.0.18?dir=dev;
+    dev.url = github:defn/pkg/dev-0.0.22?dir=dev;
   };
 
   outputs = inputs: inputs.dev.main rec {
@@ -12,7 +12,7 @@
       slug = builtins.readFile ./SLUG;
       vendor = builtins.readFile ./VENDOR;
       revision = builtins.readFile ./REVISION;
-      version = "${slug}-${vendor}-${revision}";
+      version = "${vendor}-${revision}";
 
       url_template = input: "https://dl.k8s.io/release/v${input.version}/bin/${input.os}/${input.arch}/kubectl";
 
@@ -21,25 +21,25 @@
           version = vendor;
           os = "linux";
           arch = "amd64";
-          sha256 = "sha256-amYM1E2z1L/hVj9micvi/7KO5LrzUy4E//LXuQkIHCk="; # x86_64-linux
+          sha256 = "sha256-uodq7w6dfi6P7awDbsGU3l7JttKVPjD/gqJ1jGujIXQ="; # x86_64-linux
         };
         "aarch64-linux" = {
           version = vendor;
           os = "linux";
           arch = "arm64";
-          sha256 = "sha256-e8ZQ8opbRDbfKrz65ZBeRhcoukFhRr6sF6JjT6gqbwo="; # aarch64-linux
+          sha256 = "sha256-Gk4oUOlNRAOcc+rnpuAFs+FDXACmK9WN92Q73rhHXP0="; # aarch64-linux
         };
         "x86_64-darwin" = {
           version = vendor;
           os = "darwin";
           arch = "amd64";
-          sha256 = "sha256-0tY+AJaxTiwVC9ihpQlkqhuRfJhCP2/Lk7Y+TKPSJxo="; # x86_64-darwin
+          sha256 = "sha256-81xihy/gXd3bENv6nr0Lm4ho3mqqj7tIGmi+LdMiucU="; # x86_64-darwin
         };
         "aarch64-darwin" = {
           version = vendor;
           os = "darwin";
           arch = "arm64";
-          sha256 = "sha256-ZtOUgg4ny/CwDn8b2lAmf0p/TKAaQkS7InpcmOUKFLc="; # aarch64-darwin
+          sha256 = "sha256-2MGKn3uoKnyin1G4Nz2chFRB6kWXf3/iH/fXkd3A9/E="; # aarch64-darwin
         };
       };
 
