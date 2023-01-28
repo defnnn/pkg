@@ -1,6 +1,6 @@
 {
   inputs = {
-    dev.url = github:defn/pkg/dev-0.0.17?dir=dev;
+    dev.url = github:defn/pkg/dev-0.0.22?dir=dev;
   };
 
   outputs = inputs: inputs.dev.main rec {
@@ -10,8 +10,9 @@
 
     config = rec {
       slug = builtins.readFile ./SLUG;
-      version = builtins.readFile ./VERSION;
+      revision = builtins.readFile ./REVISION;
       vendor = builtins.readFile ./VENDOR;
+      version = "${slug}-${vendor}";
 
       url_template = input: "https://pkgs.tailscale.com/stable/tailscale_${input.version}_${input.arch}.tgz";
 
@@ -19,23 +20,23 @@
         "x86_64-linux" = {
           version = vendor;
           arch = "amd64";
-          sha256 = "sha256-w2Ygs/IZAcx3ZMOOkXGRuCMHNqNW0zX4AGL3MRrlp9o="; # x86_64-linux
+          sha256 = "sha256-t0zfVzVXbn8CEFBiNcjsctRyvbB5oCDFwQlc0xUuaec="; # x86_64-linux
         };
         "aarch64-linux" = {
           version = vendor;
           arch = "arm64";
-          sha256 = "sha256-6FI8ru8YIwDEdsjz6hLu39wI0Bv963i9+GTy5+mIi/0="; # aarch64-linux
+          sha256 = "sha256-4BD/mpvhMbGfHf77laj3D4CcjkdQDPXdxWVGIKz+iOA="; # aarch64-linux
         };
         # these are actually linux, to make nix happy
         "x86_64-darwin" = {
           version = vendor;
           arch = "amd64";
-          sha256 = "sha256-w2Ygs/IZAcx3ZMOOkXGRuCMHNqNW0zX4AGL3MRrlp9o="; # x86_64-darwin
+          sha256 = "sha256-t0zfVzVXbn8CEFBiNcjsctRyvbB5oCDFwQlc0xUuaec="; # x86_64-darwin
         };
         "aarch64-darwin" = {
           version = vendor;
           arch = "arm64";
-          sha256 = "sha256-6FI8ru8YIwDEdsjz6hLu39wI0Bv963i9+GTy5+mIi/0="; # aarch64-darwin
+          sha256 = "sha256-4BD/mpvhMbGfHf77laj3D4CcjkdQDPXdxWVGIKz+iOA="; # aarch64-darwin
         };
       };
 
