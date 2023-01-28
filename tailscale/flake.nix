@@ -20,23 +20,23 @@
         "x86_64-linux" = {
           version = vendor;
           arch = "amd64";
-          sha256 = "sha256-t0zfVzVXbn8CEFBiNcjsctRyvbB5oCDFwQlc0xUuaec="; # x86_64-linux
+          sha256 = "sha256-oB78IOQYAzeUpXrUJ2hm235D+R0f5tJdpeoE/9Mbbc0="; # x86_64-linux
         };
         "aarch64-linux" = {
           version = vendor;
           arch = "arm64";
-          sha256 = "sha256-4BD/mpvhMbGfHf77laj3D4CcjkdQDPXdxWVGIKz+iOA="; # aarch64-linux
+          sha256 = "sha256-GR7A7zzyBM0KafvDoo6Y8aD89lojjG4grLEXAhe3Z2M="; # aarch64-linux
         };
         # these are actually linux, to make nix happy
         "x86_64-darwin" = {
           version = vendor;
           arch = "amd64";
-          sha256 = "sha256-t0zfVzVXbn8CEFBiNcjsctRyvbB5oCDFwQlc0xUuaec="; # x86_64-darwin
+          sha256 = "sha256-oB78IOQYAzeUpXrUJ2hm235D+R0f5tJdpeoE/9Mbbc0="; # x86_64-darwin
         };
         "aarch64-darwin" = {
           version = vendor;
           arch = "arm64";
-          sha256 = "sha256-4BD/mpvhMbGfHf77laj3D4CcjkdQDPXdxWVGIKz+iOA="; # aarch64-darwin
+          sha256 = "sha256-GR7A7zzyBM0KafvDoo6Y8aD89lojjG4grLEXAhe3Z2M="; # aarch64-darwin
         };
       };
 
