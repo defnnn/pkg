@@ -1,7 +1,7 @@
 {
   inputs = {
     dev.url = github:defn/pkg/dev-0.0.22?dir=dev;
-    coder.url = github:defn/pkg/coder-0.15.2-1?dir=coder;
+    coder.url = github:defn/pkg/coder-0.15.3-0?dir=coder;
     codeserver.url = github:defn/pkg/codeserver-4.9.1-3?dir=codeserver;
     terraform.url = github:defn/pkg/terraform-1.3.4?dir=terraform;
     latest.url = github:NixOS/nixpkgs?rev=4938e72add339f76d795284cb5a3aae85d02ee53;
