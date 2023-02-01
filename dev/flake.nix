@@ -83,6 +83,8 @@
               inherit system;
               inherit commands;
 
+              config = cfg;
+
               builders = if src == "" then { } else {
                 yaegi = wrap.yaegiBuilder { inherit src; inputs = { yaegi = dev-inputs.yaegi; } // inputs; };
                 bb = wrap.bbBuilder { inherit src; inherit inputs; };
