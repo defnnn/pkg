@@ -28,7 +28,7 @@
 
         dev-inputs = inputs;
 
-        main = { inputs, config, handler, src, scripts ? { }, prefix ? "this-" }: eachDefaultSystem (system:
+        main = { src, inputs, config, handler, scripts ? ({ system }: { }), prefix ? "this-" }: eachDefaultSystem (system:
           let
             pkgs = import wrapper.nixpkgs {
               inherit system;
@@ -41,14 +41,16 @@
                 pkgs.lib.attrsets.mapAttrs
                   (name: value:
                     (pkgs.writeShellScriptBin "${prefix}${name}" value))
-                  (scripts system)
+                  (scripts { inherit system; })
               );
 
             wrap = wrapper.wrap { other = inputs; inherit system; site = config; };
 
             defaults = {
               slug = config.slug;
-              devShell = wrap.devShell { };
+              devShell = wrap.devShell {
+                devInputs = commands;
+              };
             };
 
             handled = handler
@@ -106,6 +108,12 @@
             chmod 755 $out/bin/*
           '';
         };
+      };
+
+      scripts = { system }: {
+        "hello" = ''
+          echo hello ${system}
+        '';
       };
     });
 }
