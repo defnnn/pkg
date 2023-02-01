@@ -41,13 +41,12 @@
                 pkgs.lib.attrsets.mapAttrs
                   (name: value:
                     (pkgs.writeShellScriptBin "${prefix}${name}" value))
-                  scripts
+                  (scripts system)
               );
 
             wrap = wrapper.wrap { other = inputs; inherit system; site = config; };
 
             defaults = {
-              inherit commands;
               slug = config.slug;
               devShell = wrap.devShell { };
             };
