@@ -110,7 +110,7 @@
             for a in $src/yg/*/*.go; do
               dst="$(basename "''${a%.go}")"
               (
-                echo "#!${inputs.yaegi.defaultPackage.${system}}/bin/yaegi"
+                echo "#!${inputs.yaegi.defaultPackage.${system}}/bin/yaegi -syscall -unsafe -unrestricted"
                 echo
                 cat $a
               ) > $out/bin/$dst
