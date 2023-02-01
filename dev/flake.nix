@@ -57,6 +57,7 @@
                 inherit pkgs;
                 inherit wrap;
                 inherit system;
+                inherit commands;
 
                 builders = if src == "" then { } else {
                   yaegi = wrap.yaegiBuilder { inherit src; inputs = { yaegi = dev-inputs.yaegi; } // inputs; };
@@ -93,7 +94,7 @@
         version = builtins.readFile ./VERSION;
       };
 
-      handler = { pkgs, wrap, system, builders }: {
+      handler = { pkgs, wrap, system, builders, commands }: {
         defaultPackage = wrap.bashBuilder {
           inherit src;
 
