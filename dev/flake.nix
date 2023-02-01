@@ -28,13 +28,30 @@
 
         dev-inputs = inputs;
 
-        main = { inputs, config, handler, src }: eachDefaultSystem (system:
+        main = { inputs, config, handler, src, scripts ? { }, prefix ? "this-" }: eachDefaultSystem (system:
           let
             pkgs = import wrapper.nixpkgs {
               inherit system;
               overlays = [ gomod2nixOverlay ];
             };
+
+            commands = pkgs.lib.attrsets.mapAttrsToList
+              (name: value: value)
+              (
+                pkgs.lib.attrsets.mapAttrs
+                  (name: value:
+                    (pkgs.writeShellScriptBin "${prefix}${name}" value))
+                  scripts
+              );
+
             wrap = wrapper.wrap { other = inputs; inherit system; site = config; };
+
+            defaults = {
+              inherit commands;
+              slug = config.slug;
+              devShell = wrap.devShell { };
+            };
+
             handled = handler
               {
                 inherit pkgs;
@@ -61,10 +78,6 @@
                     gobuilds // godeps;
                 };
               };
-            defaults = {
-              slug = config.slug;
-              devShell = wrap.devShell { };
-            };
           in
           defaults // handled
         );
