@@ -28,12 +28,34 @@
 
         dev-inputs = inputs;
 
-        main = { src, inputs, config, handler, scripts ? ({ system }: { }), prefix ? "this-" }: eachDefaultSystem (system:
+        main =
+          { src
+          , inputs
+          , config ? { }
+          , handler
+          , scripts ? ({ system }: { })
+          , prefix ? "this-"
+          }: eachDefaultSystem (system:
           let
             pkgs = import wrapper.nixpkgs {
               inherit system;
               overlays = [ gomod2nixOverlay ];
             };
+
+            defaultConfig = {
+              slug = builtins.readFile "${src}/SLUG";
+            } // (
+              if pkgs.lib.pathIsRegularFile "${src}/VENDOR" then rec {
+                vendor = builtins.readFile "${src}/VENDOR";
+                revision = builtins.readFile "${src}/REVISION";
+                version = "${vendor}-${revision}";
+              }
+              else {
+                version = builtins.readFile "${src}/VERSION";
+              }
+            );
+
+            cfg = defaultConfig // config;
 
             commands = pkgs.lib.attrsets.mapAttrsToList
               (name: value: value)
@@ -44,75 +66,106 @@
                   (scripts { inherit system; })
               );
 
-            wrap = wrapper.wrap { other = inputs; inherit system; site = config; };
+            wrap = wrapper.wrap {
+              other = inputs; inherit system; site = cfg;
+            };
 
             defaults = {
-              slug = config.slug;
+              slug = cfg.slug;
               devShell = wrap.devShell {
                 devInputs = commands;
               };
             };
 
-            handled = handler
-              {
-                inherit pkgs;
-                inherit wrap;
-                inherit system;
-                inherit commands;
+            handled = handler {
+              inherit pkgs;
+              inherit wrap;
+              inherit system;
+              inherit commands;
 
-                builders = if src == "" then { } else {
-                  yaegi = wrap.yaegiBuilder { inherit src; inputs = { yaegi = dev-inputs.yaegi; } // inputs; };
-                  bb = wrap.bbBuilder { inherit src; inherit inputs; };
-                  go =
-                    let
-                      gobuilds = pkgs.lib.genAttrs config.commands
-                        (name: pkgs.buildGoApplication rec {
-                          inherit src;
-                          pwd = src;
-                          version = config.version;
-                          pname = name;
-                          subPackages = [ "cmd/${name}" ];
-                        });
-                      godeps = {
-                        godeps = pkgs.mkGoVendorEnv { pwd = src; };
-                      };
-                    in
-                    gobuilds // godeps;
-                };
+              builders = if src == "" then { } else {
+                yaegi = wrap.yaegiBuilder { inherit src; inputs = { yaegi = dev-inputs.yaegi; } // inputs; };
+                bb = wrap.bbBuilder { inherit src; inherit inputs; };
+                go =
+                  let
+                    gobuilds = pkgs.lib.genAttrs cfg.commands
+                      (name: pkgs.buildGoApplication rec {
+                        inherit src;
+                        pwd = src;
+                        version = cfg.version;
+                        pname = name;
+                        subPackages = [ "cmd/${name}" ];
+                      });
+                    godeps = {
+                      godeps = pkgs.mkGoVendorEnv { pwd = src; };
+                    };
+                  in
+                  gobuilds // godeps;
               };
+            };
           in
           defaults // handled
-        );
+          );
       };
     in
     prelude // (prelude.main rec {
       inherit inputs;
 
-      src = builtins.path { path = ./.; name = config.slug; };
+      src = builtins.path { path = ./.; name = builtins.readFile ./SLUG; };
 
-      config = {
-        slug = builtins.readFile ./SLUG;
-        version = builtins.readFile ./VERSION;
-      };
+      prefix = "c-";
 
       handler = { pkgs, wrap, system, builders, commands }: {
-        defaultPackage = wrap.bashBuilder {
-          inherit src;
-
-          installPhase = ''
-            set +f
-            find $src
-            find .
-            mkdir -p $out/bin
-            cp $src/bin/c-* $out/bin/
-            chmod 755 $out/bin/*
-          '';
+        defaultPackage = wrap.nullBuilder {
+          propagatedBuildInputs = commands;
         };
       };
 
       scripts = { system }: {
         "hello" = ''
           echo hello ${system}
+        '';
+
+        "nix-docker-build" = ''
+          function main {
+              set -exu
+              set +f
+
+              name="$1"; shift
+              build="$1"; shift
+              image="$1"; shift
+
+              cd "dist/$name"
+              git init || true
+              rsync -ia ../../flake.lock ../../*.nix .
+
+              git add -f flake.lock *.nix app
+
+              n build "$build"
+              sudo rm -rf nix/store
+              mkdir -p nix/store
+              time for a in $(nix-store -qR ./result); do rsync -ia $a nix/store/; done
+
+              (
+                  echo '# syntax=docker/dockerfile:1'
+                  echo FROM alpine
+                  echo RUN mkdir -p /app
+                  for a in nix/store/*/; do
+                      echo COPY --link "$a" "/$a/"
+                  done
+                  echo COPY app /app/
+
+                  echo WORKDIR /app
+                  echo ENTRYPOINT [ '"/app/bin"' ]
+                  echo "ENV PATH $(for a in nix/store/*/; do echo -n "/$a/bin:"; done)/bin"
+              ) > Dockerfile
+
+              time env DOCKER_BUILDKIT=1 docker build -t "$image" .
+
+              docker push "$image"
+          }
+
+          source sub "$0" "$@"
         '';
       };
     });
