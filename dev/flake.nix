@@ -117,7 +117,7 @@
 
       prefix = "c-";
 
-      handler = { pkgs, wrap, system, builders, commands }: {
+      handler = { pkgs, wrap, system, builders, commands, config }: {
         defaultPackage = wrap.nullBuilder {
           propagatedBuildInputs = commands;
         };
