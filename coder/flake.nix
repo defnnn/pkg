@@ -28,7 +28,7 @@
           version = vendor;
           os = "linux";
           arch = "arm64";
-          sha256 = "sha256-aaak+rJNaX78IS9dhWxaIjxM9Hl3IuSO31YcIS1pAOY="; # aarch64-linux
+          sha256 = "sha256-ylSvd72524QuRsd8DIaXTVvGSrH1PqbutCVweOQbkl4="; # aarch64-linux
           url = "https://github.com/coder/coder/releases/download/v${version}/coder_${version}_${os}_${arch}.tar.gz";
         };
         "x86_64-darwin" = rec {
