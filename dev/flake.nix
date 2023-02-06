@@ -73,7 +73,7 @@
             defaults = {
               slug = cfg.slug;
               devShell = wrap.devShell {
-                devInputs = commands;
+                devInputs = commands ++ [ pkgs.bashInteractive ];
               };
             };
 

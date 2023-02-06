@@ -1,6 +1,6 @@
 {
   inputs = {
-    dev.url = github:defn/pkg/dev-0.0.17?dir=dev;
+    dev.url = github:defn/pkg/dev-0.0.22?dir=dev;
   };
 
   outputs = inputs: inputs.dev.main rec {
@@ -10,8 +10,9 @@
 
     config = rec {
       slug = builtins.readFile ./SLUG;
-      version = builtins.readFile ./VERSION;
       vendor = builtins.readFile ./VENDOR;
+      revision = builtins.readFile ./REVISION;
+      version = "${vendor}-${revision}";
 
       url_template = input: "https://github.com/cue-lang/cue/releases/download/v${input.version}/cue_v${input.version}_${input.os}_${input.arch}.tar.gz";
 
@@ -20,25 +21,25 @@
           version = vendor;
           os = "linux";
           arch = "amd64";
-          sha256 = "sha256-Xn7LYUtZJqz8NusSWIADkat8bm4Cb6fKy/6SAGusiVw="; # x86_64-linux
+          sha256 = "sha256-8vRZD/M8nVcwlzyXwtdaF/JEe66LVHkVpg9V5hxa4pg="; # x86_64-linux
         };
         "aarch64-linux" = {
           version = vendor;
           os = "linux";
           arch = "arm64";
-          sha256 = "sha256-qMP0FA0YwyTMafXeTfBWblKeFjbP80AJWkJHV5m/P+0="; # aarch64-linux
+          sha256 = "sha256-Dy35e6eqbku7Nhz15wsX8hDv4yHxvlR5HScvGOB2Gm0="; # aarch64-linux
         };
         "x86_64-darwin" = {
           version = vendor;
           os = "darwin";
           arch = "amd64";
-          sha256 = "sha256-EWElTPOLkouHp6wVUtwuEubF2imPnONw2A5VGN22UT0="; # x86_64-darwin
+          sha256 = "sha256-pC+0Isf9jqC4sbuCiRB6QY2m3a8ON/1qyh3H1v17WDw="; # x86_64-darwin
         };
         "aarch64-darwin" = {
           version = vendor;
           os = "darwin";
           arch = "arm64";
-          sha256 = "sha256-PYS4WnKI+UMBpHJtz5Wy2SyP95bE1FxHM/vcwEzq8h0="; # aarch64-darwin
+          sha256 = "sha256-b7ZP3yM4Yi5aO/RrerwIYROG+vO2gH5cslQ9/6c8Jgk="; # aarch64-darwin
         };
       };
 
