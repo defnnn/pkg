@@ -1,6 +1,6 @@
 {
   inputs = {
-    dev.url = github:defn/pkg/dev-0.0.17?dir=dev;
+    dev.url = github:defn/pkg/dev-0.0.22?dir=dev;
   };
 
   outputs = inputs: inputs.dev.main rec {
@@ -10,35 +10,36 @@
 
     config = rec {
       slug = builtins.readFile ./SLUG;
-      version = builtins.readFile ./VERSION;
+      revision = builtins.readFile ./REVISION;
       vendor = builtins.readFile ./VENDOR;
+      version = "${vendor}-${revision}";
 
-      url_template = input: "https://github.com/coder/code-server/releases/download/v${input.version}/code-server-${input.version}-${input.os}-${input.arch}.tar.gz";
+      url_template = input: "https://github.com/coder/code-server/releases/download/v4.9.0-rc.0/code-server-${input.version}-${input.os}-${input.arch}.tar.gz";
 
       downloads = {
         "x86_64-linux" = {
           version = vendor;
           os = "linux";
           arch = "amd64";
-          sha256 = "sha256-PqecncA1ROoGq+faZgwbwOQ3YzcHAhHZj/qMM4ic1X4="; # x86_64-linux
+          sha256 = "sha256-qeZ5UXWlJ1meW8W5HYQnMRfR4uNmO1jlVmbXLQstPxo="; # x86_64-linux
         };
         "aarch64-linux" = {
           version = vendor;
           os = "linux";
           arch = "arm64";
-          sha256 = "sha256-bp/ttybrE7XvYKd78Woe6ZEWhLfiEekO7noOnoK6yeQ="; # aarch64-linux
+          sha256 = "sha256-dger2hAqYxv5f8pHGOJhKaUnrOeFYTps7YwEusDn20U="; # aarch64-linux
         };
         "x86_64-darwin" = {
           version = vendor;
           os = "macos";
           arch = "amd64";
-          sha256 = "sha256-7DmroZS0B525OvXCOHUfc/sX8f4a7spzdxxcLvKQ5Ok="; # x86_64-darwin
+          sha256 = "sha256-ABTBPT+AEsNsYCj8I6y9dkOLPgLlS7nP1cd28DsiPTA="; # x86_64-darwin
         };
         "aarch64-darwin" = {
           version = vendor;
           os = "macos";
           arch = "amd64"; # code-server not avaialble for darwin arm64
-          sha256 = "sha256-7DmroZS0B525OvXCOHUfc/sX8f4a7spzdxxcLvKQ5Ok="; # aarch64-darwin
+          sha256 = "sha256-ABTBPT+AEsNsYCj8I6y9dkOLPgLlS7nP1cd28DsiPTA="; # aarch64-darwin
         };
       };
 
