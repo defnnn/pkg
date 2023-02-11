@@ -14,26 +14,26 @@
       revision = builtins.readFile ./REVISION;
       version = "${vendor}-${revision}";
 
-      url_template = input: "https://github.com/argoproj/argo-cd/releases/download/v${input.version}/argocd-${input.os}-${input.arch}";
+      url_template = input: "https://github.com/argoproj/argo-rollouts/releases/download/v${input.version}/kubectl-argo-rollouts-${input.os}-${input.arch}";
 
       downloads = {
         "x86_64-linux" = {
           version = vendor;
           os = "linux";
           arch = "amd64";
-          sha256 = "sha256-d9BKGB9XUU0DMcZLURQG8yKBEbAcbMkU/mWdQy6d51E="; # x86_64-linux
+          sha256 = "sha256-IJarUoOjGmqYTOWbmW6m2YyCRv6R3Np+v0IGMqVQHc4="; # x86_64-linux
         };
         "aarch64-linux" = {
           version = vendor;
           os = "linux";
           arch = "arm64";
-          sha256 = "sha256-aaa8/u+VJSGYcU4UCEU7P78dueXevMBEiGxAMi9LoG8="; # aarch64-linux
+          sha256 = "sha256-I1VrKmi028NZ7EMKifwuptqKO1/JzBYmGkojU/aW39g="; # aarch64-linux
         };
         "x86_64-darwin" = {
           version = vendor;
           os = "darwin";
           arch = "amd64";
-          sha256 = "sha256-CR4+zRjl8+wZKMGVf4m9VtL/C2M8/6+o5KvNeK3PRps="; # x86_64-darwin
+          sha256 = "sha256-VFM+tnptNV98OywqnfmcFgYtqep8wgHBpGTcROwxda0="; # x86_64-darwin
         };
         "aarch64-darwin" = {
           version = vendor;
@@ -45,7 +45,7 @@
 
       installPhase = { src }: ''
         install -m 0755 -d $out $out/bin
-        install -m 0755 $src $out/bin/argocd
+        install -m 0755 $src $out/bin/argo-rollouts
       '';
     };
 
