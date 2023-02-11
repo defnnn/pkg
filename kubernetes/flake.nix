@@ -1,6 +1,7 @@
 {
   inputs = {
     dev.url = github:defn/pkg/dev-0.0.22?dir=dev;
+    k3d.url = github:defn/pkg/k3d-5.4.7-0?dir=k3d;
     kubectl.url = github:defn/pkg/kubectl-1.25.6-0?dir=kubectl;
     k9s.url = github:defn/pkg/k9s-0.27.2-0?dir=k9s;
     helm.url = github:defn/pkg/helm-3.11.1-0?dir=helm;
