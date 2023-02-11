@@ -12,7 +12,7 @@
       slug = builtins.readFile ./SLUG;
       revision = builtins.readFile ./REVISION;
       vendor = builtins.readFile ./VENDOR;
-      version = "${slug}-${vendor}";
+      version = "${vendor}-${revision}";
 
       url_template = input: "https://pkgs.tailscale.com/stable/tailscale_${input.version}_${input.arch}.tgz";
 

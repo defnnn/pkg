@@ -11,7 +11,8 @@
     config = rec {
       slug = builtins.readFile ./SLUG;
       vendor = builtins.readFile ./VENDOR;
-      version ="${slug}-${vendor}";
+      revision = builtins.readFile ./REVISION;
+      version ="${vendor}-${revision}";
 
       url_template = input: "https://github.com/acmesh-official/acme.sh/archive/refs/tags/v${input.version}.tar.gz";
 

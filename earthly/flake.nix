@@ -12,7 +12,7 @@
       slug = builtins.readFile ./SLUG;
       revision = builtins.readFile ./REVISION;
       vendor = builtins.readFile ./VENDOR;
-      version = "${slug}-${vendor}";
+      version = "${vendor}-${revision}";
 
       url_template = input: "https://github.com/earthly/earthly/releases/download/v${input.version}/earthly-${input.os}-${input.arch}";
 
