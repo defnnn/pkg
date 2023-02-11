@@ -6,7 +6,7 @@
   outputs = inputs: inputs.dev.main rec {
     inherit inputs;
 
-    src = builtins.path { path = ./.; name = config.slug; };
+    src = builtins.path { path = ./.; name = builtins.readFile ./SLUG; };
 
     config = rec {
       slug = builtins.readFile ./SLUG;
@@ -21,25 +21,25 @@
           version = vendor;
           os = "Linux";
           arch = "x86_64";
-          sha256 = "sha256-6/uCDfDouHs+AZat8mZybLZelXQyD83zTNmXABatU1s="; # x86_64-linux
+          sha256 = "sha256-ZcWIW+zd+pHeju9264tQa3a66vO85ulvMT2buo005kk="; # x86_64-linux
         };
         "aarch64-linux" = {
           version = vendor;
           os = "Linux";
           arch = "arm64";
-          sha256 = "sha256-okgwe5pfsHX+S4F6SI/hZLsopPy2flm2QnvBvY49De0="; # aarch64-linux
+          sha256 = "sha256-8B24OMcV+MoEUL93qXrr+vF1fDgsa0xyvVx6gO+YzBg="; # aarch64-linux
         };
         "x86_64-darwin" = {
           version = vendor;
           os = "macOS";
           arch = "x86_64";
-          sha256 = "sha256-nvjYOUgnCuhOEgmKsC68Hk58bgnTpAAjOoUCHx+Z4kY="; # x86_64-darwin
+          sha256 = "sha256-dEJdTgh2A5av15CEvE8z4sbwXJdFxI2MakEY01w/r/0="; # x86_64-darwin
         };
         "aarch64-darwin" = {
           version = vendor;
           os = "macOS";
           arch = "arm64";
-          sha256 = "sha256-mliXiG2mgITbBSEtGvu/tpc1Hi91wpSuDHi40Jmp5/U="; # aarch64-darwin
+          sha256 = "sha256-9Md5993zxKnHsYEf2I1RpJocHen9Qxwr0IgcQXOunZ4="; # aarch64-darwin
         };
       };
 
