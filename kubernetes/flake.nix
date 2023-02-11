@@ -6,7 +6,7 @@
     kustomize.url = github:defn/pkg/kustomize-5.0.0-0?dir=kustomize;
     argo.url = github:defn/pkg/argo-3.4.5-0?dir=argo;
     argocd.url = github:defn/pkg/argocd-2.6.1-0?dir=argocd;
-    argorollouts.url = github:defn/pkg/argorollouts-1.4.0-1?dir=argorollouts;
+    argorollouts.url = github:defn/pkg/argorollouts-1.4.0-2?dir=argorollouts;
   };
 
   outputs = inputs: inputs.dev.main rec {

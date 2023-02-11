@@ -48,17 +48,17 @@
       },
       "locked": {
         "dir": "argorollouts",
-        "lastModified": 1676087036,
-        "narHash": "sha256-6Zv54yO8wtFEixGohckPbfR4uu1V3AbCh1SF6AyAXsM=",
+        "lastModified": 1676088171,
+        "narHash": "sha256-9vFpnRwYYwWfjDjaBnNqfkfo1E5NJJO9xF7xHNz8rk8=",
         "owner": "defn",
         "repo": "pkg",
-        "rev": "c8beeb665dc3777b5d4293f30c8c1a7d4f9cd6d6",
+        "rev": "38c2926be8e9eae2ee9e3a18ab62033f8bc19617",
         "type": "github"
       },
       "original": {
         "dir": "argorollouts",
         "owner": "defn",
-        "ref": "argorollouts-1.4.0-1",
+        "ref": "argorollouts-1.4.0-2",
         "repo": "pkg",
         "type": "github"
       }
