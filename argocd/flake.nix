@@ -6,12 +6,13 @@
   outputs = inputs: inputs.dev.main rec {
     inherit inputs;
 
-    src = builtins.path { path = ./.; name = config.slug; };
+    src = builtins.path { path = ./.; name = builtins.readFile ./SLUG; };
 
     config = rec {
       slug = builtins.readFile ./SLUG;
-      version = builtins.readFile ./VERSION;
       vendor = builtins.readFile ./VENDOR;
+      revision = builtins.readFile ./REVISION;
+      version = "${vendor}-${revision}";
 
       url_template = input: "https://github.com/argoproj/argo-cd/releases/download/v${input.version}/argocd-${input.os}-${input.arch}";
 
@@ -20,25 +21,25 @@
           version = vendor;
           os = "linux";
           arch = "amd64";
-          sha256 = "sha256-HyOtFQohFDeBOaHPtRmSpYgO59C6ESIqQdJxnwdNSFk="; # x86_64-linux
+          sha256 = "sha256-gcH4kh8YxWCXraaXxKL1W4RUjlNvV2mN/Y3UmjF1xrY="; # x86_64-linux
         };
         "aarch64-linux" = {
           version = vendor;
           os = "linux";
           arch = "arm64";
-          sha256 = "sha256-6uD8/u+VJSGYcU4UCEU7P78dueXevMBEiGxAMi9LoG8="; # aarch64-linux
+          sha256 = "sha256-Pj/G34fO1++2MhIRSS0GFJahbJLBs59mSJMGU3c28G4="; # aarch64-linux
         };
         "x86_64-darwin" = {
           version = vendor;
           os = "darwin";
           arch = "amd64";
-          sha256 = "sha256-zHAuRgIIZNTaPbpD1JrCVeM56V8TMpQE+LxBU6CRmog="; # x86_64-darwin
+          sha256 = "sha256-YeMdLS8qyxQQJ8iYEaOGPyf7s+f5hLyZwjWSvLBKims="; # x86_64-darwin
         };
         "aarch64-darwin" = {
           version = vendor;
           os = "darwin";
           arch = "arm64";
-          sha256 = "sha256-4Xzk6LBqjvlxrK0hUCvTbP/yihFYPW9yBhxkc8H5Jbo="; # aarch64-darwin
+          sha256 = "sha256-+9J+Vn+XCHXNjjnEoVOVgGiJXyf/eh9rvZ+lR1UgVJU="; # aarch64-darwin
         };
       };
 
