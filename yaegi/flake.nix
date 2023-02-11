@@ -42,7 +42,7 @@
     prelude.main rec {
       inherit inputs;
 
-      src = builtins.path { path = ./.; name = config.slug; };
+      src = builtins.path { path = ./.; name = builtins.readFile ./SLUG; };
 
       config = rec {
         slug = builtins.readFile ./SLUG;

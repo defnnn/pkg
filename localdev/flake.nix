@@ -7,48 +7,47 @@
     latest.url = github:NixOS/nixpkgs?rev=4938e72add339f76d795284cb5a3aae85d02ee53;
   };
 
-  outputs = inputs:
-    { main = inputs.dev.main; } // inputs.dev.main rec {
-      inherit inputs;
+  outputs = inputs: inputs.dev.main rec {
+    inherit inputs;
 
-      src = builtins.path { path = ./.; name = config.slug; };
+    src = builtins.path { path = ./.; name = builtins.readFile ./SLUG; };
 
-      config = rec {
-        slug = builtins.readFile ./SLUG;
-        version = builtins.readFile ./VERSION;
+    config = rec {
+      slug = builtins.readFile ./SLUG;
+      version = builtins.readFile ./VERSION;
+    };
+
+    handler = { pkgs, wrap, system, builders }: rec {
+      defaultPackage = wrap.nullBuilder {
+        propagatedBuildInputs = wrap.flakeInputs ++ (with pkgs; [
+          bashInteractive
+
+          gcc
+
+          go
+          gotools
+          go-tools
+          golangci-lint
+          go-outline
+          gopkgs
+          delve
+
+          nodejs-18_x
+        ]) ++ (with (import inputs.latest { inherit system; }); [
+          gopls
+        ]);
       };
 
-      handler = { pkgs, wrap, system, builders }: rec {
-        defaultPackage = wrap.nullBuilder {
-          propagatedBuildInputs = wrap.flakeInputs ++ (with pkgs; [
-            bashInteractive
-
-            gcc
-
-            go
-            gotools
-            go-tools
-            golangci-lint
-            go-outline
-            gopkgs
-            delve
-
-            nodejs-18_x
-          ]) ++ (with (import inputs.latest { inherit system; }); [
-            gopls
-          ]);
+      apps = {
+        coder = {
+          type = "app";
+          program = "${inputs.coder.defaultPackage.${system}}/bin/coder";
         };
-
-        apps = {
-          coder = {
-            type = "app";
-            program = "${inputs.coder.defaultPackage.${system}}/bin/coder";
-          };
-          codeserver = {
-            type = "app";
-            program = "${inputs.codeserver.defaultPackage.${system}}/bin/code-server";
-          };
+        codeserver = {
+          type = "app";
+          program = "${inputs.codeserver.defaultPackage.${system}}/bin/code-server";
         };
       };
     };
+  };
 }
