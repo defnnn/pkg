@@ -1,6 +1,7 @@
 {
   inputs = {
     dev.url = github:defn/pkg/dev-0.0.22?dir=dev;
+    kubectl.url = github:defn/pkg/kubectl-1.25.6-0?dir=kubectl;
     helm.url = github:defn/pkg/helm-3.11.1-0?dir=helm;
     kustomize.url = github:defn/pkg/kustomize-5.0.0-0?dir=kustomize;
     argo.url = github:defn/pkg/argo-3.4.5-0?dir=argo;
