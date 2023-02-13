@@ -39,7 +39,7 @@
           version = vendor;
           os = "darwin";
           arch = "arm64";
-          sha256 = "sha256-aaak6LBqjvlxrK0hUCvTbP/yihFYPW9yBhxkc8H5Jbo="; # aarch64-darwin
+          sha256 = "sha256-egv4BKxRI6rfGnAiLjBlfmc5heyXUtP2LDbI5B4t/lo="; # aarch64-darwin
         };
       };
 
