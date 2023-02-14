@@ -1,6 +1,6 @@
 {
   inputs = {
-    dev.url = github:defn/pkg/dev-0.0.17?dir=dev;
+    dev.url = github:defn/pkg/dev-0.0.22?dir=dev;
   };
 
   outputs = inputs: inputs.dev.main rec {
@@ -10,8 +10,9 @@
 
     config = rec {
       slug = builtins.readFile ./SLUG;
-      version = builtins.readFile ./VERSION;
       vendor = builtins.readFile ./VENDOR;
+      revision = builtins.readFile ./REVISION;
+      version = "${vendor}-${revision}";
 
       url_template = input: "https://releases.hashicorp.com/terraform/${input.version}/terraform_${input.version}_${input.os}_${input.arch}.zip";
 
@@ -20,25 +21,25 @@
           version = vendor;
           os = "linux";
           arch = "amd64";
-          sha256 = "sha256-u0SkwrCoMtSSU7kDTYzL00+f7rJu2nHGZfbn+ghh9Js="; # x86_64-linux
+          sha256 = "sha256-nZ59aptBzvi4N69ohEHU+72EtQPSQGHQeK1mJEHHAkA="; # x86_64-linux
         };
         "aarch64-linux" = {
           version = vendor;
           os = "linux";
           arch = "arm64";
-          sha256 = "sha256-9LGvKQlCkPGzk1wpAzxOUpFmTuLAFcolGgIN1CXIR8M="; # aarch64-linux
+          sha256 = "sha256-pCvzx9Yyf0XSshK2kqtCKShftE27itt8OeGL4rJhZ8g="; # aarch64-linux
         };
         "x86_64-darwin" = {
           version = vendor;
           os = "darwin";
           arch = "amd64";
-          sha256 = "sha256-WrmOLZ87kI/WQioFYugpzBfrBVyOJCQn0W0KE1BtQBs="; # x86_64-darwin
+          sha256 = "sha256-PLKflZYpR7Db3z+DM4Ehh5Qm1yO6YAB+fCZMPIoq3Y8="; # x86_64-darwin
         };
         "aarch64-darwin" = {
           version = vendor;
           os = "darwin";
           arch = "arm64";
-          sha256 = "sha256-8cILIYDJgr3ag4SxMWIJ0g/FXe9PA1Tq16Ko4EyJ9U4="; # aarch64-darwin
+          sha256 = "sha256-RUeke+CDUKPrbkT9KOlXz1FcOitS4E8TQ2agix+/A+w="; # aarch64-darwin
         };
       };
 
