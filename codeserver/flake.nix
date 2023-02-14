@@ -14,32 +14,32 @@
       vendor = builtins.readFile ./VENDOR;
       version = "${vendor}-${revision}";
 
-      url_template = input: "https://github.com/coder/code-server/releases/download/v4.9.0-rc.0/code-server-${input.version}-${input.os}-${input.arch}.tar.gz";
+      url_template = input: "https://github.com/coder/code-server/releases/download/v${input.version}/code-server-${input.version}-${input.os}-${input.arch}.tar.gz";
 
       downloads = {
         "x86_64-linux" = {
           version = vendor;
           os = "linux";
           arch = "amd64";
-          sha256 = "sha256-qeZ5UXWlJ1meW8W5HYQnMRfR4uNmO1jlVmbXLQstPxo="; # x86_64-linux
+          sha256 = "sha256-4yTWhKVayxKXdQvEAuFZ/mG88HaYoaIPfJI1gKOQB4g="; # x86_64-linux
         };
         "aarch64-linux" = {
           version = vendor;
           os = "linux";
           arch = "arm64";
-          sha256 = "sha256-dger2hAqYxv5f8pHGOJhKaUnrOeFYTps7YwEusDn20U="; # aarch64-linux
+          sha256 = "sha256-qVTFe2oOsA/LIbC78mKR1O01M/EJZXKAYh27cJ0/ShM="; # aarch64-linux
         };
         "x86_64-darwin" = {
           version = vendor;
           os = "macos";
           arch = "amd64";
-          sha256 = "sha256-ABTBPT+AEsNsYCj8I6y9dkOLPgLlS7nP1cd28DsiPTA="; # x86_64-darwin
+          sha256 = "sha256-Ogs8znVwj3O4s0tQ8WaTpA6g2ltbNDjnvimriJRyumY="; # x86_64-darwin
         };
         "aarch64-darwin" = {
           version = vendor;
           os = "macos";
           arch = "amd64"; # code-server not avaialble for darwin arm64
-          sha256 = "sha256-ABTBPT+AEsNsYCj8I6y9dkOLPgLlS7nP1cd28DsiPTA="; # aarch64-darwin
+          sha256 = "sha256-Ogs8znVwj3O4s0tQ8WaTpA6g2ltbNDjnvimriJRyumY="; # aarch64-darwin
         };
       };
 
