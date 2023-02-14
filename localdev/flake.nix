@@ -9,7 +9,6 @@
     earthly.url = github:defn/pkg/earthly-0.7.0-rc2-0?dir=earthly;
     tilt.url = github:defn/pkg/tilt-0.31.2-0?dir=tilt;
     gh.url = github:defn/pkg/gh-2.23.0-0?dir=gh;
-    webhook.url = github:defn/pkg/webhook-2.8.0?dir=webhook;
   };
 
   outputs = inputs: inputs.dev.main rec {
