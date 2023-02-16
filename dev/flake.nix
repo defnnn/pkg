@@ -28,10 +28,23 @@
 
         dev-inputs = inputs;
 
+        defaultConfig = { src }: {
+          slug = builtins.readFile "${src}/SLUG";
+        } // (
+          if inputs.nixpkgs.lib.pathIsRegularFile "${src}/VENDOR" then rec {
+            vendor = builtins.readFile "${src}/VENDOR";
+            revision = builtins.readFile "${src}/REVISION";
+            version = "${vendor}-${revision}";
+          }
+          else {
+            version = builtins.readFile "${src}/VERSION";
+          }
+        );
+
         main =
           { src
           , inputs
-          , config ? { }
+          , config
           , handler
           , scripts ? ({ system }: { })
           , prefix ? "this-"
@@ -42,20 +55,7 @@
               overlays = [ gomod2nixOverlay ];
             };
 
-            defaultConfig = {
-              slug = builtins.readFile "${src}/SLUG";
-            } // (
-              if pkgs.lib.pathIsRegularFile "${src}/VENDOR" then rec {
-                vendor = builtins.readFile "${src}/VENDOR";
-                revision = builtins.readFile "${src}/REVISION";
-                version = "${vendor}-${revision}";
-              }
-              else {
-                version = builtins.readFile "${src}/VERSION";
-              }
-            );
-
-            cfg = defaultConfig // config;
+            cfg = config;
 
             commands = pkgs.lib.attrsets.mapAttrsToList
               (name: value: value)
@@ -114,6 +114,8 @@
       inherit inputs;
 
       src = builtins.path { path = ./.; name = builtins.readFile ./SLUG; };
+
+      config = prelude.defaultConfig { inherit src; };
 
       prefix = "c-";
 
