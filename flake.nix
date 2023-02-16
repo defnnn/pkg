@@ -14,9 +14,20 @@
           defaultPackage = caller.defaultPackage ctx;
         };
       };
+
+      downloadMain = caller: inputs.dev.main rec {
+        inherit inputs;
+
+        src = builtins.path { path = caller.src; name = (builtins.fromJSON (builtins.readFile "${caller.src}/flake.json")).slug; };
+
+        config = caller.config;
+
+        handler = { pkgs, wrap, system, builders }: wrap.genDownloadBuilders { };
+      };
     in
     {
       inherit main;
+      inherit downloadMain;
     } // inputs.dev.main rec {
       inherit inputs;
 
