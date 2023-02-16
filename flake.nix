@@ -17,15 +17,19 @@
         };
       };
 
-      downloadMain = caller: inputs.dev.main rec {
-        inherit inputs;
+      downloadMain = clr:
+        let
+          caller = inputs.pkg.dev.defaultConfig clr;
+        in
+        inputs.dev.main rec {
+          inherit inputs;
 
-        src = builtins.path { path = caller.src; name = (builtins.fromJSON (builtins.readFile "${caller.src}/flake.json")).slug; };
+          src = builtins.path { path = caller.src; name = (builtins.fromJSON (builtins.readFile "${caller.src}/flake.json")).slug; };
 
-        config = caller // { inherit src; };
+          config = caller // { inherit src; };
 
-        handler = ctx: ctx.wrap.genDownloadBuilders { inherit config; };
-      };
+          handler = ctx: ctx.wrap.genDownloadBuilders { inherit config; };
+        };
     in
     {
       inherit main;
