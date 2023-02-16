@@ -52,7 +52,7 @@
             }));
         };
 
-        downloadBuilder = { propagatedBuildInputs ? [ ], buildInputs ? [ ], dontUnpack ? false, dontFixup ? false, overrideSystem ? system }:
+        downloadBuilder = { propagatedBuildInputs ? [ ], buildInputs ? [ ], dontUnpack ? false, dontFixup ? false, overrideSystem ? system, config }:
           pkgs.stdenv.mkDerivation rec {
             inherit dontUnpack;
             inherit dontFixup;
@@ -63,7 +63,7 @@
             name = "${site.slug}-${site.version}";
 
             src = with site.downloads.${overrideSystem}; pkgs.fetchurl {
-              url = site.url_template site.downloads.${overrideSystem};
+              url = site.url_template (config // site.downloads.${overrideSystem});
               inherit sha256;
             };
 
