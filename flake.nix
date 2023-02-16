@@ -10,7 +10,7 @@
 
         src = builtins.path { path = caller.src; name = (builtins.fromJSON (builtins.readFile "${caller.src}/flake.json")).slug; };
 
-        handler = ctx: rec { 
+        handler = ctx: rec {
           defaultPackage = caller.defaultPackage ctx;
         };
       };
@@ -22,7 +22,7 @@
 
         config = caller.config;
 
-        handler = ctx: wrap.genDownloadBuilders { };
+        handler = ctx: ctx.wrap.genDownloadBuilders { };
       };
     in
     {
