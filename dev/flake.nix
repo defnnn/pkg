@@ -28,18 +28,18 @@
 
         dev-inputs = inputs;
 
-        defaultConfig = { src }: {
-          slug = builtins.readFile "${src}/SLUG";
+        defaultConfig = { config ? { } }: {
+          slug = builtins.readFile ./SLUG;
         } // (
-          if inputs.nixpkgs.lib.pathIsRegularFile "${src}/VENDOR" then rec {
-            vendor = builtins.readFile "${src}/VENDOR";
-            revision = builtins.readFile "${src}/REVISION";
+          if inputs.nixpkgs.lib.pathIsRegularFile ./VENDOR then rec {
+            vendor = builtins.readFile ./VENDOR;
+            revision = builtins.readFile ./REVISION;
             version = "${vendor}-${revision}";
           }
           else {
-            version = builtins.readFile "${src}/VERSION";
+            version = builtins.readFile ./VERSION;
           }
-        );
+        ) // config;
 
         main =
           { src
@@ -115,7 +115,7 @@
 
       src = builtins.path { path = ./.; name = builtins.readFile ./SLUG; };
 
-      config = prelude.defaultConfig { inherit src; };
+      config = prelude.defaultConfig { };
 
       prefix = "c-";
 
@@ -123,54 +123,6 @@
         defaultPackage = wrap.nullBuilder {
           propagatedBuildInputs = commands;
         };
-      };
-
-      scripts = { system }: {
-        "hello" = ''
-          echo hello ${system}
-        '';
-
-        "nix-docker-build" = ''
-          function main {
-              set -exu
-              set +f
-
-              name="$1"; shift
-              build="$1"; shift
-              image="$1"; shift
-
-              cd "dist/$name"
-              git init || true
-              rsync -ia ../../flake.lock ../../*.nix .
-
-              git add -f flake.lock *.nix app
-
-              n build "$build"
-              sudo rm -rf nix/store
-              mkdir -p nix/store
-              time for a in $(nix-store -qR ./result); do rsync -ia $a nix/store/; done
-
-              (
-                  echo '# syntax=docker/dockerfile:1'
-                  echo FROM alpine
-                  echo RUN mkdir -p /app
-                  for a in nix/store/*/; do
-                      echo COPY --link "$a" "/$a/"
-                  done
-                  echo COPY app /app/
-
-                  echo WORKDIR /app
-                  echo ENTRYPOINT [ '"/app/bin"' ]
-                  echo "ENV PATH $(for a in nix/store/*/; do echo -n "/$a/bin:"; done)/bin"
-              ) > Dockerfile
-
-              time env DOCKER_BUILDKIT=1 docker build -t "$image" .
-
-              docker push "$image"
-          }
-
-          source sub "$0" "$@"
-        '';
       };
     });
 }
