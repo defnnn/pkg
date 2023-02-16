@@ -28,12 +28,12 @@
 
         dev-inputs = inputs;
 
-        pkgs = inputs.nixpkgs;
+        pkgs = dev-inputs.nixpkgs;
 
         defaultConfig = { src, config ? { } }: {
           slug = builtins.readFile (src + "/SLUG");
         } // (
-          if inputs.nixpkgs.lib.pathIsRegularFile (src + "/VENDOR") then rec {
+          if dev-inputs.nixpkgs.lib.pathIsRegularFile (src + "/VENDOR") then rec {
             vendor = builtins.readFile (src + "/VENDOR");
             revision = builtins.readFile (src + "/REVISION");
             version = "${vendor}-${revision}";
@@ -52,7 +52,7 @@
           , prefix ? "this-"
           }: eachDefaultSystem (system:
           let
-            pkgs = import inputs.nixpkgs {
+            pkgs = import dev-inputs.nixpkgs {
               inherit system;
               overlays = [ gomod2nixOverlay ];
             };
