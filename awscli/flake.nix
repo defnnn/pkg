@@ -1,5 +1,5 @@
 {
-  inputs.pkg.url = github:defn/pkg/0.0.145;
+  inputs.pkg.url = github:defn/pkg/0.0.146;
   outputs = inputs: inputs.pkg.downloadMain rec {
     src = ./.;
 
@@ -26,9 +26,9 @@
     '';
 
     downloads = {
-      options = {
+      options = ctx: {
         dontUnpack = true;
-        buildInputs = with inputs.pkg.pkgs.legacyPackages.${"x86_64-linux"}; [
+        buildInputs = with inputs.pkg.pkgs.legacyPackages.${ctx.system}; [
           unzip
           xar
           cpio

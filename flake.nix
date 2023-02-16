@@ -37,7 +37,7 @@
       inherit downloadMain;
 
       dev = inputs.dev;
-      pkgs = inputs.dev.pkgs;
+      nixpkgs = inputs.dev.pkgs;
     } // inputs.dev.main rec {
       inherit inputs;
 
