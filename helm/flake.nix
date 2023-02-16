@@ -1,6 +1,6 @@
 {
-  inputs.pkg.url = github:defn/pkg/0.0.130;
-  outputs = inputs: inputs.pkg.downloadMain (inputs.pkg.dev.defaultConfig {
+  inputs.pkg.url = github:defn/pkg/0.0.132;
+  outputs = inputs: inputs.pkg.downloadMain {
     src = ./.;
     config = rec {
       url_template = input: "https://get.helm.sh/helm-v${input.vendor}-${input.os}-${input.arch}.tar.gz";
@@ -33,5 +33,5 @@
         };
       };
     };
-  });
+  };
 }
