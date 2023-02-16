@@ -60,10 +60,12 @@
     "gomod2nix": {
       "inputs": {
         "nixpkgs": [
+          "pkg",
           "dev",
           "nixpkgs"
         ],
         "utils": [
+          "pkg",
           "dev",
           "flake-utils"
         ]
@@ -115,14 +117,34 @@
         "type": "github"
       }
     },
-    "root": {
+    "pkg": {
       "inputs": {
         "dev": "dev"
+      },
+      "locked": {
+        "lastModified": 1676513666,
+        "narHash": "sha256-hTwdtt0c5k2d3HUg3T0lMABqYWgCmApa6Ndb2A7KH7Q=",
+        "owner": "defn",
+        "repo": "pkg",
+        "rev": "00f98b0e5b79550f8414b8785303bf65dac7630c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "defn",
+        "ref": "0.0.121",
+        "repo": "pkg",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "pkg": "pkg"
       }
     },
     "wrapper": {
       "inputs": {
         "nixpkgs": [
+          "pkg",
           "dev",
           "nixpkgs"
         ]
@@ -147,11 +169,13 @@
     "wrapper_2": {
       "inputs": {
         "flake-utils": [
+          "pkg",
           "dev",
           "yaegi",
           "flake-utils"
         ],
         "nixpkgs": [
+          "pkg",
           "dev",
           "yaegi",
           "nixpkgs"
