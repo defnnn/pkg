@@ -1,5 +1,5 @@
 {
-  inputs.dev.url = github:defn/pkg/dev-0.0.25?dir=dev;
+  inputs.dev.url = github:defn/pkg/dev-0.0.26?dir=dev;
   outputs = inputs:
     let
       main = caller: inputs.dev.main rec {
@@ -37,7 +37,7 @@
       inherit downloadMain;
 
       dev = inputs.dev;
-      pkgs = inputs.dev.wrapper.nixpkgs;
+      pkgs = inputs.dev.pkgs;
     } // inputs.dev.main rec {
       inherit inputs;
 
