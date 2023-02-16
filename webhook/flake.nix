@@ -1,55 +1,38 @@
 {
-  inputs = {
-    dev.url = github:defn/pkg/dev-0.0.22?dir=dev;
-  };
+  inputs.pkg.url = github:defn/pkg/0.0.141;
+  outputs = inputs: inputs.pkg.downloadMain rec {
+    src = ./.;
 
-  outputs = inputs: inputs.dev.main rec {
-    inherit inputs;
+    url_template = input: "https://github.com/adnanh/webhook/releases/download/${input.vendor}/webhook-${input.os}-${input.arch}.tar.gz";
 
-    src = builtins.path { path = ./.; name = builtins.readFile ./SLUG; };
+    installPhase = { src }: ''
+      install -m 0755 -d $out $out/bin
+      install -m 0755 */webhook $out/bin/webhook
+    '';
 
-    config = rec {
-      slug = builtins.readFile ./SLUG;
-      vendor = builtins.readFile ./VENDOR;
-      revision = builtins.readFile ./REVISION;
-      version = "${vendor}-${revision}";
+    downloads = {
+      options = { };
 
-      url_template = input: "https://github.com/adnanh/webhook/releases/download/${input.version}/webhook-${input.os}-${input.arch}.tar.gz";
-
-      downloads = {
-        "x86_64-linux" = {
-          version = vendor;
-          os = "linux";
-          arch = "amd64";
-          sha256 = "sha256-RZGRaqhaMzKvP1cz0Ndc5OBlqhhNvae5RbslQuun2ks="; # x86_64-linux
-        };
-        "aarch64-linux" = {
-          version = vendor;
-          os = "linux";
-          arch = "arm64";
-          sha256 = "sha256-JuPEA+7G0whFcIIBqWCtFrrHwv14u8trghppKK8Xq4A="; # aarch64-linux
-        };
-        "x86_64-darwin" = {
-          version = vendor;
-          os = "darwin";
-          arch = "amd64";
-          sha256 = "sha256-xHng5y3NaUZlkS9NVp6LD91hs9kw4dTDcVao1qKgno8="; # x86_64-darwin
-        };
-        "aarch64-darwin" = {
-          version = vendor;
-          os = "darwin";
-          arch = "amd64"; # no arm64
-          sha256 = "sha256-xHng5y3NaUZlkS9NVp6LD91hs9kw4dTDcVao1qKgno8="; # aarch64-darwin
-        };
+      "x86_64-linux" = {
+        os = "linux";
+        arch = "amd64";
+        sha256 = "sha256-RZGRaqhaMzKvP1cz0Ndc5OBlqhhNvae5RbslQuun2ks="; # x86_64-linux
       };
-
-      installPhase = { src }: ''
-        install -m 0755 -d $out $out/bin
-        install -m 0755 */webhook $out/bin/webhook
-      '';
+      "aarch64-linux" = {
+        os = "linux";
+        arch = "arm64";
+        sha256 = "sha256-JuPEA+7G0whFcIIBqWCtFrrHwv14u8trghppKK8Xq4A="; # aarch64-linux
+      };
+      "x86_64-darwin" = {
+        os = "darwin";
+        arch = "amd64";
+        sha256 = "sha256-xHng5y3NaUZlkS9NVp6LD91hs9kw4dTDcVao1qKgno8="; # x86_64-darwin
+      };
+      "aarch64-darwin" = {
+        os = "darwin";
+        arch = "amd64"; # no arm64
+        sha256 = "sha256-xHng5y3NaUZlkS9NVp6LD91hs9kw4dTDcVao1qKgno8="; # aarch64-darwin
+      };
     };
-
-    handler = { pkgs, wrap, system, builders }:
-      wrap.genDownloadBuilders { };
   };
 }
