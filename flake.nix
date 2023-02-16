@@ -17,23 +17,23 @@
         };
       };
 
-      downloadMain = clr:
+      downloadMain = caller:
         let
-          src = builtins.path { path = clr.src; name = (builtins.fromJSON (builtins.readFile "${clr.src}/flake.json")).slug; };
+          src = builtins.path { path = caller.src; name = (builtins.fromJSON (builtins.readFile "${caller.src}/flake.json")).slug; };
 
           config = {
             inherit src;
-            url_template = clr.url_template;
-            installPhase = clr.installPhase;
-            downloads = clr.downloads;
+            url_template = caller.url_template;
+            installPhase = caller.installPhase;
+            downloads = caller.downloads;
           };
 
-          caller = inputs.dev.defaultConfig clr;
+          mergedConfig = inputs.dev.defaultConfig config;
         in
         inputs.dev.main rec {
           inherit inputs;
           inherit src;
-          inherit config;
+          config = mergedConfig;
           handler = ctx: ctx.wrap.genDownloadBuilders { inherit config; };
         };
     in
