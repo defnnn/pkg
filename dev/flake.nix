@@ -28,16 +28,16 @@
 
         dev-inputs = inputs;
 
-        defaultConfig = { config ? { } }: {
-          slug = builtins.readFile ./SLUG;
+        defaultConfig = { src, config ? { } }: {
+          slug = builtins.readFile (src + "/SLUG");
         } // (
-          if inputs.nixpkgs.lib.pathIsRegularFile ./VENDOR then rec {
-            vendor = builtins.readFile ./VENDOR;
-            revision = builtins.readFile ./REVISION;
+          if inputs.nixpkgs.lib.pathIsRegularFile (src + "/VENDOR") then rec {
+            vendor = builtins.readFile (src + "/VENDOR");
+            revision = builtins.readFile (src + "/REVISION");
             version = "${vendor}-${revision}";
           }
           else {
-            version = builtins.readFile ./VERSION;
+            version = builtins.readFile (src + "/VERSION");
           }
         ) // config;
 
@@ -115,7 +115,7 @@
 
       src = builtins.path { path = ./.; name = builtins.readFile ./SLUG; };
 
-      config = prelude.defaultConfig { };
+      config = prelude.defaultConfig { inherit src; };
 
       prefix = "c-";
 
