@@ -28,6 +28,8 @@
 
         dev-inputs = inputs;
 
+        pkgs = inputs.nixpkgs;
+
         defaultConfig = { src, config ? { } }: {
           slug = builtins.readFile (src + "/SLUG");
         } // (
@@ -50,7 +52,7 @@
           , prefix ? "this-"
           }: eachDefaultSystem (system:
           let
-            pkgs = import wrapper.nixpkgs {
+            pkgs = import inputs.nixpkgs {
               inherit system;
               overlays = [ gomod2nixOverlay ];
             };
