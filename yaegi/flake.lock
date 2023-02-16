@@ -41,26 +41,23 @@
     },
     "wrapper": {
       "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
         "dir": "wrapper",
-        "lastModified": 1671399461,
-        "narHash": "sha256-0LmUd1ACOzVz5GprvEvb3tkKnvZPA8/66OzPWPjDHjo=",
+        "lastModified": 1675898361,
+        "narHash": "sha256-nTZ/70bRO4dlP5qtNJVJmcdI12ZOK15Oj4Asc9tGdts=",
         "owner": "defn",
         "repo": "pkg",
-        "rev": "77790964128ceb36a9d8aa504e99fe6e8214988a",
+        "rev": "0cb76251e275643ab918607ba10d6783c971b6cb",
         "type": "github"
       },
       "original": {
         "dir": "wrapper",
         "owner": "defn",
-        "ref": "wrapper-0.0.12",
+        "ref": "wrapper-0.0.17",
         "repo": "pkg",
         "type": "github"
       }

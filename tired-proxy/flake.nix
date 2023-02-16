@@ -1,6 +1,6 @@
 {
   inputs = {
-    dev.url = github:defn/pkg/dev-0.0.19?dir=dev;
+    dev.url = github:defn/pkg/dev-0.0.23?dir=dev;
   };
 
   outputs = inputs: inputs.dev.main rec {
@@ -8,13 +8,11 @@
 
     src = builtins.path { path = ./.; name = builtins.readFile ./SLUG; };
 
-    config = rec {
-      slug = builtins.readFile ./SLUG;
-      version = builtins.readFile ./VERSION;
+    config = {
       commands = [ "tired-proxy" ];
     };
 
-    handler = { pkgs, wrap, system, builders }: rec {
+    handler = { pkgs, wrap, system, builders, commands, config }: rec {
       defaultPackage = wrap.nullBuilder {
         propagatedBuildInputs = [
           packages.tired-proxy

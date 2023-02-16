@@ -1,6 +1,6 @@
 {
   inputs = {
-    dev.url = github:defn/pkg/dev-0.0.17?dir=dev;
+    dev.url = github:defn/pkg/dev-0.0.22?dir=dev;
   };
 
   outputs = inputs: inputs.dev.main rec {
@@ -10,8 +10,9 @@
 
     config = rec {
       slug = builtins.readFile ./SLUG;
-      version = builtins.readFile ./VERSION;
       vendor = builtins.readFile ./VENDOR;
+      revision = builtins.readFile ./REVISION;
+      version = "${vendor}-${revision}";
 
       url_template = input: "https://github.com/smallstep/cli/releases/download/v${input.version}/step_${input.os}_${input.version}_${input.arch}.tar.gz";
 
@@ -20,25 +21,25 @@
           version = vendor;
           os = "linux";
           arch = "amd64";
-          sha256 = "sha256-VcdEgQ39k6epscJ2Bq5Vck95af++zhLvWfH55FogUGk="; # x86_64-linux
+          sha256 = "sha256-BE/lUX7OkH3ZGT6SuhV5kmMQ4GlOg/6Ue0KOJP8Il4U="; # x86_64-linux
         };
         "aarch64-linux" = {
           version = vendor;
           os = "linux";
           arch = "arm64";
-          sha256 = "sha256-U43WYxVr5/6F4rV7xCmxI5wy3NXgme59WcSHr0ZTbmQ="; # aarch64-linux
+          sha256 = "sha256-FrRDsnR69U9BtIKpiiRczG1A9fbRBeNsMZApIAmoNyA="; # aarch64-linux
         };
         "x86_64-darwin" = {
           version = vendor;
           os = "darwin";
           arch = "amd64";
-          sha256 = "sha256-piK/e+kI8LeqROTmhpuP5p0ceoJsQxhdhIn9EPQMkGg="; # x86_64-darwin
+          sha256 = "sha256-p4PZAd5NBOporuNOcBZZqwjEGCn1hFb0PfNXIjbKqW4="; # x86_64-darwin
         };
         "aarch64-darwin" = {
           version = vendor;
           os = "darwin";
           arch = "arm64";
-          sha256 = "sha256-QjeRgRFPkgffFF8h5RPwx/a+/LxXOGnlH5mWmiPYStg="; # aarch64-darwin
+          sha256 = "sha256-aIcI8zPPkFV3PvRgxTUWZnsHsJIVHqWMvPa55nWqX2o="; # aarch64-darwin
         };
       };
 

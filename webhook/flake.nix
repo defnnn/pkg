@@ -1,6 +1,6 @@
 {
   inputs = {
-    dev.url = github:defn/pkg/dev-0.0.18?dir=dev;
+    dev.url = github:defn/pkg/dev-0.0.22?dir=dev;
   };
 
   outputs = inputs: inputs.dev.main rec {
@@ -10,8 +10,9 @@
 
     config = rec {
       slug = builtins.readFile ./SLUG;
-      version = builtins.readFile ./VERSION;
       vendor = builtins.readFile ./VENDOR;
+      revision = builtins.readFile ./REVISION;
+      version = "${vendor}-${revision}";
 
       url_template = input: "https://github.com/adnanh/webhook/releases/download/${input.version}/webhook-${input.os}-${input.arch}.tar.gz";
 

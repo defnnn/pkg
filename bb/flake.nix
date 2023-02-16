@@ -1,6 +1,6 @@
 {
   inputs = {
-    dev.url = github:defn/pkg/dev-0.0.17?dir=dev;
+    dev.url = github:defn/pkg/dev-0.0.22?dir=dev;
   };
 
   outputs = inputs: inputs.dev.main rec {
@@ -10,8 +10,9 @@
 
     config = rec {
       slug = builtins.readFile ./SLUG;
-      version = builtins.readFile ./VERSION;
       vendor = builtins.readFile ./VENDOR;
+      revision = builtins.readFile ./REVISION;
+      version = "${vendor}-${revision}";
 
       url_template = input: "https://github.com/babashka/babashka/releases/download/v${input.version}/babashka-${input.version}-${input.os}-${input.arch}.tar.gz";
 
@@ -20,25 +21,25 @@
           version = vendor;
           os = "linux";
           arch = "amd64";
-          sha256 = "sha256-RL2bmphXdASj0DkctcqEYRa/DjuhuGbiDgA46WE46Iw="; # x86_64-linux
+          sha256 = "sha256-+GEVDnA3dPk5H0z2fZgXtRRosCEqCKNV7dDVHmQqctI="; # x86_64-linux
         };
         "aarch64-linux" = {
           version = vendor;
           os = "linux";
           arch = "aarch64";
-          sha256 = "sha256-KZua9FY0jWgFpqaBp9FrWlUrRaXcT6BeHGvkqRI9ato="; # aarch64-linux
+          sha256 = "sha256-KUGK/IAAxu0viX28Dysng2FxvrgAxmbT382R1ljcgY4="; # aarch64-linux
         };
         "x86_64-darwin" = {
           version = vendor;
           os = "macos";
           arch = "amd64";
-          sha256 = "sha256-N5pPULowLTxaXiaH+eHf4CrL2ah+C0YZ9PB5EybzQNA="; # x86_64-darwin
+          sha256 = "sha256-bJVXnCaJvMxvyJ6aBH8gfwdrHCieunZUvFBHAcHLW3s="; # x86_64-darwin
         };
         "aarch64-darwin" = {
           version = vendor;
           os = "macos";
           arch = "aarch64";
-          sha256 = "sha256-EcS0vQtTTbHs1zKwO8N2+LIbvaDYjKy0u+FbhGkCkSM="; # aarch64-darwin
+          sha256 = "sha256-eSrehuYXAxcPPeMIIYMXPbZqmpixHQHJWs4CNfCl40U="; # aarch64-darwin
         };
       };
 

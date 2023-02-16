@@ -1,6 +1,6 @@
 {
   inputs = {
-    dev.url = github:defn/pkg/dev-0.0.17?dir=dev;
+    dev.url = github:defn/pkg/dev-0.0.22?dir=dev;
   };
 
   outputs = inputs: inputs.dev.main rec {
@@ -10,8 +10,9 @@
 
     config = rec {
       slug = builtins.readFile ./SLUG;
-      version = builtins.readFile ./VERSION;
       vendor = builtins.readFile ./VENDOR;
+      revision = builtins.readFile ./REVISION;
+      version = "${vendor}-${revision}";
 
       url_template = input: "https://github.com/goreleaser/goreleaser/releases/download/v${input.version}/goreleaser_${input.os}_${input.arch}.tar.gz";
 
@@ -20,25 +21,25 @@
           version = vendor;
           os = "linux";
           arch = "x86_64";
-          sha256 = "sha256-E2/s+y4vOnllJ0rV4lcZhdiy+nJLZTaHTwguSwu580Q="; # x86_64-linux
+          sha256 = "sha256-FzDERVdW2Aclw2dS52oOIAqyaopits2qv/ACVzw4Kqk="; # x86_64-linux
         };
         "aarch64-linux" = {
           version = vendor;
           os = "linux";
           arch = "arm64";
-          sha256 = "sha256-MI8uEutBWUIAjNcivLe8E13A03ZBgBifJ/s8OCpWlrA="; # aarch64-linux
+          sha256 = "sha256-Qb8K+i617kUuHt7CqaVGZm42GhRtoyNpX24PclC7kWg="; # aarch64-linux
         };
         "x86_64-darwin" = {
           version = vendor;
           os = "darwin";
           arch = "x86_64";
-          sha256 = "sha256-yJ1iHi4VrgfRilG0lj0n9XScD0jaXwZkU5v7DHl9f+c="; # x86_64-darwin
+          sha256 = "sha256-VPSxJfpXuRPzj/PcPPW1wwhft1a6tIVly7iaUgZdM10="; # x86_64-darwin
         };
         "aarch64-darwin" = {
           version = vendor;
           os = "darwin";
           arch = "arm64";
-          sha256 = "sha256-+4dbQxS4YwOR9wOy5fL1KsmSsuyv0L6fLK1BFkP/hic="; # aarch64-darwin
+          sha256 = "sha256-h6On91aQF1jA04KatKhJHmslYoYViI3AOr8gi541/cM="; # aarch64-darwin
         };
       };
 

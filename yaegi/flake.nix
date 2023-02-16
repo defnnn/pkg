@@ -4,9 +4,8 @@
     flake-utils.url = github:numtide/flake-utils?rev=04c1b180862888302ddfb2e3ad9eaa63afc60cf8;
 
     wrapper = {
-      url = github:defn/pkg/wrapper-0.0.12?dir=wrapper;
+      url = github:defn/pkg/wrapper-0.0.17?dir=wrapper;
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
     };
   };
 
@@ -15,7 +14,7 @@
       prelude = rec {
         wrapper = inputs.wrapper;
 
-        eachDefaultSystem = wrapper.flake-utils.lib.eachDefaultSystem;
+        eachDefaultSystem = inputs.flake-utils.lib.eachDefaultSystem;
 
         main = { inputs, config, handler, src }: eachDefaultSystem (system:
           let
@@ -46,8 +45,9 @@
 
       config = rec {
         slug = builtins.readFile ./SLUG;
-        version = builtins.readFile ./VERSION;
         vendor = builtins.readFile ./VENDOR;
+        revision = builtins.readFile ./REVISION;
+        version = "${vendor}-${revision}";
 
         url_template = input: "https://github.com/traefik/yaegi/releases/download/v${input.version}/yaegi_v${input.version}_${input.os}_${input.arch}.tar.gz";
 

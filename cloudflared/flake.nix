@@ -29,7 +29,7 @@
           os = "linux";
           arch = "arm64";
           url = "https://github.com/cloudflare/cloudflared/releases/download/${version}/cloudflared-${os}-${arch}";
-          sha256 = "sha256-aaaAOYG+HWObYFC2V7ZocxY+L0q2GZZF0LYSOMbd2kw="; # aarch64-linux
+          sha256 = "sha256-A+jyKtYUZYNBVMy4ZW0g6vCnN4kXPjxw/Kvdt/G2f9E="; # aarch64-linux
         };
         "x86_64-darwin" = rec {
           version = vendor;

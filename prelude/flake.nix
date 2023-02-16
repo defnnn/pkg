@@ -1,6 +1,6 @@
 {
   inputs = {
-    dev.url = github:defn/pkg/dev-0.0.17?dir=dev;
+    dev.url = github:defn/pkg/dev-0.0.23?dir=dev;
   };
 
   outputs = inputs: inputs.dev.main rec {
@@ -8,13 +8,7 @@
 
     src = builtins.path { path = ./.; name = builtins.readFile ./SLUG; };
 
-    config = rec {
-      slug = builtins.readFile ./SLUG;
-      version = builtins.readFile ./VERSION;
-      vendor = builtins.readFile ./VENDOR;
-    };
-
-    handler = { pkgs, wrap, system, builders }: {
+    handler = { pkgs, wrap, system, builders, commands, config }: {
       defaultPackage = wrap.nullBuilder { };
     };
   };
