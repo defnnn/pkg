@@ -1,8 +1,5 @@
 {
-  inputs = {
-    dev.url = github:defn/pkg/dev-0.0.24?dir=dev;
-  };
-
+  inputs.dev.url = github:defn/pkg/dev-0.0.24?dir=dev;
   outputs = inputs:
     let
       main = caller: inputs.dev.main rec {
@@ -32,7 +29,7 @@
           inherit inputs;
           inherit src;
           inherit config;
-          handler = ctx: ctx.wrap.genDownloadBuilders { inherit config; };
+          handler = ctx: ctx.wrap.genDownloadBuilders ({ inherit config; } // caller.downloads.options);
         };
     in
     {
