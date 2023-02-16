@@ -1,6 +1,6 @@
 {
   inputs = {
-    dev.url = github:defn/pkg/dev-0.0.24-rc2?dir=dev;
+    dev.url = github:defn/pkg/dev-0.0.24-rc4?dir=dev;
   };
 
   outputs = inputs:
@@ -24,7 +24,7 @@
 
         config = caller.config;
 
-        handler = ctx: ctx.wrap.genDownloadBuilders { };
+        handler = ctx: ctx.wrap.genDownloadBuilders { inherit config; };
       };
     in
     {
