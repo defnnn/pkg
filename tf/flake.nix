@@ -4,10 +4,10 @@
     src = ./.;
 
     defaultPackage = ctx: ctx.wrap.bashBuilder {
-      src = ./bin;
+      inherit src;
       installPhase = ''
         mkdir -p $out/bin
-        cp -a $src/* $out/bin/
+        cp -a $src/bin/* $out/bin/
         chmod 755 $out/bin/tf $out/bin/tf-*
       '';
     };
