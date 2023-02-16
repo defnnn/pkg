@@ -19,7 +19,7 @@
 
       downloadMain = clr:
         let
-          caller = inputs.pkg.dev.defaultConfig clr;
+          caller = inputs.dev.defaultConfig clr;
         in
         inputs.dev.main rec {
           inherit inputs;
