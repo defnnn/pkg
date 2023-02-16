@@ -14,7 +14,7 @@
       inputs.utils.follows = "flake-utils";
     };
 
-    yaegi.url = github:defn/pkg/yaegi-0.14.3-4?dir=yaegi;
+    yaegi.url = github:defn/pkg/yaegi-0.14.3-6?dir=yaegi;
   };
 
   outputs = inputs:
