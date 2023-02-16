@@ -5,7 +5,7 @@
 
   outputs = inputs:
     let
-      main = caller: inputs.pkg.main rec {
+      main = caller: inputs.dev.main rec {
         inherit inputs;
 
         src = builtins.path { path = caller.src; name = (builtins.fromJSON (builtins.readFile "${caller.src}/flake.json")).slug; };
