@@ -1,60 +1,43 @@
 {
-  inputs = {
-    dev.url = github:defn/pkg/dev-0.0.22?dir=dev;
-  };
+  inputs.pkg.url = github:defn/pkg/0.0.141;
+  outputs = inputs: inputs.pkg.downloadMain rec {
+    src = ./.;
 
-  outputs = inputs: inputs.dev.main rec {
-    inherit inputs;
+    url_template = input: "https://releases.hashicorp.com/nomad/${input.vendor}/nomad_${input.vendor}_${input.os}_${input.arch}.zip";
 
-    src = builtins.path { path = ./.; name = builtins.readFile ./SLUG; };
+    installPhase = { src }: ''
+      install -m 0755 -d $out $out/bin
+      unzip $src
+      install -m 0755 nomad $out/bin/nomad
+    '';
 
-    config = rec {
-      slug = builtins.readFile ./SLUG;
-      vendor = builtins.readFile ./VENDOR;
-      revision = builtins.readFile ./REVISION;
-      version = "${vendor}-${revision}";
-
-      url_template = input: "https://releases.hashicorp.com/nomad/${input.version}/nomad_${input.version}_${input.os}_${input.arch}.zip";
-
-      downloads = {
-        "x86_64-linux" = {
-          version = vendor;
-          os = "linux";
-          arch = "amd64";
-          sha256 = "sha256-Y7u0wdfD2npo3R4+7TAaTt7PCTCyxe/klAIA7Zxz41A="; # x86_64-linux
-        };
-        "aarch64-linux" = {
-          version = vendor;
-          os = "linux";
-          arch = "arm64";
-          sha256 = "sha256-wNcsiQ3neDBmJWh13I7FlXwzEZ8OU/EtPJg4Cvdevcw="; # aarch64-linux
-        };
-        "x86_64-darwin" = {
-          version = vendor;
-          os = "darwin";
-          arch = "amd64";
-          sha256 = "sha256-octuQTyy6Y3nTeYvaVzjY9OqmYdCvM15Se5Fhexe+HM="; # x86_64-darwin
-        };
-        "aarch64-darwin" = {
-          version = vendor;
-          os = "darwin";
-          arch = "arm64";
-          sha256 = "sha256-sFL2RPyV2ExUOvCnw8om0m62qaoc7NI2U1tsPENO1lg="; # aarch64-darwin
-        };
-      };
-
-      installPhase = { src }: ''
-        install -m 0755 -d $out $out/bin
-        unzip $src
-        install -m 0755 nomad $out/bin/nomad
-      '';
-    };
-
-    handler = { pkgs, wrap, system, builders }:
-      wrap.genDownloadBuilders {
+    downloads = {
+      options = {
         dontUnpack = true;
         dontFixup = true;
-        buildInputs = [ pkgs.unzip ];
+        buildInputs = [ inputs.pkg.pkgs.unzip ];
       };
+
+      "x86_64-linux" = {
+        os = "linux";
+        arch = "amd64";
+        sha256 = "sha256-Y7u0wdfD2npo3R4+7TAaTt7PCTCyxe/klAIA7Zxz41A="; # x86_64-linux
+      };
+      "aarch64-linux" = {
+        os = "linux";
+        arch = "arm64";
+        sha256 = "sha256-wNcsiQ3neDBmJWh13I7FlXwzEZ8OU/EtPJg4Cvdevcw="; # aarch64-linux
+      };
+      "x86_64-darwin" = {
+        os = "darwin";
+        arch = "amd64";
+        sha256 = "sha256-octuQTyy6Y3nTeYvaVzjY9OqmYdCvM15Se5Fhexe+HM="; # x86_64-darwin
+      };
+      "aarch64-darwin" = {
+        os = "darwin";
+        arch = "arm64";
+        sha256 = "sha256-sFL2RPyV2ExUOvCnw8om0m62qaoc7NI2U1tsPENO1lg="; # aarch64-darwin
+      };
+    };
   };
 }
