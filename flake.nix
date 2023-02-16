@@ -28,7 +28,10 @@
             downloads = caller.downloads;
           };
 
-          mergedConfig = inputs.dev.defaultConfig config;
+          mergedConfig = inputs.dev.defaultConfig {
+            inherit src;
+            inherit config;
+          };
         in
         inputs.dev.main rec {
           inherit inputs;
