@@ -1,5 +1,5 @@
 {
-  inputs.pkg.url = github:defn/pkg/0.0.141;
+  inputs.pkg.url = github:defn/pkg/0.0.147;
   outputs = inputs: inputs.pkg.downloadMain {
     src = ./.;
 
@@ -11,7 +11,7 @@
     '';
 
     downloads = {
-      options = { };
+      options = ctx: { };
 
       "x86_64-linux" = {
         os = "linux";
