@@ -1,6 +1,6 @@
 {
   inputs = {
-    dev.url = github:defn/pkg/dev-0.0.24-rc4?dir=dev;
+    dev.url = github:defn/pkg/dev-0.0.24-rc5?dir=dev;
   };
 
   outputs = inputs:
@@ -32,17 +32,16 @@
       inherit downloadMain;
 
       dev = inputs.dev;
+      pkgs = inputs.dev.nixpkgs;
     } // inputs.dev.main rec {
       inherit inputs;
 
       src = builtins.path { path = ./.; name = (builtins.fromJSON (builtins.readFile ./flake.json)).slug; };
 
-      config = inputs.dev.defaultConfig { };
+      config = inputs.dev.defaultConfig { inherit src; };
 
-      handler = { pkgs, wrap, system, builders, commands, config }: {
-        defaultPackage = wrap.nullBuilder {
-          propagatedBuildInputs = with pkgs; [ cachix ];
-        };
+      handler = ctx: {
+        defaultPackage = ctx.wrap.nullBuilder { };
       };
     };
 }
