@@ -19,15 +19,19 @@
 
       downloadMain = clr:
         let
-          caller = inputs.dev.defaultConfig clr;
-        in
-        inputs.dev.main rec {
-          inherit inputs;
+          caller = inputs.dev.defaultConfig {
+            src = clr.src;
+            config = clr;
+          };
 
           src = builtins.path { path = caller.src; name = (builtins.fromJSON (builtins.readFile "${caller.src}/flake.json")).slug; };
 
           config = caller // { inherit src; };
-
+        in
+        inputs.dev.main rec {
+          inherit inputs;
+          inherit src;
+          inherit config;
           handler = ctx: ctx.wrap.genDownloadBuilders { inherit config; };
         };
     in
