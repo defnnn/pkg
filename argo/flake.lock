@@ -10,17 +10,17 @@
       },
       "locked": {
         "dir": "dev",
-        "lastModified": 1672881401,
-        "narHash": "sha256-HAJ2t2wgkqyxyiFOrvQgnX9CIuTgmKorJ/7NnNfIpro=",
+        "lastModified": 1676522820,
+        "narHash": "sha256-Q0Y6+eBy+H6TRTPEoWE3oL8c7EJtgV0HpXK5/X27BDA=",
         "owner": "defn",
         "repo": "pkg",
-        "rev": "fdf2e168283f0c574684de50c12f70355f5624da",
+        "rev": "436f08c44f50603b517ade101b397836fdcc8362",
         "type": "github"
       },
       "original": {
         "dir": "dev",
         "owner": "defn",
-        "ref": "dev-0.0.22",
+        "ref": "dev-0.0.24",
         "repo": "pkg",
         "type": "github"
       }
@@ -60,10 +60,12 @@
     "gomod2nix": {
       "inputs": {
         "nixpkgs": [
+          "pkg",
           "dev",
           "nixpkgs"
         ],
         "utils": [
+          "pkg",
           "dev",
           "flake-utils"
         ]
@@ -115,31 +117,51 @@
         "type": "github"
       }
     },
-    "root": {
+    "pkg": {
       "inputs": {
         "dev": "dev"
+      },
+      "locked": {
+        "lastModified": 1676527037,
+        "narHash": "sha256-kQTy9HMGrsomlJFqr7wev3yAGod8bTvKwrprOuckH1s=",
+        "owner": "defn",
+        "repo": "pkg",
+        "rev": "ca85b0d5ed94b1e8d6dd48064b669a5aebb9ab75",
+        "type": "github"
+      },
+      "original": {
+        "owner": "defn",
+        "ref": "0.0.140",
+        "repo": "pkg",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "pkg": "pkg"
       }
     },
     "wrapper": {
       "inputs": {
         "nixpkgs": [
+          "pkg",
           "dev",
           "nixpkgs"
         ]
       },
       "locked": {
         "dir": "wrapper",
-        "lastModified": 1672874916,
-        "narHash": "sha256-kbJMLgEEyKQbJ2jlQ17WLowLCUzoCw3CHGFluRlAsqg=",
+        "lastModified": 1676522787,
+        "narHash": "sha256-HGiuINR+gzOpKupti2xPeuRCSOWSmevZevGlo+0qlKU=",
         "owner": "defn",
         "repo": "pkg",
-        "rev": "e2bb8a3dc0999b3c956c45d909153829a21c99e0",
+        "rev": "9882f58444adfcb5884f8a1fb7b2629c115f6050",
         "type": "github"
       },
       "original": {
         "dir": "wrapper",
         "owner": "defn",
-        "ref": "wrapper-0.0.15",
+        "ref": "wrapper-0.0.18",
         "repo": "pkg",
         "type": "github"
       }
@@ -147,11 +169,13 @@
     "wrapper_2": {
       "inputs": {
         "flake-utils": [
+          "pkg",
           "dev",
           "yaegi",
           "flake-utils"
         ],
         "nixpkgs": [
+          "pkg",
           "dev",
           "yaegi",
           "nixpkgs"
