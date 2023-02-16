@@ -1,6 +1,6 @@
 {
   inputs = {
-    dev.url = github:defn/pkg/dev-0.0.24-rc1?dir=dev;
+    dev.url = github:defn/pkg/dev-0.0.24-rc2?dir=dev;
   };
 
   outputs = inputs:
@@ -37,7 +37,7 @@
 
       src = builtins.path { path = ./.; name = (builtins.fromJSON (builtins.readFile ./flake.json)).slug; };
 
-      config = inputs.dev.defaultConfig { inherit src; };
+      config = inputs.dev.defaultConfig { };
 
       handler = { pkgs, wrap, system, builders, commands, config }: {
         defaultPackage = wrap.nullBuilder {
