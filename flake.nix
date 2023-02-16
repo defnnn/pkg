@@ -30,6 +30,8 @@
     {
       inherit main;
       inherit downloadMain;
+
+      dev = inputs.dev;
     } // inputs.dev.main rec {
       inherit inputs;
 
