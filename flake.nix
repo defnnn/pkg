@@ -29,7 +29,7 @@
           inherit inputs;
           inherit src;
           inherit config;
-          handler = ctx: ctx.wrap.genDownloadBuilders ({ inherit config; } // caller.downloads.options);
+          handler = ctx: ctx.wrap.genDownloadBuilders ({ inherit config; } // (caller.downloads.options { system = ctx.system; }));
         };
     in
     {
