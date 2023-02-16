@@ -26,7 +26,12 @@
 
           src = builtins.path { path = caller.src; name = (builtins.fromJSON (builtins.readFile "${caller.src}/flake.json")).slug; };
 
-          config = caller // { inherit src; };
+          config = {
+            inherit src;
+            url_template = clr.url_template;
+            installPhase = clr.installPhase;
+            downloads = clr.downloads;
+          };
 
           handler = ctx: ctx.wrap.genDownloadBuilders { inherit config; };
         };
