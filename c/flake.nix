@@ -1,34 +1,25 @@
 {
-  inputs = {
-    dev.url = github:defn/pkg/dev-0.0.22?dir=dev;
-    cue.url = "github:defn/pkg/cue-0.5.0-beta.5-0?dir=cue";
-    hof.url = "github:defn/pkg/hof-0.6.7-4?dir=hof";
-  };
+  inputs.pkg.url = github:defn/pkg/0.0.153;
+  inputs.cue.url = "github:defn/pkg/hof-0.6.7-4?dir=hof";
+  inputs.hof.url = "github:defn/pkg/cue-0.5.0-beta.5-1?dir=cue";
+  outputs = inputs: inputs.pkg.main rec {
+    src = ./.;
 
-  outputs = inputs: inputs.dev.main rec {
-    inherit inputs;
+    extend = pkg: { };
 
-    src = builtins.path { path = ./.; name = builtins.readFile ./SLUG; };
+    defaultPackage = ctx: ctx.wrap.bashBuilder {
+      src = ./bin;
 
-    config = rec {
-      slug = builtins.readFile ./SLUG;
-      version = builtins.readFile ./VERSION;
-    };
+      installPhase = ''
+        mkdir -p $out/bin
+        cp -a $src/* $out/bin/
+        chmod 755 $out/bin/*
+      '';
 
-    handler = { pkgs, wrap, system, builders }: {
-      defaultPackage = wrap.bashBuilder {
-        src = ./bin;
-        installPhase = ''
-          mkdir -p $out/bin
-          cp -a $src/* $out/bin/
-          chmod 755 $out/bin/*
-        '';
-
-        propagatedBuildInputs = [
-          inputs.cue.defaultPackage.${system}
-          inputs.hof.defaultPackage.${system}
-        ];
-      };
+      propagatedBuildInputs = [
+        inputs.cue.defaultPackage.${ctx.system}
+        inputs.hof.defaultPackage.${ctx.system}
+      ];
     };
   };
 }
