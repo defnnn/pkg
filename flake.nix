@@ -31,12 +31,15 @@
           inherit config;
           handler = ctx:
             let
-              downloads = ctx.wrap.genDownloadBuilders ({ inherit config; } // (caller.downloads.options { inherit ctx; }));
+              options = caller.downloads.options { inherit ctx; };
+              downloads = ctx.wrap.genDownloadBuilders ({ inherit config; } // options);
               devshell = ctx.wrap.devShell {
                 devInputs = [ downloads.defaultPackage ];
               };
+              this = downloads // { devShell = devshell; } // extend;
+              extend = caller.extend { inherit ctx; inherit this; };
             in
-            downloads // { devShell = devshell; };
+            this // extend;
         };
     in
     {
