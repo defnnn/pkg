@@ -13,8 +13,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.utils.follows = "flake-utils";
     };
-
-    yaegi.url = github:defn/pkg/yaegi-0.14.3-6?dir=yaegi;
   };
 
   outputs = inputs:
@@ -88,8 +86,6 @@
               config = cfg;
 
               builders = if src == "" then { } else {
-                yaegi = wrap.yaegiBuilder { inherit src; inputs = { yaegi = dev-inputs.yaegi; } // inputs; };
-                bb = wrap.bbBuilder { inherit src; inherit inputs; };
                 go =
                   let
                     gobuilds = pkgs.lib.genAttrs cfg.commands
