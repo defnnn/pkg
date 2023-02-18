@@ -1,57 +1,41 @@
 {
-  inputs = {
-    dev.url = github:defn/pkg/dev-0.0.22?dir=dev;
-  };
+  inputs.pkg.url = github:defn/pkg/0.0.147;
+  outputs = inputs: inputs.pkg.downloadMain rec {
+    src = ./.;
 
-  outputs = inputs: inputs.dev.main rec {
-    inherit inputs;
+    # https://cloud.google.com/sdk/docs/install#linux
+    url_template = input: "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-${input.vendor}-${input.os}-${input.arch}.tar.gz";
 
-    src = builtins.path { path = ./.; name = builtins.readFile ./SLUG; };
+    installPhase = { src }: ''
+      mkdir -p $out
+      cp -rp google-cloud-sdk/. $out/
+    '';
 
-    config = rec {
-      slug = builtins.readFile ./SLUG;
-      vendor = builtins.readFile ./VENDOR;
-      revision = builtins.readFile ./REVISION;
-      version = "${vendor}-${revision}";
-
-      url_template = input: "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-${input.version}-${input.os}-${input.arch}.tar.gz";
-
-      downloads = {
-        "x86_64-linux" = rec {
-          version = vendor;
-          os = "linux";
-          arch = "x86_64";
-          sha256 = "sha256-tH5M/r5PnMHgego7FVWBq5wFOwkAdkKHzfOIo1uBb6s="; # x86_64-linux 
-        };
-        "aarch64-linux" = rec {
-          version = vendor;
-          os = "linux";
-          arch = "arm";
-          sha256 = "sha256-Fh7Np19TroatPHJd8811tHF26ug59XXnw6RpiMPKcNg="; # aarch64-linux
-        };
-        "x86_64-darwin" = rec {
-          version = vendor;
-          os = "darwin";
-          arch = "arm";
-          sha256 = "sha256-vf2qaem9ArBAx8csOHnyAdrgvIjlPvD9L5HAdvvJlC8="; # x86_64-darwin
-        };
-        "aarch64-darwin" = rec {
-          version = vendor;
-          os = "darwin";
-          arch = "arm";
-          sha256 = "sha256-vf2qaem9ArBAx8csOHnyAdrgvIjlPvD9L5HAdvvJlC8="; # aarch64-darwin
-        };
-      };
-
-      installPhase = { src }: ''
-        mkdir -p $out
-        cp -rp google-cloud-sdk/. $out/
-      '';
-    };
-
-    handler = { pkgs, wrap, system, builders }:
-      wrap.genDownloadBuilders {
+    downloads = {
+      options = { system }: {
         dontFixup = true;
       };
+
+      "x86_64-linux" = rec {
+        os = "linux";
+        arch = "x86_64";
+        sha256 = "sha256-971+/UPHlDZ/YHfUsuzwBVBCN79MNXib8qXPqXAdbFE="; # x86_64-linux 
+      };
+      "aarch64-linux" = rec {
+        os = "linux";
+        arch = "arm";
+        sha256 = "sha256-w+H7vcXirN6hv1A/jCjwvcW92rLART5YCCP1cl19RJs="; # aarch64-linux
+      };
+      "x86_64-darwin" = rec {
+        os = "darwin";
+        arch = "arm";
+        sha256 = "sha256-pH6eUqdRTVYkMzp9MewEBI9vQJvegQOdo4ajfwQbdwY="; # x86_64-darwin
+      };
+      "aarch64-darwin" = rec {
+        os = "darwin";
+        arch = "arm";
+        sha256 = "sha256-pH6eUqdRTVYkMzp9MewEBI9vQJvegQOdo4ajfwQbdwY="; # aarch64-darwin
+      };
+    };
   };
 }
