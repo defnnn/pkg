@@ -69,7 +69,7 @@
 
             sourceRoot = ".";
 
-            installPhase = site.installPhase { inherit src; };
+            installPhase = site.installPhase { inherit src; inherit config; };
           };
 
         bashBuilder = input@{ propagatedBuildInputs ? [ ], buildInputs ? [ ], src, installPhase, dontUnpack ? false, dontFixup ? false, slug ? "${site.slug}" }:
