@@ -1,18 +1,20 @@
 {
-  inputs.pkg.url = github:defn/pkg/0.0.147;
+  inputs.pkg.url = github:defn/pkg/0.0.151;
   outputs = inputs: inputs.pkg.downloadMain rec {
     src = ./.;
 
     # https://cloud.google.com/sdk/docs/install#linux
+    extend = pkg: { };
+
     url_template = input: "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-${input.vendor}-${input.os}-${input.arch}.tar.gz";
 
-    installPhase = { src }: ''
+    installPhase = pkg: ''
       mkdir -p $out
       cp -rp google-cloud-sdk/. $out/
     '';
 
     downloads = {
-      options = { system }: {
+      options = pkg: {
         dontFixup = true;
       };
 
