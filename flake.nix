@@ -29,7 +29,14 @@
           inherit inputs;
           inherit src;
           inherit config;
-          handler = ctx: ctx.wrap.genDownloadBuilders ({ inherit config; } // (caller.downloads.options { system = ctx.system; }));
+          handler = ctx:
+            let
+              downloads = ctx.wrap.genDownloadBuilders ({ inherit config; } // (caller.downloads.options { inherit ctx; }));
+              devshell = ctx.wrap.devShell {
+                devInputs = [ downloads.defaultPackage ];
+              };
+            in
+            downloads // { devShell = devshell; };
         };
     in
     {
