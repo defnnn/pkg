@@ -2,17 +2,36 @@
   inputs.dev.url = github:defn/pkg/dev-0.0.29?dir=dev;
   outputs = inputs:
     let
-      main = caller: inputs.dev.main rec {
-        inherit inputs;
+      main = clr:
+        let
+          caller = inputs.dev.defaultConfig {
+            src = clr.src;
+            config = clr;
+          };
 
-        src = builtins.path { path = caller.src; name = (builtins.fromJSON (builtins.readFile "${caller.src}/flake.json")).slug; };
+          src = builtins.path { path = caller.src; name = (builtins.fromJSON (builtins.readFile "${caller.src}/flake.json")).slug; };
 
-        config = caller.config;
+          config = caller // { inherit src; };
+        in
+        inputs.dev.main rec {
+          inherit inputs;
+          inherit src;
+          inherit config;
 
-        handler = ctx: rec {
-          defaultPackage = caller.defaultPackage ctx;
+          handler = ctx:
+            let
+              defaultpackage = caller.defaultPackage ctx;
+              devshell = ctx.wrap.devShell {
+                devInputs = [ defaultpackage ];
+              };
+              this = {
+                defaultPackage = defaultpackage;
+                devShell = devshell;
+              };
+              extend = caller.extend { inherit ctx; inherit this; };
+            in
+            this // extend;
         };
-      };
 
       downloadMain = clr:
         let
@@ -29,6 +48,7 @@
           inherit inputs;
           inherit src;
           inherit config;
+
           handler = ctx:
             let
               options = caller.downloads.options { inherit ctx; };
