@@ -1,33 +1,23 @@
 {
-  inputs = {
-    dev.url = github:defn/pkg/dev-0.0.22?dir=dev;
-    c.url = github:defn/pkg/c-0.0.4?dir=c;
-  };
+  inputs.pkg.url = github:defn/pkg/0.0.153;
+  inputs.c.url = github:defn/pkg/c-0.0.5?dir=c;
+  outputs = inputs: inputs.pkg.main rec {
+    src = ./.;
 
-  outputs = inputs: inputs.dev.main rec {
-    inherit inputs;
+    extend = pkg: { };
 
-    src = builtins.path { path = ./.; name = builtins.readFile ./SLUG; };
+    defaultPackage = ctx: ctx.wrap.bashBuilder {
+      inherit src;
 
-    config = rec {
-      slug = builtins.readFile ./SLUG;
-      version = builtins.readFile ./VERSION;
-    };
+      installPhase = ''
+        mkdir -p $out/bin
+        cp -a $src/bin/n $src/bin/n-* $out/bin/
+        chmod 755 $out/bin/*
+      '';
 
-    handler = { pkgs, wrap, system, builders }: {
-      defaultPackage = wrap.bashBuilder {
-        inherit src;
-
-        installPhase = ''
-          mkdir -p $out/bin
-          cp -a $src/bin/n $src/bin/n-* $out/bin/
-          chmod 755 $out/bin/*
-        '';
-
-        propagatedBuildInputs = [
-          inputs.c.defaultPackage.${system}
-        ];
-      };
+      propagatedBuildInputs = [
+        inputs.c.defaultPackage.${ctx.system}
+      ];
     };
   };
 }
