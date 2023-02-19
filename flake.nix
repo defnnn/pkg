@@ -36,9 +36,14 @@
                 if builtins.hasAttr "packages " caller
                 then caller.packages ctx
                 else { };
+              scripts =
+                if builtins.hasAttr "scripts" caller
+                then caller.scripts ctx
+                else { };
               this = {
                 inherit apps;
                 inherit packages;
+                inherit scripts;
                 defaultPackage = defaultpackage;
                 devShell = devshell;
               };
