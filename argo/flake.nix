@@ -1,18 +1,20 @@
 {
-  inputs.pkg.url = github:defn/pkg/0.0.141;
+  inputs.pkg.url = github:defn/pkg/0.0.156;
   outputs = inputs: inputs.pkg.downloadMain rec {
     src = ./.;
 
+    extend = pkg: { };
+
     url_template = input: "https://github.com/argoproj/argo-workflows/releases/download/v${input.vendor}/argo-${input.os}-${input.arch}.gz";
 
-    installPhase = { src }: ''
+    installPhase = pkg: ''
       cat $src | gunzip > argo
       install -m 0755 -d $out $out/bin
       install -m 0755 argo $out/bin/argo
     '';
 
     downloads = {
-      options = {
+      options = pkg: {
         dontUnpack = true;
       };
 
