@@ -4,10 +4,11 @@
     let
       main = { extend ? pkg: { }, ... }@clr:
         let
-          caller = inputs.dev.defaultConfig {
-            src = clr.src;
-            config = clr;
-          };
+          caller = inputs.dev.defaultConfig
+            {
+              src = clr.src;
+              config = clr;
+            } // { extend = clr.extend; };
 
           src = builtins.path { path = caller.src; name = (builtins.fromJSON (builtins.readFile "${caller.src}/flake.json")).slug; };
 
