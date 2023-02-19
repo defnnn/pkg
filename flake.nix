@@ -38,8 +38,8 @@
                 else { };
               scripts =
                 if builtins.hasAttr "scripts" caller
-                then caller.scripts ctx
-                else { };
+                then caller.scripts
+                else (ctx: { });
               this = {
                 inherit apps;
                 inherit packages;
