@@ -63,26 +63,19 @@
                 devInputs = [ downloads.defaultPackage ];
               };
               this = downloads // { devShell = devshell; } // extend;
-              extend = 
+              extend =
                 if builtins.hasAttr "extend" caller
                 then caller.extend { inherit ctx; inherit this; }
                 else { };
-             in
+            in
             this // extend;
         };
     in
     {
       inherit main;
       inherit downloadMain;
-    } // inputs.dev.main rec {
-      inherit inputs;
-
-      src = builtins.path { path = ./.; name = (builtins.fromJSON (builtins.readFile ./flake.json)).slug; };
-
-      config = inputs.dev.defaultConfig { inherit src; };
-
-      handler = ctx: {
-        defaultPackage = ctx.wrap.nullBuilder { };
-      };
+    } // main rec {
+      src = ./.;
+      defaultPackage = ctx: ctx.wrap.nullBuilder { };
     };
 }
