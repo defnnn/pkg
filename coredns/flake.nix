@@ -1,17 +1,19 @@
 {
-  inputs.pkg.url = github:defn/pkg/0.0.142;
+  inputs.pkg.url = github:defn/pkg/0.0.156;
   outputs = inputs: inputs.pkg.downloadMain rec {
     src = ./.;
 
+    extend = pkg: { };
+
     url_template = input: "https://github.com/coredns/coredns/releases/download/v${input.vendor}/coredns_${input.vendor}_${input.os}_${input.arch}.tgz";
 
-    installPhase = { src }: ''
+    installPhase = pkg: ''
       install -m 0755 -d $out $out/bin
       install -m 0755 coredns $out/bin/coredns
     '';
 
     downloads = {
-      options = { };
+      options = pkg: { };
 
       "x86_64-linux" = {
         os = "linux";
