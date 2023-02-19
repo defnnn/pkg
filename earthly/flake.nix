@@ -1,17 +1,19 @@
 {
-  inputs.pkg.url = github:defn/pkg/0.0.142;
+  inputs.pkg.url = github:defn/pkg/0.0.156;
   outputs = inputs: inputs.pkg.downloadMain rec {
     src = ./.;
 
+    extend = pkg: { };
+
     url_template = input: "https://github.com/earthly/earthly/releases/download/v${input.vendor}/earthly-${input.os}-${input.arch}";
 
-    installPhase = { src }: ''
+    installPhase = pkg: ''
       install -m 0755 -d $out $out/bin
       install -m 0755 $src $out/bin/earthly
     '';
 
     downloads = {
-      options = {
+      options = pkg: {
         dontUnpack = true;
       };
 
