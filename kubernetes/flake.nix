@@ -1,6 +1,6 @@
 {
   inputs = {
-    pkg.url = github:defn/pkg/0.0.159;
+    pkg.url = github:defn/pkg/0.0.166;
     k3d.url = github:defn/pkg/k3d-5.4.7-2?dir=k3d;
     kubectl.url = github:defn/pkg/kubectl-1.25.6-2?dir=kubectl;
     k9s.url = github:defn/pkg/k9s-0.27.2-3?dir=k9s;
@@ -15,7 +15,20 @@
     src = ./.;
 
     defaultPackage = ctx: ctx.wrap.nullBuilder {
-      propagatedBuildInputs = ctx.wrap.flakeInputs;
+      propagatedBuildInputs =
+        let
+          flakeInputs = [
+            inputs.k3d.defaultPackage.${ctx.system}
+            inputs.kubectl.defaultPackage.${ctx.system}
+            inputs.k9s.defaultPackage.${ctx.system}
+            inputs.helm.defaultPackage.${ctx.system}
+            inputs.kustomize.defaultPackage.${ctx.system}
+            inputs.argo.defaultPackage.${ctx.system}
+            inputs.argocd.defaultPackage.${ctx.system}
+            inputs.argorollouts.defaultPackage.${ctx.system}
+          ];
+        in
+        flakeInputs;
     };
   };
 }
