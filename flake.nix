@@ -54,7 +54,10 @@
 
           handler = ctx:
             let
-              options = caller.downloads.options { inherit ctx; };
+              options =
+                if builtins.hasAttr "options" caller.downloads
+                then caller.downloads.options { inherit ctx; }
+                else { };
               downloads = ctx.wrap.genDownloadBuilders ({ inherit config; } // options);
               devshell = ctx.wrap.devShell {
                 devInputs = [ downloads.defaultPackage ];
