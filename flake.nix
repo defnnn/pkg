@@ -63,8 +63,11 @@
                 devInputs = [ downloads.defaultPackage ];
               };
               this = downloads // { devShell = devshell; } // extend;
-              extend = caller.extend { inherit ctx; inherit this; };
-            in
+              extend = 
+                if builtins.hasAttr "extend" caller
+                then caller.extend { inherit ctx; inherit this; }
+                else { };
+             in
             this // extend;
         };
     in
