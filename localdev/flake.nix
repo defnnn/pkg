@@ -1,6 +1,6 @@
 {
   inputs = {
-    pkg.url = github:defn/pkg/0.0.159;
+    pkg.url = github:defn/pkg/0.0.166;
     latest.url = github:NixOS/nixpkgs?rev=4938e72add339f76d795284cb5a3aae85d02ee53;
     caddy.url = github:defn/pkg/caddy-2.6.3-2?dir=caddy;
     coder.url = github:defn/pkg/coder-0.17.3-2?dir=coder;
@@ -29,7 +29,19 @@
 
     defaultPackage = ctx: ctx.wrap.nullBuilder {
       propagatedBuildInputs =
-        ctx.wrap.flakeInputs ++ (with ctx.pkgs; [
+        let
+          flakeInputs = [
+            inputs.caddy.defaultPackage.${ctx.system}
+            inputs.coder.defaultPackage.${ctx.system}
+            inputs.codeserver.defaultPackage.${ctx.system}
+            inputs.terraform.defaultPackage.${ctx.system}
+            inputs.earthly.defaultPackage.${ctx.system}
+            inputs.tilt.defaultPackage.${ctx.system}
+            inputs.gh.defaultPackage.${ctx.system}
+          ];
+        in
+        flakeInputs
+        ++ (with ctx.pkgs; [
           bashInteractive
 
           gcc
