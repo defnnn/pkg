@@ -11,8 +11,8 @@ schema = 3
     version = "v0.1.13"
     hash = "sha256-qb3Qbo0CELGRIzvw7NVM1g/aayaz4Tguppk9MD2/OI8="
   [mod."github.com/mattn/go-isatty"]
-    version = "v0.0.16"
-    hash = "sha256-YMaPZvShDfA98vqw1+zWWl7M1IT4nHPGBrAt7kHo8Iw="
+    version = "v0.0.17"
+    hash = "sha256-c1u9eiMF9wLXgGvPTB5DH6S8uuCPqWZJTa6tCGuB3Ek="
   [mod."github.com/valyala/bytebufferpool"]
     version = "v1.0.0"
     hash = "sha256-I9FPZ3kCNRB+o0dpMwBnwZ35Fj9+ThvITn8a3Jr8mAY="
@@ -20,14 +20,14 @@ schema = 3
     version = "v1.2.2"
     hash = "sha256-gp+lNXE8zjO+qJDM/YbS6V43HFsYP6PKn4ux1qa5lZ0="
   [mod."golang.org/x/crypto"]
-    version = "v0.2.0"
-    hash = "sha256-7xbZm2rKYVl71Hcm4HIT8lN4ZxpcbaOt8a7vkq13VM0="
+    version = "v0.6.0"
+    hash = "sha256-rtJfWOcpCk+DUskDsOZBt9BU/pHjHJ60LkF4VOKCAI8="
   [mod."golang.org/x/net"]
-    version = "v0.4.0"
-    hash = "sha256-7IwGZh/xg4mQz88cJio2Ov5d3jGRXKj1itlAja/EAbQ="
+    version = "v0.7.0"
+    hash = "sha256-LgZYZRwtMqm+soNh+esxDSeRuIDxRGb9OEfYaFJHCDI="
   [mod."golang.org/x/sys"]
-    version = "v0.3.0"
-    hash = "sha256-TIHhfYbZ99sCU1ZMikxwomXH5AEtD/lA1VMMW+UAhbU="
-  [mod."golang.org/x/text"]
     version = "v0.5.0"
-    hash = "sha256-ztH+xQyM/clOcQl+y/UEPcfNKbc3xApMbEPDDZ9up0o="
+    hash = "sha256-0LTr3KeJ1OMQAwYUQo1513dXJtQAJn5Dq8sFkc8ps1U="
+  [mod."golang.org/x/text"]
+    version = "v0.7.0"
+    hash = "sha256-ydgUqX+t5Qke16C6d3FP/06U/N1n+rUKpLRFj4KXjwk="
