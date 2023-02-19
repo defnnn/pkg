@@ -1,7 +1,9 @@
 {
-  inputs.pkg.url = github:defn/pkg/0.0.142;
+  inputs.pkg.url = github:defn/pkg/0.0.156;
   outputs = inputs: inputs.pkg.downloadMain rec {
     src = ./.;
+
+    extend = pkg: { };
 
     url_template = input:
       if input.os == "linux" then
@@ -9,7 +11,7 @@
       else
         "https://github.com/cloudflare/cloudflared/releases/download/${input.vendor}/cloudflared-${input.os}-${input.arch}.tgz";
 
-    installPhase = { src }: ''
+    installPhase = pkg: ''
       install -m 0755 -d $out $out/bin
       case "$src" in
         *.tgz)
@@ -23,7 +25,7 @@
     '';
 
     downloads = {
-      options = { dontUnpack = true; dontFixup = true; };
+      options = pkg: { dontUnpack = true; dontFixup = true; };
 
       "x86_64-linux" = rec {
         os = "linux";
