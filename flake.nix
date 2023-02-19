@@ -49,7 +49,7 @@
               };
               extend =
                 if builtins.hasAttr "extend" caller
-                then caller.extend { inherit ctx; inherit this; }
+                then caller.extend (ctx // { inherit this; })
                 else { };
             in
             this // extend;
