@@ -21,9 +21,13 @@
           handler = ctx:
             let
               defaultpackage = caller.defaultPackage ctx;
-              devshell = ctx.wrap.devShell {
-                devInputs = [ defaultpackage ];
-              };
+              devshell =
+                if builtins.hasAttr "devShell" caller
+                then caller.devShell ctx
+                else
+                  ctx.wrap.devShell {
+                    devInputs = [ defaultpackage ];
+                  };
               this = {
                 defaultPackage = defaultpackage;
                 devShell = devshell;
