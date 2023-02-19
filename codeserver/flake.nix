@@ -1,30 +1,30 @@
 {
-  inputs.pkg.url = github:defn/pkg/0.0.151;
+  inputs.pkg.url = github:defn/pkg/0.0.156;
   outputs = inputs: inputs.pkg.downloadMain rec {
     src = ./.;
 
-    extend = { ctx, this }: {
+    extend = pkg: {
       apps.default = {
         type = "app";
-        program = "${this.defaultPackage}/bin/code-server";
+        program = "${pkg.this.defaultPackage}/bin/code-server";
       };
     };
 
     url_template = input: "https://github.com/coder/code-server/releases/download/v${input.vendor}/code-server-${input.vendor}-${input.os}-${input.arch}.tar.gz";
 
-    installPhase = { src, config }:
+    installPhase = pkg:
       ''
         install -m 0755 -d $out $out/bin $out/lib
         rsync -ia . $out/lib/.
-        mv -f $out/lib/code-server-${config.vendor}-*  $out/lib/code-server-${config.vendor}
-        ln -fs $out/lib/code-server-${config.vendor}/bin/code-server $out/bin/code-server
-        ln -fs $out/lib/code-server-${config.vendor}/lib/vscode/bin/helpers/browser.sh $out/bin/browser.sh
+        mv -f $out/lib/code-server-${pkg.config.vendor}-*  $out/lib/code-server-${pkg.config.vendor}
+        ln -fs $out/lib/code-server-${pkg.config.vendor}/bin/code-server $out/bin/code-server
+        ln -fs $out/lib/code-server-${pkg.config.vendor}/lib/vscode/bin/helpers/browser.sh $out/bin/browser.sh
       '';
 
     downloads = {
-      options = { ctx }: {
+      options = pkg: {
         dontFixup = true;
-        buildInputs = with ctx.pkgs; [ rsync ];
+        buildInputs = with pkg.ctx.pkgs; [ rsync ];
       };
 
       "x86_64-linux" = {
