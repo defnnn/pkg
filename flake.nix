@@ -18,6 +18,11 @@
           inherit src;
           inherit config;
 
+          scripts =
+            if builtins.hasAttr "scripts" caller
+            then caller.scripts
+            else (ctx: { });
+
           handler = ctx:
             let
               defaultpackage = caller.defaultPackage ctx;
@@ -36,14 +41,9 @@
                 if builtins.hasAttr "packages " caller
                 then caller.packages ctx
                 else { };
-              scripts =
-                if builtins.hasAttr "scripts" caller
-                then caller.scripts
-                else (ctx: { });
               this = {
                 inherit apps;
                 inherit packages;
-                inherit scripts;
                 defaultPackage = defaultpackage;
                 devShell = devshell;
               };
