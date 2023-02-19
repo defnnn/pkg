@@ -1,24 +1,15 @@
 {
   inputs = {
-    dev.url = github:defn/pkg/dev-0.0.22?dir=dev;
-    awscli.url = github:defn/pkg/awscli-2.0.30-2?dir=awscli;
-    flyctl.url = github:defn/pkg/flyctl-0.0.456-0?dir=flyctl;
+    pkg.url = github:defn/pkg/0.0.156;
+    awscli.url = github:defn/pkg/awscli-2.10.0-3?dir=awscli;
+    flyctl.url = github:defn/pkg/flyctl-0.0.456-2?dir=flyctl;
   };
 
-  outputs = inputs: inputs.dev.main rec {
-    inherit inputs;
+  outputs = inputs: inputs.pkg.main rec {
+    src = ./.;
 
-    src = builtins.path { path = ./.; name = builtins.readFile ./SLUG; };
-
-    config = rec {
-      slug = builtins.readFile ./SLUG;
-      version = builtins.readFile ./VERSION;
-    };
-
-    handler = { pkgs, wrap, system, builders }: rec {
-      defaultPackage = wrap.nullBuilder {
-        propagatedBuildInputs = wrap.flakeInputs;
-      };
+    defaultPackage = ctx: ctx.wrap.nullBuilder {
+      propagatedBuildInputs = ctx.wrap.flakeInputs;
     };
   };
 }
