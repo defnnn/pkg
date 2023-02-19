@@ -1,21 +1,23 @@
 {
-  inputs.pkg.url = github:defn/pkg/0.0.141;
+  inputs.pkg.url = github:defn/pkg/0.0.156;
   outputs = inputs: inputs.pkg.downloadMain rec {
     src = ./.;
 
+    extend = pkg: { };
+
     url_template = input: "https://releases.hashicorp.com/nomad/${input.vendor}/nomad_${input.vendor}_${input.os}_${input.arch}.zip";
 
-    installPhase = { src }: ''
+    installPhase = pkg: ''
       install -m 0755 -d $out $out/bin
       unzip $src
       install -m 0755 nomad $out/bin/nomad
     '';
 
     downloads = {
-      options = {
+      options = pkg: {
         dontUnpack = true;
         dontFixup = true;
-        buildInputs = [ inputs.pkg.pkgs.unzip ];
+        buildInputs = with pkg.ctx.pkgs; [ unzip ];
       };
 
       "x86_64-linux" = {
