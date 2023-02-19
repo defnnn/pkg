@@ -1,17 +1,19 @@
 {
-  inputs.pkg.url = github:defn/pkg/0.0.147;
+  inputs.pkg.url = github:defn/pkg/0.0.156;
   outputs = inputs: inputs.pkg.downloadMain {
     src = ./.;
 
+    extend = pkg: { };
+
     url_template = input: "https://get.helm.sh/helm-v${input.vendor}-${input.os}-${input.arch}.tar.gz";
 
-    installPhase = { src }: ''
+    installPhase = pkg: ''
       install -m 0755 -d $out $out/bin
       install -m 0755 */helm $out/bin/helm
     '';
 
     downloads = {
-      options = ctx: { };
+      options = pkg: { };
 
       "x86_64-linux" = {
         os = "linux";
