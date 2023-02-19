@@ -9,8 +9,6 @@
     wrap = { other, system, site }:
       let
         pkgs = import inputs.nixpkgs { inherit system; };
-        inputsList = (pkgs.lib.attrsets.mapAttrsToList (name: value: value) other);
-        flakeInputs = pkgs.lib.lists.foldr hasDefaultPackage [ ] inputsList;
         hasDefaultPackage = (item: acc:
           acc ++
           (
@@ -33,8 +31,6 @@
           ));
       in
       rec {
-        inherit flakeInputs;
-
         devShell = { devInputs ? [ ] }:
           pkgs.stdenvNoCC.mkDerivation {
             name = "${site.slug}-shell-${site.version}";
