@@ -1,17 +1,19 @@
 {
-  inputs.pkg.url = github:defn/pkg/0.0.141;
+  inputs.pkg.url = github:defn/pkg/0.0.156;
   outputs = inputs: inputs.pkg.downloadMain {
     src = ./.;
 
+    extend = pkg: { };
+
     url_template = input: "https://github.com/derailed/k9s/releases/download/v${input.vendor}/k9s_${input.os}_${input.arch}.tar.gz";
 
-    installPhase = { src }: ''
+    installPhase = pkg: ''
       install -m 0755 -d $out $out/bin
       install -m 0755 k9s $out/bin/k9s
     '';
 
     downloads = {
-      options = { };
+      options = pkg: { };
 
       "x86_64-linux" = {
         os = "Linux";
