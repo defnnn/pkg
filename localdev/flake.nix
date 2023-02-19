@@ -1,6 +1,6 @@
 {
   inputs = {
-    dev.url = github:defn/pkg/dev-0.0.23?dir=dev;
+    pkg.url = github:defn/pkg/0.0.156;
     latest.url = github:NixOS/nixpkgs?rev=4938e72add339f76d795284cb5a3aae85d02ee53;
     caddy.url = github:defn/pkg/caddy-2.6.3-0?dir=caddy;
     coder.url = github:defn/pkg/coder-0.17.3-0?dir=coder;
@@ -11,14 +11,25 @@
     gh.url = github:defn/pkg/gh-2.23.0-0?dir=gh;
   };
 
-  outputs = inputs: inputs.dev.main rec {
-    inherit inputs;
+  outputs = inputs: inputs.pkg.main rec {
+    src = ./.;
 
-    src = builtins.path { path = ./.; name = builtins.readFile ./SLUG; };
+    extend = pkg: {
+      apps = {
+        coder = {
+          type = "app";
+          program = "${inputs.coder.defaultPackage.${pkg.system}}/bin/coder";
+        };
+        codeserver = {
+          type = "app";
+          program = "${inputs.codeserver.defaultPackage.${pkg.system}}/bin/code-server";
+        };
+      };
+    };
 
-    handler = { pkgs, wrap, system, builders, commands, config }: rec {
-      defaultPackage = wrap.nullBuilder {
-        propagatedBuildInputs = wrap.flakeInputs ++ (with pkgs; [
+    defaultPackage = ctx: ctx.wrap.nullBuilder {
+      propagatedBuildInputs =
+        ctx.wrap.flakeInputs ++ (with ctx.pkgs; [
           bashInteractive
 
           gcc
@@ -32,21 +43,9 @@
           delve
 
           nodejs-18_x
-        ]) ++ (with (import inputs.latest { inherit system; }); [
+        ]) ++ (with (import inputs.latest { system = ctx.system; }); [
           gopls
         ]);
-      };
-
-      apps = {
-        coder = {
-          type = "app";
-          program = "${inputs.coder.defaultPackage.${system}}/bin/coder";
-        };
-        codeserver = {
-          type = "app";
-          program = "${inputs.codeserver.defaultPackage.${system}}/bin/code-server";
-        };
-      };
     };
   };
 }
