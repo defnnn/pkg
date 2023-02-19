@@ -1,14 +1,4 @@
 {
-  inputs.pkg.url = github:defn/pkg/0.0.159;
-  outputs = inputs: inputs.pkg.main rec {
-    src = ./.;
-
-    commands = [ "tired-proxy" ];
-
-    defaultPackage = ctx: ctx.wrap.nullBuilder {
-      propagatedBuildInputs = [
-        ctx.builders.go.tired-proxy
-      ];
-    };
-  };
+  inputs.lib.url = github:defn/lib/0.0.44;
+  outputs = inputs: inputs.lib.goMain rec { src = ./.; };
 }
