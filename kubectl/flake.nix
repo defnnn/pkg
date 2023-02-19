@@ -3,8 +3,6 @@
   outputs = inputs: inputs.pkg.downloadMain rec {
     src = ./.;
 
-    extend = pkg: { };
-
     url_template = input: "https://dl.k8s.io/release/v${input.vendor}/bin/${input.os}/${input.arch}/kubectl";
 
     installPhase = pkg: ''

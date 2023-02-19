@@ -4,8 +4,6 @@
     rec {
       src = ./.;
 
-      extend = pkg: { };
-
       # https://raw.githubusercontent.com/aws/aws-cli/v2/CHANGELOG.rst
       url_template = input:
         if input.os == "linux" then
@@ -26,7 +24,7 @@
               cd aws-cli.pkg
               zcat Payload | (cd $out && cpio -i && mkdir awscli/v2 && mv aws-cli awscli/v2/dist && ln -nfs ../awscli/v2/dist/aws ../awscli/v2/dist/aws_completer bin/)
             ;;
-        esac 
+        esac
       '';
 
       downloads = {

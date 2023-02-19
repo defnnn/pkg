@@ -2,7 +2,6 @@
   inputs.pkg.url = github:defn/pkg/0.0.156;
   outputs = inputs: inputs.pkg.downloadMain rec {
     src = ./.;
-    extend = pkg: { };
 
     url_template = input: "https://github.com/tellerops/teller/releases/download/v${input.vendor}/teller_${input.vendor}_${input.os}_${input.arch}.tar.gz";
 

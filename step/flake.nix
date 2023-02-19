@@ -3,8 +3,6 @@
   outputs = inputs: inputs.pkg.downloadMain rec {
     src = ./.;
 
-    extend = pkg: { };
-
     url_template = input: "https://github.com/smallstep/cli/releases/download/v${input.vendor}/step_${input.os}_${input.vendor}_${input.arch}.tar.gz";
 
     installPhase = pkg: ''

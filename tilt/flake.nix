@@ -3,8 +3,6 @@
   outputs = inputs: inputs.pkg.downloadMain rec {
     src = ./.;
 
-    extend = pkg: { };
-
     url_template = input: "https://github.com/tilt-dev/tilt/releases/download/v${input.vendor}/tilt.${input.vendor}.${input.os}.${input.arch}.tar.gz";
 
     installPhase = pkg: ''

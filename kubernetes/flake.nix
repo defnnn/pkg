@@ -14,8 +14,6 @@
   outputs = inputs: inputs.pkg.main rec {
     src = ./.;
 
-    extend = pkg: { };
-
     defaultPackage = ctx: ctx.wrap.nullBuilder {
       propagatedBuildInputs = ctx.wrap.flakeInputs;
     };

@@ -5,8 +5,6 @@
   outputs = inputs: inputs.pkg.main rec {
     src = ./.;
 
-    extend = pkg: { };
-
     defaultPackage = ctx: ctx.wrap.bashBuilder {
       src = ./bin;
 

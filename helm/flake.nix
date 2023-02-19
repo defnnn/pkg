@@ -3,8 +3,6 @@
   outputs = inputs: inputs.pkg.downloadMain {
     src = ./.;
 
-    extend = pkg: { };
-
     url_template = input: "https://get.helm.sh/helm-v${input.vendor}-${input.os}-${input.arch}.tar.gz";
 
     installPhase = pkg: ''

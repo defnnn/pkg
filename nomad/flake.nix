@@ -3,8 +3,6 @@
   outputs = inputs: inputs.pkg.downloadMain rec {
     src = ./.;
 
-    extend = pkg: { };
-
     url_template = input: "https://releases.hashicorp.com/nomad/${input.vendor}/nomad_${input.vendor}_${input.os}_${input.arch}.zip";
 
     installPhase = pkg: ''

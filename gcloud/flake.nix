@@ -3,8 +3,6 @@
   outputs = inputs: inputs.pkg.downloadMain rec {
     src = ./.;
 
-    extend = pkg: { };
-
     # https://cloud.google.com/sdk/docs/install#linux
     url_template = input: "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-${input.vendor}-${input.os}-${input.arch}.tar.gz";
 
@@ -21,7 +19,7 @@
       "x86_64-linux" = rec {
         os = "linux";
         arch = "x86_64";
-        sha256 = "sha256-971+/UPHlDZ/YHfUsuzwBVBCN79MNXib8qXPqXAdbFE="; # x86_64-linux 
+        sha256 = "sha256-971+/UPHlDZ/YHfUsuzwBVBCN79MNXib8qXPqXAdbFE="; # x86_64-linux
       };
       "aarch64-linux" = rec {
         os = "linux";

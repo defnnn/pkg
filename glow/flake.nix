@@ -3,8 +3,6 @@
   outputs = inputs: inputs.pkg.downloadMain rec {
     src = ./.;
 
-    extend = pkg: { };
-
     url_template = input: "https://github.com/charmbracelet/glow/releases/download/v${input.vendor}/glow_${input.vendor}_${input.os}_${input.arch}.tar.gz";
 
     installPhase = pkg: ''

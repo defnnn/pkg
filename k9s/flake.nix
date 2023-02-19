@@ -3,8 +3,6 @@
   outputs = inputs: inputs.pkg.downloadMain {
     src = ./.;
 
-    extend = pkg: { };
-
     url_template = input: "https://github.com/derailed/k9s/releases/download/v${input.vendor}/k9s_${input.os}_${input.arch}.tar.gz";
 
     installPhase = pkg: ''

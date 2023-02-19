@@ -3,8 +3,6 @@
   outputs = inputs: inputs.pkg.downloadMain {
     src = ./.;
 
-    extend = pkg: { };
-
     url_template = input: "https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv${input.vendor}/kustomize_v${input.vendor}_${input.os}_${input.arch}.tar.gz";
 
     installPhase = pkg: ''

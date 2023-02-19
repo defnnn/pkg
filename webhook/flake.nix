@@ -3,8 +3,6 @@
   outputs = inputs: inputs.pkg.downloadMain rec {
     src = ./.;
 
-    extend = pkg: { };
-
     url_template = input: "https://github.com/adnanh/webhook/releases/download/${input.vendor}/webhook-${input.os}-${input.arch}.tar.gz";
 
     installPhase = pkg: ''
