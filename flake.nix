@@ -28,7 +28,12 @@
                   ctx.wrap.devShell {
                     devInputs = [ defaultpackage ];
                   };
+              apps =
+                if builtins.hasAttr "apps" caller
+                then caller.apps ctx
+                else { };
               this = {
+                inherit apps;
                 defaultPackage = defaultpackage;
                 devShell = devshell;
               };
