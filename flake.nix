@@ -2,7 +2,7 @@
   inputs.dev.url = github:defn/pkg/dev-0.0.29?dir=dev;
   outputs = inputs:
     let
-      main = clr:
+      main = { extend ? pkg: { }, ... }@clr:
         let
           caller = inputs.dev.defaultConfig {
             src = clr.src;
