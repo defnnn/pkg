@@ -1,17 +1,19 @@
 {
-  inputs.pkg.url = github:defn/pkg/0.0.147;
+  inputs.pkg.url = github:defn/pkg/0.0.156;
   outputs = inputs: inputs.pkg.downloadMain {
     src = ./.;
 
+    extend = pkg: { };
+
     url_template = input: "https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv${input.vendor}/kustomize_v${input.vendor}_${input.os}_${input.arch}.tar.gz";
 
-    installPhase = { src }: ''
+    installPhase = pkg: ''
       install -m 0755 -d $out $out/bin
       install -m 0755 kustomize $out/bin/kustomize
     '';
 
     downloads = {
-      options = ctx: { };
+      options = pkg: { };
 
       "x86_64-linux" = {
         os = "linux";
