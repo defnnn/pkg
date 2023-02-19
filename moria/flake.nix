@@ -1,25 +1,14 @@
 {
-  inputs = {
-    dev.url = github:defn/pkg/dev-0.0.23?dir=dev;
-  };
+  inputs.pkg.url = github:defn/pkg/0.0.156;
+  outputs = inputs: inputs.pkg.main rec {
+    src = ./.;
 
-  outputs = inputs: inputs.dev.main rec {
-    inherit inputs;
+    commands = [ "moria" ];
 
-    src = builtins.path { path = ./.; name = builtins.readFile ./SLUG; };
-
-    config = rec {
-      commands = [ "moria" ];
-    };
-
-    handler = { pkgs, wrap, system, builders, commands, config }: rec {
-      defaultPackage = wrap.nullBuilder {
-        propagatedBuildInputs = [
-          packages.moria
-        ];
-      };
-
-      packages = builders.go;
+    defaultPackage = ctx: ctx.wrap.nullBuilder {
+      propagatedBuildInputs = [
+        ctx.builders.go.moria
+      ];
     };
   };
 }
