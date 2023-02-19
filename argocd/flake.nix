@@ -1,17 +1,19 @@
 {
-  inputs.pkg.url = github:defn/pkg/0.0.141;
+  inputs.pkg.url = github:defn/pkg/0.0.156;
   outputs = inputs: inputs.pkg.downloadMain rec {
     src = ./.;
 
+    extend = pkg: { };
+
     url_template = input: "https://github.com/argoproj/argo-cd/releases/download/v${input.vendor}/argocd-${input.os}-${input.arch}";
 
-    installPhase = { src }: ''
+    installPhase = pkg: ''
       install -m 0755 -d $out $out/bin
       install -m 0755 $src $out/bin/argocd
     '';
 
     downloads = {
-      options = {
+      options = pkg: {
         dontUnpack = true;
       };
 
