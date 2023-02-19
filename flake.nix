@@ -2,13 +2,12 @@
   inputs.dev.url = github:defn/pkg/dev-0.0.29?dir=dev;
   outputs = inputs:
     let
-      main = { extend ? pkg: { }, ... }@clr:
+      main = clr:
         let
-          caller = inputs.dev.defaultConfig
-            {
-              src = clr.src;
-              config = clr;
-            } // { extend = clr.extend; };
+          caller = inputs.dev.defaultConfig {
+            src = clr.src;
+            config = clr;
+          };
 
           src = builtins.path { path = caller.src; name = (builtins.fromJSON (builtins.readFile "${caller.src}/flake.json")).slug; };
 
@@ -29,7 +28,10 @@
                 defaultPackage = defaultpackage;
                 devShell = devshell;
               };
-              extend = caller.extend { inherit ctx; inherit this; };
+              extend =
+                if builtins.hasAttr "extend" caller
+                then caller.extend { inherit ctx; inherit this; }
+                else { };
             in
             this // extend;
         };
