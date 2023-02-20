@@ -6,7 +6,7 @@
     coder.url = github:defn/pkg/coder-0.17.3-2?dir=coder;
     codeserver.url = github:defn/pkg/codeserver-4.10.0-2?dir=codeserver;
     terraform.url = github:defn/pkg/terraform-1.4.0-beta2-1?dir=terraform;
-    earthly.url = github:defn/pkg/earthly-0.7.0-rc3-1?dir=earthly;
+    earthly.url = github:defn/pkg/earthly-0.7.0-rc3-2?dir=earthly;
     tilt.url = github:defn/pkg/tilt-0.31.2-2?dir=tilt;
     gh.url = github:defn/pkg/gh-2.23.0-2?dir=gh;
   };

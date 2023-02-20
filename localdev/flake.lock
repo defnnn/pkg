@@ -261,17 +261,17 @@
       },
       "locked": {
         "dir": "earthly",
-        "lastModified": 1676774549,
-        "narHash": "sha256-L6VA75EDVVubHpu7GDCNftyuZyRnHZhXswzlYHcloIw=",
+        "lastModified": 1676866419,
+        "narHash": "sha256-k53U3WzCS8QcQ6cY3h9+QaOkvotlp2Xz7JgNuDcpsz0=",
         "owner": "defn",
         "repo": "pkg",
-        "rev": "f6473503e0b809be6448ceddf279b72c7aead841",
+        "rev": "f3bf182ba40aeaecfd8f4ee8586292ece29a9d2b",
         "type": "github"
       },
       "original": {
         "dir": "earthly",
         "owner": "defn",
-        "ref": "earthly-0.7.0-rc3-1",
+        "ref": "earthly-0.7.0-rc3-2",
         "repo": "pkg",
         "type": "github"
       }
@@ -869,16 +869,16 @@
         "dev": "dev_4"
       },
       "locked": {
-        "lastModified": 1676773723,
-        "narHash": "sha256-V+3O1YjyN6K5iG8ik85LxHs6IG69hV73sG+64ZOlmHs=",
+        "lastModified": 1676781024,
+        "narHash": "sha256-SeO4MStl1FzhrvzYuGMiwvbF/Zq2VTbMZGu+2+6L4q0=",
         "owner": "defn",
         "repo": "pkg",
-        "rev": "0dece79e91aacb7cfd9802d27162a4c4681fe861",
+        "rev": "8c687db25eb034cc70e17ae9f0095d18306b7fa7",
         "type": "github"
       },
       "original": {
         "owner": "defn",
-        "ref": "0.0.156",
+        "ref": "0.0.159",
         "repo": "pkg",
         "type": "github"
       }
