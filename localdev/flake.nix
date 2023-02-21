@@ -16,16 +16,14 @@
   outputs = inputs: inputs.pkg.main rec {
     src = ./.;
 
-    extend = pkg: {
-      apps = {
-        coder = {
-          type = "app";
-          program = "${inputs.coder.defaultPackage.${pkg.system}}/bin/coder";
-        };
-        codeserver = {
-          type = "app";
-          program = "${inputs.codeserver.defaultPackage.${pkg.system}}/bin/code-server";
-        };
+    apps = ctx: {
+      coder = {
+        type = "app";
+        program = "${inputs.coder.defaultPackage.${ctx.system}}/bin/coder";
+      };
+      codeserver = {
+        type = "app";
+        program = "${inputs.codeserver.defaultPackage.${ctx.system}}/bin/code-server";
       };
     };
 
@@ -40,8 +38,6 @@
             inputs.earthly.defaultPackage.${ctx.system}
             inputs.tilt.defaultPackage.${ctx.system}
             inputs.gh.defaultPackage.${ctx.system}
-            inputs.godev.defaultPackage.${ctx.system}
-            inputs.nodedev.defaultPackage.${ctx.system}
           ];
         in
         flakeInputs;
