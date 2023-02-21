@@ -3,8 +3,8 @@
 function main {
 	set -efu
 
-    cat | xargs -n 50 | while read -r a; do
-        nix copy --derivation --verbose --to 'file:///tmp/cache/nix?compression-level=0&parallel-compression=true' $a
+    cat | xargs -n 300 | while read -r a; do
+        echo $a | nix copy --derivation --verbose --to 'file:///tmp/cache/nix?compression-level=0&parallel-compression=true'
     done
 }
 
