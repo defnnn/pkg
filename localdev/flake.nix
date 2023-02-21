@@ -9,6 +9,8 @@
     earthly.url = github:defn/pkg/earthly-0.7.0-rc3-2?dir=earthly;
     tilt.url = github:defn/pkg/tilt-0.31.2-2?dir=tilt;
     gh.url = github:defn/pkg/gh-2.23.0-2?dir=gh;
+    godev.url = github:defn/pkg/godev-0.0.1?dir=godev;
+    nodedev.url = github:defn/pkg/nodedev-0.0.1?dir=nodedev;
   };
 
   outputs = inputs: inputs.pkg.main rec {
@@ -38,26 +40,11 @@
             inputs.earthly.defaultPackage.${ctx.system}
             inputs.tilt.defaultPackage.${ctx.system}
             inputs.gh.defaultPackage.${ctx.system}
+            inputs.godev.defaultPackage.${ctx.system}
+            inputs.nodedev.defaultPackage.${ctx.system}
           ];
         in
-        flakeInputs
-        ++ (with ctx.pkgs; [
-          bashInteractive
-
-          gcc
-
-          go
-          gotools
-          go-tools
-          golangci-lint
-          go-outline
-          gopkgs
-          delve
-
-          nodejs-18_x
-        ]) ++ (with (import inputs.latest { system = ctx.system; }); [
-          gopls
-        ]);
+        flakeInputs;
     };
   };
 }
