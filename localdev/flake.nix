@@ -9,21 +9,21 @@
     earthly.url = github:defn/pkg/earthly-0.7.0-rc3-2?dir=earthly;
     tilt.url = github:defn/pkg/tilt-0.31.2-2?dir=tilt;
     gh.url = github:defn/pkg/gh-2.23.0-2?dir=gh;
+    godev.url = github:defn/pkg/godev-0.0.1?dir=godev;
+    nodedev.url = github:defn/pkg/nodedev-0.0.1?dir=nodedev;
   };
 
   outputs = inputs: inputs.pkg.main rec {
     src = ./.;
 
-    extend = pkg: {
-      apps = {
-        coder = {
-          type = "app";
-          program = "${inputs.coder.defaultPackage.${pkg.system}}/bin/coder";
-        };
-        codeserver = {
-          type = "app";
-          program = "${inputs.codeserver.defaultPackage.${pkg.system}}/bin/code-server";
-        };
+    apps = ctx: {
+      coder = {
+        type = "app";
+        program = "${inputs.coder.defaultPackage.${ctx.system}}/bin/coder";
+      };
+      codeserver = {
+        type = "app";
+        program = "${inputs.codeserver.defaultPackage.${ctx.system}}/bin/code-server";
       };
     };
 
@@ -40,24 +40,7 @@
             inputs.gh.defaultPackage.${ctx.system}
           ];
         in
-        flakeInputs
-        ++ (with ctx.pkgs; [
-          bashInteractive
-
-          gcc
-
-          go
-          gotools
-          go-tools
-          golangci-lint
-          go-outline
-          gopkgs
-          delve
-
-          nodejs-18_x
-        ]) ++ (with (import inputs.latest { system = ctx.system; }); [
-          gopls
-        ]);
+        flakeInputs;
     };
   };
 }
