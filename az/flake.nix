@@ -13,13 +13,18 @@
     src = ./.;
 
     defaultPackage = ctx: ctx.wrap.nullBuilder {
-      propagatedBuildInputs = [
+      propagatedBuildInputs = with ctx.pkgs; [
         inputs.c.defaultPackage.${ctx.system}
         inputs.n.defaultPackage.${ctx.system}
         inputs.f.defaultPackage.${ctx.system}
         inputs.tf.defaultPackage.${ctx.system}
         inputs.gum.defaultPackage.${ctx.system}
         inputs.glow.defaultPackage.${ctx.system}
+        jq
+        yq
+        gron
+        fzf
+        bashInteractive
       ];
     };
   };
