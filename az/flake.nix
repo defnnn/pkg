@@ -19,6 +19,7 @@
         inputs.f.defaultPackage.${ctx.system}
         inputs.tf.defaultPackage.${ctx.system}
         inputs.gum.defaultPackage.${ctx.system}
+        inputs.glow.defaultPackage.${ctx.system}
       ];
     };
   };
