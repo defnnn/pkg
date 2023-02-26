@@ -6,13 +6,19 @@
   outputs = inputs: inputs.pkg.main rec {
     src = ./.;
 
-    defaultPackage = ctx: ctx.wrap.nullBuilder {
-      propagatedBuildInputs = with ctx.pkgs; [
-        easyrsa
-        openvpn
-        wireguard-tools
-        wireguard-go
-      ];
+    packages = ctx: {
+      pass = ctx.pkgs.writeShellScriptBin "pass" ''
+        { ${ctx.pkgs.pass}/bin/pass "$@" 2>&1 1>&3 3>&- | grep -v 'problem with fast path key listing'; } 3>&1 1>&2 | cat
+      '';
+
+      defaultPackage = ctx: ctx.wrap.nullBuilder {
+        propagatedBuildInputs = with ctx.pkgs; [
+          p.pass
+          gnupg
+          pinentry
+          aws-vault
+        ];
+      };
     };
   };
 }
