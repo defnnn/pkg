@@ -11,7 +11,7 @@
       propagatedBuildInputs =
         with (import inputs.latest { system = ctx.system; }); [
           gcc
-          go
+          go_1_20
           bashInteractive
           gotools
           go-tools
