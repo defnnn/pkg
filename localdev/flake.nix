@@ -9,8 +9,6 @@
     earthly.url = github:defn/pkg/earthly-0.7.1-0?dir=earthly;
     tilt.url = github:defn/pkg/tilt-0.31.2-2?dir=tilt;
     gh.url = github:defn/pkg/gh-2.23.0-2?dir=gh;
-    godev.url = github:defn/pkg/godev-0.0.3?dir=godev;
-    nodedev.url = github:defn/pkg/nodedev-0.0.1?dir=nodedev;
   };
 
   outputs = inputs: inputs.pkg.main rec {
