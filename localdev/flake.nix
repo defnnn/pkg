@@ -39,7 +39,7 @@
             inputs.gh.defaultPackage.${ctx.system}
             inputs.earthly.defaultPackage.${ctx.system}
             inputs.buildkite.defaultPackage.${ctx.system}
-            inputs.b0k.defaultPackage.${ctx.system}
+            inputs.bk.defaultPackage.${ctx.system}
           ];
         in
         flakeInputs;
