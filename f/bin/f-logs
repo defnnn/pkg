@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-function main {
-	set -efu
-
-	exec flyctl logs "$@"
-}
-
-source sub "$0" "$@"

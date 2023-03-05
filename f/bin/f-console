@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-function main {
-	set -efu
-
-	exec flyctl ssh console -C 'sudo -u ubuntu bash -il'
-}
-
-source sub "$0" "$@"

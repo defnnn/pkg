@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-function main {
-	set -efu
-
-	exec flyctl deploy --remote-only
-}
-
-source sub "$0" "$@"
