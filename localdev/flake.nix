@@ -26,10 +26,6 @@
       propagatedBuildInputs =
         let
           flakeInputs = [
-            inputs.caddy.defaultPackage.${ctx.system}
-            inputs.coder.defaultPackage.${ctx.system}
-            inputs.codeserver.defaultPackage.${ctx.system}
-            inputs.terraform.defaultPackage.${ctx.system}
             inputs.tilt.defaultPackage.${ctx.system}
             inputs.gh.defaultPackage.${ctx.system}
             inputs.earthly.defaultPackage.${ctx.system}
