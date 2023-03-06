@@ -2,6 +2,8 @@
   inputs = {
     pkg.url = github:defn/pkg/0.0.166;
     awscli.url = github:defn/pkg/awscli-2.10.0-3?dir=awscli;
+    terraform.url = github:defn/pkg/terraform-1.4.0-rc1-2?dir=terraform;
+    packer.url = github:defn/pkg/packer-1.8.6-0?dir=packer;
   };
 
   outputs = inputs: inputs.pkg.main rec {
@@ -12,6 +14,8 @@
         let
           flakeInputs = [
             inputs.awscli.defaultPackage.${ctx.system}
+            inputs.terraform.defaultPackage.${ctx.system}
+            inputs.packer.defaultPackage.${ctx.system}
           ];
         in
         flakeInputs;
