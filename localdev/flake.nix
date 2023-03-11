@@ -19,6 +19,9 @@
         let
           flakeInputs = [
             inputs.tilt.defaultPackage.${ctx.system}
+            inputs.nomad.defaultPackage.${ctx.system}
+            inputs.boundary.defaultPackage.${ctx.system}
+            inputs.vault.defaultPackage.${ctx.system}
             inputs.gh.defaultPackage.${ctx.system}
             inputs.earthly.defaultPackage.${ctx.system}
             inputs.buildkite.defaultPackage.${ctx.system}
