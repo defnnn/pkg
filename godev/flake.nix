@@ -1,6 +1,7 @@
 {
   inputs = {
     pkg.url = github:defn/pkg/0.0.166;
+    cobracli.url = github:defn/cobra-cli/1.6.1-1;
     latest.url = github:NixOS/nixpkgs?rev=b1f87ca164a9684404c8829b851c3586c4d9f089; # nixos-unstable
   };
 
@@ -20,6 +21,7 @@
           gopkgs
           delve
           gopls
+          inputs.cobracli.defaultPackage.${ctx.system}
         ];
     };
   };
