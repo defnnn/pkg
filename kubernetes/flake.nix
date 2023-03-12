@@ -7,6 +7,7 @@
     helm.url = github:defn/pkg/helm-3.11.2-1?dir=helm;
     kustomize.url = github:defn/pkg/kustomize-5.0.0-7?dir=kustomize;
     argocd.url = github:defn/pkg/argocd-2.6.4-0?dir=argocd;
+    kn.url = github:defn/pkg/kn-1.9.1-0?dir=kn;
   };
 
   outputs = inputs: inputs.pkg.main rec {
