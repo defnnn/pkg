@@ -23,6 +23,7 @@
             inputs.helm.defaultPackage.${ctx.system}
             inputs.kustomize.defaultPackage.${ctx.system}
             inputs.argocd.defaultPackage.${ctx.system}
+            inputs.kn.defaultPackage.${ctx.system}
           ];
         in
         flakeInputs;
