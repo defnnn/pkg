@@ -27,6 +27,7 @@
           inputs.cobracli.defaultPackage.${ctx.system}
           inputs.buf.defaultPackage.${ctx.system}
           inputs.operatorsdk.defaultPackage.${ctx.system}
+          inputs.goreleaser.defaultPackage.${ctx.system}
         ];
     };
   };
