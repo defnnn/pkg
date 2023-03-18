@@ -8,7 +8,13 @@ function main {
 	local vendor=
 	local revision=
 
-	local slug="$(cat SLUG)"
+	local slug
+	
+	if test -f SLUG; then
+		slug="$(cat SLUG)"
+	else
+		slug="$(cat flake.json | jq -r '.slug')"
+	fi
 
 	if [[ "" == "$(git rev-parse --show-cdup)" ]]; then
 		slug=
