@@ -1,6 +1,6 @@
 {
   inputs = {
-    pkg.url = github:defn/pkg/0.0.166;
+    pkg.url = github:defn/pkg/0.0.167;
     cobracli.url = github:defn/cobra-cli/1.6.1-1;
     buf.url = github:defn/pkg/buf-1.15.1-0?dir=buf;
     operatorsdk.url = github:defn/pkg/operatorsdk-1.27.0-0?dir=operatorsdk;
