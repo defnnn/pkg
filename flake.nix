@@ -1,5 +1,5 @@
 {
-  inputs.dev.url = github:defn/pkg/dev-0.0.31?dir=dev;
+  inputs.dev.url = github:defn/pkg/dev-0.0.33?dir=dev;
   outputs = inputs:
     let
       main = clr:
@@ -9,9 +9,11 @@
             config = clr;
           };
 
-          src = builtins.path { path = caller.src; name = (builtins.fromJSON (builtins.readFile "${caller.src}/flake.json")).slug; };
+          json = builtins.fromJSON (builtins.readFile "${caller.src}/flake.json");
 
-          config = caller // { inherit src; };
+          src = builtins.path { path = caller.src; name = json.slug; };
+
+          config = caller // json // { inherit src; };
         in
         inputs.dev.main rec {
           inherit inputs;
