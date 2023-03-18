@@ -1,6 +1,6 @@
 {
   inputs = {
-    pkg.url = github:defn/pkg/0.0.169;
+    pkg.url = github:defn/pkg/0.0.170;
     tilt.url = github:defn/pkg/tilt-0.31.2-4?dir=tilt;
     nomad.url = github:defn/pkg/nomad-1.5.0-2?dir=nomad;
     boundary.url = github:defn/pkg/boundary-0.12.0-2?dir=boundary;
@@ -8,7 +8,7 @@
     gh.url = github:defn/pkg/gh-gh-2.20.2-3?dir=gh;
     earthly.url = github:defn/pkg/earthly-0.7.1-2?dir=earthly;
     buildkite.url = github:defn/pkg/buildkite-3.44.0-3?dir=buildkite;
-    bk.url = github:defn/pkg/bk-2.0.0-2?dir=bk;
+    bk.url = github:defn/pkg/bk-2.0.0-3?dir=bk;
   };
 
   outputs = inputs: inputs.pkg.main rec {
