@@ -29,7 +29,7 @@
         pkgs = dev-inputs.nixpkgs;
 
         defaultConfig = { src, config ? { } }: {
-          slug = builtins.readFile (src + "/SLUG");
+          slug = (builtins.fromJSON (builtins.readFile (src + "/flake.json"))).slug;
         } // (
           if dev-inputs.nixpkgs.lib.pathIsRegularFile (src + "/VENDOR") then rec {
             vendor = builtins.readFile (src + "/VENDOR");
@@ -111,7 +111,7 @@
     prelude // (prelude.main rec {
       inherit inputs;
 
-      src = builtins.path { path = ./.; name = builtins.readFile ./SLUG; };
+      src = ./.;
 
       config = prelude.defaultConfig { inherit src; };
 
