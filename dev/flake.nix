@@ -4,7 +4,7 @@
     flake-utils.url = github:numtide/flake-utils?rev=04c1b180862888302ddfb2e3ad9eaa63afc60cf8;
 
     wrapper = {
-      url = github:defn/pkg/wrapper-0.0.21?dir=wrapper;
+      url = github:defn/pkg/wrapper-0.0.23?dir=wrapper;
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
