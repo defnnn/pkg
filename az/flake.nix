@@ -2,7 +2,7 @@
   inputs = {
     pkg.url = github:defn/pkg/0.0.166;
     c.url = github:defn/pkg/c-0.0.7?dir=c;
-    n.url = github:defn/pkg/n-0.0.18?dir=n;
+    n.url = github:defn/pkg/n-0.0.19?dir=n;
     tf.url = github:defn/pkg/tf-0.0.6?dir=tf;
     gum.url = github:defn/pkg/gum-0.9.0-2?dir=gum;
     glow.url = github:defn/pkg/glow-1.5.0-2?dir=glow;
