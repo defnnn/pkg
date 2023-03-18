@@ -1,7 +1,7 @@
 {
   inputs = {
-    pkg.url = github:defn/pkg/0.0.168;
-    c.url = github:defn/pkg/c-0.0.8?dir=c;
+    pkg.url = github:defn/pkg/0.0.169;
+    c.url = github:defn/pkg/c-0.0.9?dir=c;
   };
 
   outputs = inputs: inputs.pkg.main rec {
