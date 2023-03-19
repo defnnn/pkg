@@ -9,17 +9,17 @@
       },
       "locked": {
         "dir": "dev",
-        "lastModified": 1679164477,
-        "narHash": "sha256-Pzjs473smSyb7t2M9Q2UtdwNbLgd0nik01f6JjjVh0s=",
+        "lastModified": 1679174154,
+        "narHash": "sha256-KNADYM5u77+KqDQaaPmSonIZM7Tfp8XH5CRjIXACjr8=",
         "owner": "defn",
         "repo": "pkg",
-        "rev": "0ce58ac85c69f1de39ebe3aa8dc0fdc3f1c8d340",
+        "rev": "e629f9f696ad0de43fa1db6a2bc5186129861c7a",
         "type": "github"
       },
       "original": {
         "dir": "dev",
         "owner": "defn",
-        "ref": "dev-0.0.31",
+        "ref": "dev-0.0.34",
         "repo": "pkg",
         "type": "github"
       }
@@ -63,7 +63,6 @@
       },
       "original": {
         "owner": "defn",
-        "ref": "1.5.0-4",
         "repo": "gomod2nix",
         "type": "github"
       }
@@ -89,16 +88,16 @@
         "dev": "dev"
       },
       "locked": {
-        "lastModified": 1679164660,
-        "narHash": "sha256-m/yetPbH9KLxPhuD++7mPHHG7itdCgzt/X/lg46yh5I=",
+        "lastModified": 1679174478,
+        "narHash": "sha256-OACVDBG3M0HaaCg0KKzxtYN96CQ7LdG5hWnfiN5XO94=",
         "owner": "defn",
         "repo": "pkg",
-        "rev": "2794efd2ce1970d2e933c2241a4b4e1c99cd5853",
+        "rev": "50aa8ad66f9241d3d01cac3934239577f639b1e5",
         "type": "github"
       },
       "original": {
         "owner": "defn",
-        "ref": "0.0.167",
+        "ref": "0.0.170",
         "repo": "pkg",
         "type": "github"
       }
@@ -118,17 +117,17 @@
       },
       "locked": {
         "dir": "wrapper",
-        "lastModified": 1676791016,
-        "narHash": "sha256-xmyEDe/FZBVFdyuVXTwMFozADtxjeDHzUt/1BgzuD+c=",
+        "lastModified": 1679172528,
+        "narHash": "sha256-1GEt5r4+q2C9Pl3RMZwZUF4vbnIlM4R/GeNaIvoqrQs=",
         "owner": "defn",
         "repo": "pkg",
-        "rev": "056d285d8167c934783119e6195f037952e3bd6e",
+        "rev": "70d480bd891d2e6bad6e07f6800b385d44fc3626",
         "type": "github"
       },
       "original": {
         "dir": "wrapper",
         "owner": "defn",
-        "ref": "wrapper-0.0.21",
+        "ref": "wrapper-0.0.23",
         "repo": "pkg",
         "type": "github"
       }
