@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+function main {
+	set -efu
+
+	git log --pretty="%h %d %s" . | head -1  | grep ' (tag: '
+}
+
+source sub "$0" "$@"
