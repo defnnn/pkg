@@ -4,7 +4,7 @@ function main {
     set -eu
 
     if [[ "$#" == 0 ]]; then
-        set -- . */
+        set -- ./ ./*/
     fi
 
     echo "steps:"
