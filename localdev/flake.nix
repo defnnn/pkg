@@ -11,6 +11,8 @@
     bk.url = github:defn/pkg/bk-2.0.0-3?dir=bk;
     buildevents.url = github:defn/pkg/buildevents-0.13.0-0?dir=buildevents;
     honeyvent.url = github:defn/pkg/honeyvent-1.1.3-0?dir=honeyvent;
+    honeymarker.url = github:defn/pkg/honeyvent-0.2.10-1?dir=honeymarker;
+    honeytail.url = github:defn/pkg/honeytail-1.8.2-1?dir=honeytail;
   };
 
   outputs = inputs: inputs.pkg.main rec {
@@ -28,6 +30,10 @@
             inputs.earthly.defaultPackage.${ctx.system}
             inputs.buildkite.defaultPackage.${ctx.system}
             inputs.bk.defaultPackage.${ctx.system}
+            inputs.buildevents.defaultPackage.${ctx.system}
+            inputs.honeyvent.defaultPackage.${ctx.system}
+            inputs.honeymarker.defaultPackage.${ctx.system}
+            inputs.honeytail.defaultPackage.${ctx.system}
           ];
         in
         flakeInputs;
