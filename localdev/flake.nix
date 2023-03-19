@@ -9,6 +9,8 @@
     earthly.url = github:defn/pkg/earthly-0.7.1-2?dir=earthly;
     buildkite.url = github:defn/pkg/buildkite-3.44.0-3?dir=buildkite;
     bk.url = github:defn/pkg/bk-2.0.0-3?dir=bk;
+    buildevents.url = github:defn/pkg/buildevents-0.13.0-0?dir=buildevents;
+    honeyvent.url = github:defn/pkg/honeyvent-1.1.3-0?dir=honeyvent;
   };
 
   outputs = inputs: inputs.pkg.main rec {
