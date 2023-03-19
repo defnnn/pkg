@@ -6,7 +6,7 @@
     boundary.url = github:defn/pkg/boundary-0.12.0-2?dir=boundary;
     vault.url = github:defn/pkg/vault-1.13.0-2?dir=vault;
     gh.url = github:defn/pkg/gh-2.24.3-4?dir=gh;
-    earthly.url = github:defn/pkg/earthly-0.7.1-2?dir=earthly;
+    earthly.url = github:defn/pkg/earthly-0.7.2-0?dir=earthly;
     buildkite.url = github:defn/pkg/buildkite-3.44.0-3?dir=buildkite;
     bk.url = github:defn/pkg/bk-2.0.0-3?dir=bk;
     buildevents.url = github:defn/pkg/buildevents-0.13.0-0?dir=buildevents;
