@@ -1,2 +1,2 @@
 steps:
-  - command: ".buildkite/pipeline.sh | buildkite-agent pipeline upload"
+  - command: "../.buildkite/all.sh .. ../*/ | buildkite-agent pipeline upload"
