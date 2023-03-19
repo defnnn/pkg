@@ -1,2 +1,2 @@
 steps:
-  - command: "true"
+  - command: "nix build"
