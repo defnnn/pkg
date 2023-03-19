@@ -35,7 +35,6 @@
       },
       "original": {
         "owner": "defn",
-        "ref": "1.5.0-4",
         "repo": "gomod2nix",
         "type": "github"
       }
@@ -72,17 +71,17 @@
       },
       "locked": {
         "dir": "wrapper",
-        "lastModified": 1676791016,
-        "narHash": "sha256-xmyEDe/FZBVFdyuVXTwMFozADtxjeDHzUt/1BgzuD+c=",
+        "lastModified": 1679172528,
+        "narHash": "sha256-1GEt5r4+q2C9Pl3RMZwZUF4vbnIlM4R/GeNaIvoqrQs=",
         "owner": "defn",
         "repo": "pkg",
-        "rev": "056d285d8167c934783119e6195f037952e3bd6e",
+        "rev": "70d480bd891d2e6bad6e07f6800b385d44fc3626",
         "type": "github"
       },
       "original": {
         "dir": "wrapper",
         "owner": "defn",
-        "ref": "wrapper-0.0.21",
+        "ref": "wrapper-0.0.23",
         "repo": "pkg",
         "type": "github"
       }
