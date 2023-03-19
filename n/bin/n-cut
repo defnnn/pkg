@@ -11,7 +11,7 @@ function main {
 
 	n bump
 	for a in VERSION REVISION; do if test -f "$a"; then git add -f "$a"; fi; done
-	echo git commit  -m "bump $(basename "$(pwd)") $(cat VERSION REVISION 2>/dev/null || true)"
+	git commit  -m "bump $(basename "$(pwd)") $(cat VERSION REVISION 2>/dev/null || true)"
 }
 
 source sub "$0" "$@"
