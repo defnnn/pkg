@@ -12,7 +12,7 @@ function main {
                 ;;
             *)
                 if test -d "$D/.buildkite"; then
-                    echo "  - command: \"cd $D && nix build && if test -x validate; then nix develop --command ./validate; fi\""
+                    echo "- command: \"cat $D/.buildkite/pipeline.yml | sed 's#command: .#command: \\\"cd $D; #' | buildkite-agent pipeline upload\""
                 fi
                 ;;
         esac
