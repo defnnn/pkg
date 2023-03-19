@@ -33,8 +33,8 @@
       };
       "aarch64-darwin" = {
         os = "darwin";
-        arch = "amd64";
-        sha256 = "sha256-1W3dkAQEOiPrZi9aQJkP3prIozlFM3hVOdD6K6ls0EE="; # aarch64-darwin
+        arch = "arm64";
+        sha256 = "sha256-14/kE40Vo7frBkV4pAwac4fVzktfCfVRdIRe1nJR5gI="; # aarch64-darwin
       };
     };
   };
