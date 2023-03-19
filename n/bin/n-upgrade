@@ -22,3 +22,5 @@ function main {
 		)
 	done
 }
+
+source sub "$0" "$@"
