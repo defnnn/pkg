@@ -9,6 +9,11 @@ function main {
 		return 1
 	fi
 
+	if ! n pending; then
+		echo "ERROR: no pending commits" 1>&2
+		return 1
+	fi
+
 	n bump
 	for a in VERSION REVISION; do if test -f "$a"; then git add -f "$a"; fi; done
 	git commit  -m "bump $(basename "$(pwd)") $(cat VERSION REVISION 2>/dev/null || true)"

@@ -3,7 +3,11 @@
 function main {
 	set -efu
 
-	git log --pretty="%h %d %s" . | head -1  | grep ' (tag: '
+	if git log --pretty="%h %d %s" . | head -1  | grep ' (tag: '; then
+		return 1
+	else
+		return 0
+	fi
 }
 
 source sub "$0" "$@"
