@@ -24,12 +24,12 @@
         sha256 = "sha256-BRH9kaq/SGGt6Xx0JgeuKuAjG4/TUcV1o2YkWaHtv9s="; # aarch64-linux
       };
       "x86_64-darwin" = {
-        os = "macos";
+        os = "macOS";
         arch = "amd64";
         sha256 = "sha256-Wh5qMmbn6evxPaf3TOiMxO63mlE6rKHO3EoLwisgbm4="; # x86_64-darwin
       };
       "aarch64-darwin" = {
-        os = "macos";
+        os = "macOS";
         arch = "amd64"; # no arm64 macos
         sha256 = "sha256-Wh5qMmbn6evxPaf3TOiMxO63mlE6rKHO3EoLwisgbm4="; # aarch64-darwin
       };
