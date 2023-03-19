@@ -232,17 +232,17 @@
       },
       "locked": {
         "dir": "hof",
-        "lastModified": 1679209221,
-        "narHash": "sha256-8Nbr4vLnMSFOKnmhRaaulOZbBNEkSe+iK/5TYG8Q1is=",
+        "lastModified": 1679262988,
+        "narHash": "sha256-P0Jb302Gvoe4h9q2eMy8z4EOdClwFUB/TVPMvWlxLpc=",
         "owner": "defn",
         "repo": "pkg",
-        "rev": "31e137da150df58243edca0c8e88ff4e27d9fb34",
+        "rev": "baba634ce813030ab865cfca2a55fa37be0ebd11",
         "type": "github"
       },
       "original": {
         "dir": "hof",
         "owner": "defn",
-        "ref": "hof-0.6.8-beta.12-3",
+        "ref": "hof-0.6.8-beta.12-4",
         "repo": "pkg",
         "type": "github"
       }
