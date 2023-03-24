@@ -8,6 +8,7 @@
     kustomize.url = github:defn/pkg/kustomize-5.0.1-0?dir=kustomize;
     argocd.url = github:defn/pkg/argocd-2.6.6-0?dir=argocd;
     kn.url = github:defn/pkg/kn-1.9.1-2?dir=kn;
+    vcluster.url = github:defn/pkg/vcluster-0.14.2-0?dir=vcluster;
   };
 
   outputs = inputs: inputs.pkg.main rec {
@@ -24,6 +25,7 @@
             inputs.kustomize.defaultPackage.${ctx.system}
             inputs.argocd.defaultPackage.${ctx.system}
             inputs.kn.defaultPackage.${ctx.system}
+            inputs.vcluster.defaultPackage.${ctx.system}
           ];
         in
         flakeInputs;
