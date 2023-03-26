@@ -16,7 +16,7 @@ function main {
                 ;;
             *)
                 if test -d "$D/.buildkite"; then
-                    echo "- command: \"cat $D/.buildkite/pipeline.yml | sed 's#command: .#command: \\\"cd $D; #' | buildkite-agent pipeline upload\""
+                    echo "- command: \"cat $D/.buildkite/pipeline.yml | sed 's#command: .#agent:\\n .     queue: $GIT_AUTHOR_NAME\\n    command: \\\"cd $D; #' | buildkite-agent pipeline upload\""
                 fi
                 ;;
         esac
