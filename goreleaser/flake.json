@@ -1,4 +1,5 @@
 {
   "slug": "goreleaser",
-  "repo": "goreleaser/goreleaser"
+  "repo": "goreleaser/goreleaser",
+  "ghrepo": "goreleaser/goreleaser"
 }

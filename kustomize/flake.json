@@ -1,4 +1,5 @@
 {
   "slug": "kustomize",
-  "repo": "kubernetes-sigs/kustomize"
+  "repo": "kubernetes-sigs/kustomize",
+  "ghrepo": "kubernetes-sigs/kustomize"
 }

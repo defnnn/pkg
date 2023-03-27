@@ -1,4 +1,5 @@
 {
   "slug": "bk",
-  "repo": "buildkite/cli"
+  "repo": "buildkite/cli",
+  "ghrepo": "buildkite/cli"
 }

@@ -1,4 +1,5 @@
 {
   "slug": "argocd",
-  "repo": "argoproj/argo-cd"
+  "repo": "argoproj/argo-cd",
+  "ghrepo": "argoproj/argo-cd"
 }

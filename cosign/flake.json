@@ -1,4 +1,5 @@
 {
   "slug": "cosign",
-  "repo": "sigstore/cosign"
+  "repo": "sigstore/cosign",
+  "ghrepo": "sigstore/cosign"
 }

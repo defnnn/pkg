@@ -1,4 +1,5 @@
 {
   "slug": "argo",
-  "repo": "argoproj/argo-workflows"
+  "repo": "argoproj/argo-workflows",
+  "ghrepo": "argoproj/argo-workflows"
 }

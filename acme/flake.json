@@ -1,4 +1,5 @@
 {
   "slug": "acme",
-  "repo": "acmesh-official/acme.sh"
+  "repo": "acmesh-official/acme.sh",
+  "ghrepo": "acmesh-official/acme.sh"
 }

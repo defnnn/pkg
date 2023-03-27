@@ -1,4 +1,5 @@
 {
   "slug": "buf",
-  "repo": "bufbuild/buf"
+  "repo": "bufbuild/buf",
+  "ghrepo": "bufbuild/buf"
 }

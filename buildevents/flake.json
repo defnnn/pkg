@@ -1,4 +1,5 @@
 {
   "slug": "buildevents",
-  "repo": "honeycombio/buildevents"
+  "repo": "honeycombio/buildevents",
+  "ghrepo": "honeycombio/buildevents"
 }

@@ -1,4 +1,5 @@
 {
   "slug": "caddy",
-  "repo": "caddyserver/caddy"
+  "repo": "caddyserver/caddy",
+  "ghrepo": "caddyserver/caddy"
 }

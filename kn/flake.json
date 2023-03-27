@@ -1,4 +1,5 @@
 {
   "slug": "kn",
-  "repo": "knative/client"
+  "repo": "knative/client",
+  "ghrepo": "knative/client"
 }

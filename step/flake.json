@@ -1,4 +1,5 @@
 {
   "slug": "step",
-  "repo": "smallstep/cli"
+  "repo": "smallstep/cli",
+  "ghrepo": "smallstep/cli"
 }

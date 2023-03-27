@@ -1,4 +1,5 @@
 {
   "slug": "earthly",
-  "repo": "earthly/earthly"
+  "repo": "earthly/earthly",
+  "ghrepo": "earthly/earthly"
 }

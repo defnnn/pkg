@@ -1,4 +1,5 @@
 {
   "slug": "buildkite",
-  "repo": "buildkite/agent"
+  "repo": "buildkite/agent",
+  "ghrepo": "buildkite/agent"
 }

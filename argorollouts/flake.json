@@ -1,4 +1,5 @@
 {
   "slug": "argorollouts",
-  "repo": "argoproj/argo-rollouts"
+  "repo": "argoproj/argo-rollouts",
+  "ghrepo": "argoproj/argo-rollouts"
 }

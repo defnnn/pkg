@@ -1,4 +1,5 @@
 {
   "slug": "vcluster",
-  "repo": "loft-sh/vcluster"
+  "repo": "loft-sh/vcluster",
+  "ghrepo": "loft-sh/vcluster"
 }

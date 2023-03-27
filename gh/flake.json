@@ -1,4 +1,5 @@
 {
   "slug": "gh",
-  "repo": "cli/cli"
+  "repo": "cli/cli",
+  "ghrepo": "cli/cli"
 }

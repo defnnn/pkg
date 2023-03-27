@@ -1,4 +1,5 @@
 {
   "slug": "operatorsdk",
-  "repo": "operator-framework/operator-sdk"
+  "repo": "operator-framework/operator-sdk",
+  "ghrepo": "operator-framework/operator-sdk"
 }

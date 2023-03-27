@@ -1,4 +1,5 @@
 {
   "slug": "coredns",
-  "repo": "coredns/coredns"
+  "repo": "coredns/coredns",
+  "ghrepo": "coredns/coredns"
 }

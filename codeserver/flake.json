@@ -1,4 +1,5 @@
 {
   "slug": "codeserver",
-  "repo": "coder/code-server"
+  "repo": "coder/code-server",
+  "ghrepo": "coder/code-server"
 }
