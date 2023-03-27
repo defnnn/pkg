@@ -5,7 +5,7 @@
     nomad.url = github:defn/pkg/nomad-1.5.0-2?dir=nomad;
     boundary.url = github:defn/pkg/boundary-0.12.0-2?dir=boundary;
     vault.url = github:defn/pkg/vault-1.13.0-2?dir=vault;
-    gh.url = github:defn/pkg/gh-2.24.3-4?dir=gh;
+    gh.url = github:defn/pkg/gh-2.25.1-1?dir=gh;
     earthly.url = github:defn/pkg/earthly-0.7.2-0?dir=earthly;
     buildkite.url = github:defn/pkg/buildkite-3.45.0-0?dir=buildkite;
     bk.url = github:defn/pkg/bk-2.0.0-3?dir=bk;
