@@ -1,6 +1,6 @@
 {
   inputs = {
-    pkg.url = github:defn/pkg/0.0.170;
+    pkg.url = github:defn/pkg/0.0.172;
     k3d.url = github:defn/pkg/k3d-5.4.9-0?dir=k3d;
     kubectl.url = github:defn/pkg/kubectl-1.25.8-0?dir=kubectl;
     k9s.url = github:defn/pkg/k9s-0.27.3-2?dir=k9s;

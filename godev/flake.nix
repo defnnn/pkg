@@ -1,6 +1,6 @@
 {
   inputs = {
-    pkg.url = github:defn/pkg/0.0.170;
+    pkg.url = github:defn/pkg/0.0.172;
     buf.url = github:defn/pkg/buf-1.15.1-2?dir=buf;
     operatorsdk.url = github:defn/pkg/operatorsdk-1.28.0-1?dir=operatorsdk;
     goreleaser.url = github:defn/pkg/goreleaser-1.16.2-1?dir=goreleaser;

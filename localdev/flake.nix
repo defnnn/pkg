@@ -1,6 +1,6 @@
 {
   inputs = {
-    pkg.url = github:defn/pkg/0.0.170;
+    pkg.url = github:defn/pkg/0.0.172;
     tilt.url = github:defn/pkg/tilt-0.32.0-0?dir=tilt;
     nomad.url = github:defn/pkg/nomad-1.5.0-2?dir=nomad;
     boundary.url = github:defn/pkg/boundary-0.12.0-2?dir=boundary;
