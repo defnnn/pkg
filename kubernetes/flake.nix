@@ -6,8 +6,8 @@
     k9s.url = github:defn/pkg/k9s-0.27.3-2?dir=k9s;
     helm.url = github:defn/pkg/helm-3.11.2-3?dir=helm;
     kustomize.url = github:defn/pkg/kustomize-5.0.1-0?dir=kustomize;
-    argocd.url = github:defn/pkg/argocd-2.6.6-0?dir=argocd;
-    kn.url = github:defn/pkg/kn-1.9.1-2?dir=kn;
+    argocd.url = github:defn/pkg/argocd-2.6.7-1?dir=argocd;
+    kn.url = github:defn/pkg/kn-1.9.2-1?dir=kn;
     vcluster.url = github:defn/pkg/vcluster-0.14.2-0?dir=vcluster;
   };
 
