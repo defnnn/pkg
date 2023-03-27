@@ -1,3 +1,4 @@
 {
-  "slug": "tailscale"
+  "slug": "tailscale",
+  "ghrepo": "tailscale/tailscale"
 }
