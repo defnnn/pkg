@@ -1,3 +1,4 @@
 {
-  "slug": "argorollouts"
+  "slug": "argorollouts",
+  "repo": "argoproj/argo-rollouts"
 }

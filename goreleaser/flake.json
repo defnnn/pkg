@@ -1,3 +1,4 @@
 {
-  "slug": "goreleaser"
+  "slug": "goreleaser",
+  "repo": "goreleaser/goreleaser"
 }
