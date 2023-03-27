@@ -2,8 +2,8 @@
   inputs = {
     pkg.url = github:defn/pkg/0.0.172;
     tilt.url = github:defn/pkg/tilt-0.32.0-0?dir=tilt;
-    nomad.url = github:defn/pkg/nomad-1.5.0-2?dir=nomad;
-    boundary.url = github:defn/pkg/boundary-0.12.0-2?dir=boundary;
+    nomad.url = github:defn/pkg/nomad-1.5.2-0?dir=nomad;
+    boundary.url = github:defn/pkg/boundary-0.12.1-0?dir=boundary;
     vault.url = github:defn/pkg/vault-1.13.0-2?dir=vault;
     gh.url = github:defn/pkg/gh-2.25.1-1?dir=gh;
     earthly.url = github:defn/pkg/earthly-0.7.2-0?dir=earthly;
