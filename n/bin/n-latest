@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+function main {
+	set -efu
+  
+  local repo="$(cat flake.json | jq -r '.ghrepo')"
+
+  if [[ "${repo}" == "null" ]]; then
+    cat VERSION
+  else
+    gh release list --repo "$repo" --exclude-drafts --exclude-pre-releases --limit 1 | tail -1 | awk '{print $3}' | cut -d/ -f 2- | sed 's#v##'
+  fi | perl -pe 's{\s+$}{}'
+}
+
+source sub "$0" "$@"
