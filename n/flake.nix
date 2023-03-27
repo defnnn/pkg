@@ -1,7 +1,6 @@
 {
   inputs = {
     pkg.url = github:defn/pkg/0.0.170;
-    c.url = github:defn/pkg/c-0.4.4?dir=c;
   };
 
   outputs = inputs: inputs.pkg.main rec {
@@ -15,10 +14,6 @@
         cp -a $src/bin/n $src/bin/n-* $out/bin/
         chmod 755 $out/bin/*
       '';
-
-      propagatedBuildInputs = [
-        inputs.c.defaultPackage.${ctx.system}
-      ];
     };
   };
 }
