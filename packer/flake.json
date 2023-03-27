@@ -1,3 +1,4 @@
 {
-  "slug": "packer"
+  "slug": "packer",
+  "ghrepo": "hashicorp/packer"
 }

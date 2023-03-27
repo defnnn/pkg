@@ -1,3 +1,4 @@
 {
-  "slug": "nomad"
+  "slug": "nomad",
+  "ghrepo": "hashicorp/nomad"
 }

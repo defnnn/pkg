@@ -1,3 +1,4 @@
 {
-  "slug": "vault"
+  "slug": "vault",
+  "ghrepo": "hashicorp/vault"
 }
