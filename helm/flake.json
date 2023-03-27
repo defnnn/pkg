@@ -1,3 +1,4 @@
 {
-  "slug": "helm"
+  "slug": "helm",
+  "ghrepo": "helm/helm"
 }
