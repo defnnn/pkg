@@ -31,7 +31,7 @@
       "x86_64-darwin" = {
         os = "darwin";
         arch = "amd64";
-        sha256 = "sha256-aaaCAY7WIpptkt7+4LKhFaChgWntAuk+zziZyj4qh94="; # x86_64-darwin
+        sha256 = "sha256-whimwO9mkrJa8WmVyMe99nOeljj++SNcas7TzYSvr2Y="; # x86_64-darwin
       };
       "aarch64-darwin" = {
         os = "darwin";
