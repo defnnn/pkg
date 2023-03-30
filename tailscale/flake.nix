@@ -28,11 +28,11 @@
 
       "x86_64-linux" = {
         arch = "amd64";
-        sha256 = "sha256-dslKr2XPSkqoEqIeSx7dMsg49ZWlOYnek8cPIulL5nU="; # x86_64-linux
+        sha256 = "sha256-SaDraC5cA0ZqbkuO+TPypLfj2HU0TOhbYVKg6YWT7qU="; # x86_64-linux
       };
       "aarch64-linux" = {
         arch = "arm64";
-        sha256 = "sha256-g+NSal1NkBlNnEBFbSZ20xfX0dUgK4bvk1AN1cLl7NI="; # aarch64-linux
+        sha256 = "sha256-5SVrLtPYk3Ikz/fQlQ8C6P8r/T34t07iHsdpmspqiV0="; # aarch64-linux
       };
     };
   };
