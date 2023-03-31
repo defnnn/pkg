@@ -1,2 +1,2 @@
 latest:
-	@for a in */; do if grep ghrepo "$$a/flake.json" >/dev/null 2>/dev/null; then (cd "$$a" && echo "$$a $$(cat VENDOR) $$(n latest)"); fi; done | while read -r slug current latest; do if [[ "$$current" != "$$latest" ]]; then echo "$$slug $$current $$latest"; fi; done
+	@for a in */; do if grep ghrepo "$$a/flake.json" >/dev/null 2>/dev/null; then (cd "$$a" && echo "$$a $$(cat VENDOR) $$(../n/bin/n-latest)"); fi; done | while read -r slug current latest; do if [[ "$$current" != "$$latest" ]]; then echo "$$slug $$current $$latest"; fi; done
