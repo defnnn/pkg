@@ -26,6 +26,8 @@
             inputs.helm.defaultPackage.${ctx.system}
             inputs.kustomize.defaultPackage.${ctx.system}
             inputs.argocd.defaultPackage.${ctx.system}
+            inputs.argo.defaultPackage.${ctx.system}
+            inputs.tkn.defaultPackage.${ctx.system}
             inputs.kn.defaultPackage.${ctx.system}
             inputs.vcluster.defaultPackage.${ctx.system}
           ];
