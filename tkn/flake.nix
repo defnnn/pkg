@@ -4,7 +4,7 @@
     src = ./.;
 
     url_template = input:
-      if input.os == "linux" then
+      if input.os == "Linux" then
         "https://github.com/tektoncd/cli/releases/download/v${input.vendor}/tkn_${input.vendor}_${input.os}_${input.arch}.tar.gz"
       else
         "https://github.com/tektoncd/cli/releases/download/v${input.vendor}/tkn_${input.vendor}_${input.os}_all.tar.gz";
