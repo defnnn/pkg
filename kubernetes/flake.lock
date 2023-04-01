@@ -1331,17 +1331,17 @@
       },
       "locked": {
         "dir": "tkn",
-        "lastModified": 1680317533,
-        "narHash": "sha256-NYz5cBwm3tAGyDRztgwdshUgDWNcw3LFCl6Yb/im+Gk=",
+        "lastModified": 1680320760,
+        "narHash": "sha256-Fpd+MDh2bLyTXJ0idLGDDRadEWQS2T1aEFkhD8eEjks=",
         "owner": "defn",
         "repo": "pkg",
-        "rev": "bdd000d67d3ab3352cc44fa7251e5d42c1ecf6bf",
+        "rev": "be2f3dab97e681144d938942dda9e3c335381572",
         "type": "github"
       },
       "original": {
         "dir": "tkn",
         "owner": "defn",
-        "ref": "tkn-0.30.0-0",
+        "ref": "tkn-0.30.0-1",
         "repo": "pkg",
         "type": "github"
       }

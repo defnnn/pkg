@@ -8,7 +8,7 @@
     kustomize.url = github:defn/pkg/kustomize-5.0.1-0?dir=kustomize;
     argo.url = github:defn/pkg/argo-3.4.6-0?dir=argo;
     argocd.url = github:defn/pkg/argocd-2.6.7-1?dir=argocd;
-    tkn.url = github:defn/pkg/tkn-0.30.0-0?dir=tkn;
+    tkn.url = github:defn/pkg/tkn-0.30.0-1?dir=tkn;
     kn.url = github:defn/pkg/kn-1.9.2-1?dir=kn;
     vcluster.url = github:defn/pkg/vcluster-0.14.2-0?dir=vcluster;
   };
