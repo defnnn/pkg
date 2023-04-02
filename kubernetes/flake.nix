@@ -6,6 +6,7 @@
     k9s.url = github:defn/pkg/k9s-0.27.3-2?dir=k9s;
     helm.url = github:defn/pkg/helm-3.11.2-3?dir=helm;
     kustomize.url = github:defn/pkg/kustomize-5.0.1-0?dir=kustomize;
+    stern.url = github:defn/pkg/stern-1.24.0-1?dir=stern;
     argo.url = github:defn/pkg/argo-3.4.6-0?dir=argo;
     argocd.url = github:defn/pkg/argocd-2.6.7-1?dir=argocd;
     tkn.url = github:defn/pkg/tkn-0.30.0-2?dir=tkn;
