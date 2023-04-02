@@ -7,7 +7,6 @@ function main {
 
 	git tag "${tag}"
 	git push origin "${tag}"
-	git push
 	rm -rf /tmp/tags
 }
 

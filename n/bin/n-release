@@ -4,8 +4,15 @@ function main {
 	set -efu
 
 	git pull
-	n cut
+	if ! n cut; then
+		if [[ -n "${1:-}" ]]; then
+			git add -u .
+			git commit -m "$*"
+			n cut
+		fi
+	fi
 	n push
+	git push
 }
 
 source sub "$0" "$@"
