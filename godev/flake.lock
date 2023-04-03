@@ -6,17 +6,17 @@
       },
       "locked": {
         "dir": "buf",
-        "lastModified": 1680528310,
-        "narHash": "sha256-7izoO6t/Nbpx04BcjegoKctUPXjK45jaZixsxbnAWYU=",
+        "lastModified": 1680529271,
+        "narHash": "sha256-3hXuyq/XCVhaDWrED48+tXOFY+aTdp0Wv59NCuIRnVw=",
         "owner": "defn",
         "repo": "pkg",
-        "rev": "ad8d4b8fe0a0d43cc284e2b91d5620e21dd4e72f",
+        "rev": "b3e014add7a6dc9b5ef3310983f1dee360745905",
         "type": "github"
       },
       "original": {
         "dir": "buf",
         "owner": "defn",
-        "ref": "buf-1.16.0-24",
+        "ref": "buf-1.16.0-25",
         "repo": "pkg",
         "type": "github"
       }
@@ -27,17 +27,17 @@
       },
       "locked": {
         "dir": "cosign",
-        "lastModified": 1680528156,
-        "narHash": "sha256-/jxxQ/Hnd2aCD9QfPL/IRtlnOVxbq7pDdy1aaZsZTVU=",
+        "lastModified": 1680529117,
+        "narHash": "sha256-sy9ZOitL+x+HJhZQQZhYkZE4lZjWIfbevao7mprXS04=",
         "owner": "defn",
         "repo": "pkg",
-        "rev": "72fc270fc39bcf65fd3e7ad9fa38c723fd4e6e60",
+        "rev": "c2c2af5fb58cabb24450279d94c231587dff5732",
         "type": "github"
       },
       "original": {
         "dir": "cosign",
         "owner": "defn",
-        "ref": "cosign-2.0.0-28",
+        "ref": "cosign-2.0.0-29",
         "repo": "pkg",
         "type": "github"
       }
@@ -386,17 +386,17 @@
       },
       "locked": {
         "dir": "goreleaser",
-        "lastModified": 1680528948,
-        "narHash": "sha256-ATpzjLOwxAzlG3YaXvDQWh7yzozZJ/CUaFegr0L/8AU=",
+        "lastModified": 1680529974,
+        "narHash": "sha256-qGsNVsO1NaTfom3ARbvi5Kv8/sh9XFvaofLzrhU1Ysw=",
         "owner": "defn",
         "repo": "pkg",
-        "rev": "36238aa87fdea19d0244fc171e69d6266deb0d95",
+        "rev": "5fb5ed4d78e690259154056e68376b823b1387a9",
         "type": "github"
       },
       "original": {
         "dir": "goreleaser",
         "owner": "defn",
-        "ref": "goreleaser-1.16.2-26",
+        "ref": "goreleaser-1.16.2-27",
         "repo": "pkg",
         "type": "github"
       }
@@ -503,17 +503,17 @@
       },
       "locked": {
         "dir": "operatorsdk",
-        "lastModified": 1680528625,
-        "narHash": "sha256-7gml0WXh3TEGDZDIkV6oHdO/qausoeA7nQpGBqb/k68=",
+        "lastModified": 1680529616,
+        "narHash": "sha256-MLs2jFP/6DcAD64TifXWJtxfQFRXSKn/v8XjCxMxiKU=",
         "owner": "defn",
         "repo": "pkg",
-        "rev": "231e88bfe13ed4c7660e6053592c0bf65d078124",
+        "rev": "ff555c8cc4a7ef1ec49e5c883031eab9aaee22de",
         "type": "github"
       },
       "original": {
         "dir": "operatorsdk",
         "owner": "defn",
-        "ref": "operatorsdk-1.28.0-26",
+        "ref": "operatorsdk-1.28.0-27",
         "repo": "pkg",
         "type": "github"
       }
@@ -523,16 +523,16 @@
         "dev": "dev"
       },
       "locked": {
-        "lastModified": 1680527505,
-        "narHash": "sha256-xZkPeILQGRA6Gcln4eVQnVmRY443hmYP7ExED6r7eQY=",
+        "lastModified": 1680528442,
+        "narHash": "sha256-D4yx+XM/zFkNyWmaDXdG8/O2tTQ+ZPKbhS9NYa47Xow=",
         "owner": "defn",
         "repo": "pkg",
-        "rev": "ae3eec03aca723b84a0916130070975ab2eea987",
+        "rev": "4e902607f89c2ea1660222662f895bf043d3897d",
         "type": "github"
       },
       "original": {
         "owner": "defn",
-        "ref": "0.0.196",
+        "ref": "0.0.197",
         "repo": "pkg",
         "type": "github"
       }
@@ -542,16 +542,16 @@
         "dev": "dev_2"
       },
       "locked": {
-        "lastModified": 1680527505,
-        "narHash": "sha256-xZkPeILQGRA6Gcln4eVQnVmRY443hmYP7ExED6r7eQY=",
+        "lastModified": 1680528442,
+        "narHash": "sha256-D4yx+XM/zFkNyWmaDXdG8/O2tTQ+ZPKbhS9NYa47Xow=",
         "owner": "defn",
         "repo": "pkg",
-        "rev": "ae3eec03aca723b84a0916130070975ab2eea987",
+        "rev": "4e902607f89c2ea1660222662f895bf043d3897d",
         "type": "github"
       },
       "original": {
         "owner": "defn",
-        "ref": "0.0.196",
+        "ref": "0.0.197",
         "repo": "pkg",
         "type": "github"
       }
@@ -561,16 +561,16 @@
         "dev": "dev_3"
       },
       "locked": {
-        "lastModified": 1680528442,
-        "narHash": "sha256-D4yx+XM/zFkNyWmaDXdG8/O2tTQ+ZPKbhS9NYa47Xow=",
+        "lastModified": 1680529410,
+        "narHash": "sha256-FCZBGTr3sUSxjOLGAruGNC/nsZ5t1y1XKbA32Yj4iAA=",
         "owner": "defn",
         "repo": "pkg",
-        "rev": "4e902607f89c2ea1660222662f895bf043d3897d",
+        "rev": "a8c0a2ec2ebd3c8e6ddc26fde9df886642c676b5",
         "type": "github"
       },
       "original": {
         "owner": "defn",
-        "ref": "0.0.197",
+        "ref": "0.0.198",
         "repo": "pkg",
         "type": "github"
       }
@@ -580,16 +580,16 @@
         "dev": "dev_4"
       },
       "locked": {
-        "lastModified": 1680528442,
-        "narHash": "sha256-D4yx+XM/zFkNyWmaDXdG8/O2tTQ+ZPKbhS9NYa47Xow=",
+        "lastModified": 1680529410,
+        "narHash": "sha256-FCZBGTr3sUSxjOLGAruGNC/nsZ5t1y1XKbA32Yj4iAA=",
         "owner": "defn",
         "repo": "pkg",
-        "rev": "4e902607f89c2ea1660222662f895bf043d3897d",
+        "rev": "a8c0a2ec2ebd3c8e6ddc26fde9df886642c676b5",
         "type": "github"
       },
       "original": {
         "owner": "defn",
-        "ref": "0.0.197",
+        "ref": "0.0.198",
         "repo": "pkg",
         "type": "github"
       }
@@ -599,16 +599,16 @@
         "dev": "dev_5"
       },
       "locked": {
-        "lastModified": 1680528442,
-        "narHash": "sha256-D4yx+XM/zFkNyWmaDXdG8/O2tTQ+ZPKbhS9NYa47Xow=",
+        "lastModified": 1680529410,
+        "narHash": "sha256-FCZBGTr3sUSxjOLGAruGNC/nsZ5t1y1XKbA32Yj4iAA=",
         "owner": "defn",
         "repo": "pkg",
-        "rev": "4e902607f89c2ea1660222662f895bf043d3897d",
+        "rev": "a8c0a2ec2ebd3c8e6ddc26fde9df886642c676b5",
         "type": "github"
       },
       "original": {
         "owner": "defn",
-        "ref": "0.0.197",
+        "ref": "0.0.198",
         "repo": "pkg",
         "type": "github"
       }
