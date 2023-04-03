@@ -59,31 +59,7 @@
       "inputs": {
         "flake-utils": "flake-utils",
         "gomod2nix": "gomod2nix",
-        "nixpkgs": "nixpkgs",
-        "wrapper": "wrapper"
-      }
-    },
-    "wrapper": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "dir": "wrapper",
-        "lastModified": 1679172528,
-        "narHash": "sha256-1GEt5r4+q2C9Pl3RMZwZUF4vbnIlM4R/GeNaIvoqrQs=",
-        "owner": "defn",
-        "repo": "pkg",
-        "rev": "70d480bd891d2e6bad6e07f6800b385d44fc3626",
-        "type": "github"
-      },
-      "original": {
-        "dir": "wrapper",
-        "owner": "defn",
-        "ref": "wrapper-0.0.23",
-        "repo": "pkg",
-        "type": "github"
+        "nixpkgs": "nixpkgs"
       }
     }
   },
