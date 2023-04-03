@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+function main {
+	set -efu
+
+	local commit="$(git rev-parse HEAD)"
+
+	while true; do
+		git ls-files | grep flake.nix | sed 's#flake.nix##; s#^#./#' | while read -r a; do (cd $a && n upgrade && n release "$*"); done
+
+		local latest="$(git rev-parse HEAD)"
+		if [[ "${latest}" == "${commit}" ]]; then
+			break
+		fi
+	done
+}
+
+source sub "$0" "$@"
