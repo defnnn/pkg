@@ -1,5 +1,5 @@
 {
-  inputs.pkg.url = github:defn/pkg/0.0.191;
+  inputs.pkg.url = github:defn/pkg/0.0.192;
   inputs.hof.url = "github:defn/pkg/hof-0.6.8-beta.12-4?dir=hof";
   inputs.cue.url = "github:defn/pkg/cue-0.5.0-beta.5-4?dir=cue";
   outputs = inputs: inputs.pkg.main rec {
