@@ -3,6 +3,8 @@
   outputs = inputs: inputs.pkg.downloadMain rec {
     src = ./.;
 
+    etc_src = ./etc;
+
     extend = pkg: {
       apps.default = {
         type = "app";
@@ -22,7 +24,7 @@
 
       case "${pkg.config.os}" in
         darwin)
-          install -m 0755 $src/etc/tailscale-darwin $out/bin/tailscale
+          install -m 0755 $etc_src/tailscale-darwin $out/bin/tailscale
           ;;
         *)
           install -m 0755 */tailscale $out/bin/tailscale
