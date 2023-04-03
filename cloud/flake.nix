@@ -1,10 +1,10 @@
 {
   inputs = {
-    pkg.url = github:defn/pkg/0.0.191;
+    pkg.url = github:defn/pkg/0.0.192;
     awscli.url = github:defn/pkg/awscli-2.11.8-19?dir=awscli;
-    terraform.url = github:defn/pkg/terraform-1.4.4-19?dir=terraform;
-    packer.url = github:defn/pkg/packer-1.8.6-21?dir=packer;
-    step.url = github:defn/pkg/step-0.23.4-22?dir=step;
+    terraform.url = github:defn/pkg/terraform-1.4.4-20?dir=terraform;
+    packer.url = github:defn/pkg/packer-1.8.6-22?dir=packer;
+    step.url = github:defn/pkg/step-0.23.4-23?dir=step;
   };
 
   outputs = inputs: inputs.pkg.main rec {
