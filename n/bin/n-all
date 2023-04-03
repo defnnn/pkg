@@ -6,7 +6,7 @@ function main {
 	local commit="$(git rev-parse HEAD)"
 
 	while true; do
-		git ls-files | grep flake.nix | sed 's#flake.nix##; s#^#./#' | while read -r a; do (cd $a && if n upgrade; then n release "$*"; fi); done
+		git ls-files | grep flake.nix | sed 's#flake.nix##; s#^#./#' | while read -r a; do (cd $a && if n upgrade; then n release "$*" || true; fi); done
 
 		local latest="$(git rev-parse HEAD)"
 		if [[ "${latest}" == "${commit}" ]]; then
