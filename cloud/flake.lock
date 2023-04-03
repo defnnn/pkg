@@ -6,17 +6,17 @@
       },
       "locked": {
         "dir": "awscli",
-        "lastModified": 1680514077,
-        "narHash": "sha256-+ltB7zhwiflwUh1m6ZOeL/w06eob8POYeaLQGb5v20s=",
+        "lastModified": 1680514836,
+        "narHash": "sha256-UJNedVCFjXbuLlLS7+G2UjwHNBg8M4+KhSfMMNldroM=",
         "owner": "defn",
         "repo": "pkg",
-        "rev": "71b05ceea8ca01a10ff95f7db4a29279d504ddbc",
+        "rev": "3e9a7571367cf97d7ccfa6e906719f91005899e8",
         "type": "github"
       },
       "original": {
         "dir": "awscli",
         "owner": "defn",
-        "ref": "awscli-2.11.8-7",
+        "ref": "awscli-2.11.8-8",
         "repo": "pkg",
         "type": "github"
       }
@@ -445,17 +445,17 @@
       },
       "locked": {
         "dir": "packer",
-        "lastModified": 1680514267,
-        "narHash": "sha256-lKrKU2hvVloVP23swpfVoz6JM+zdaZmmuhovVjvCusY=",
+        "lastModified": 1680515020,
+        "narHash": "sha256-0MyhNCRpp/MCFnvpJfZqx3xTblmSF09CYetlXOdBKOw=",
         "owner": "defn",
         "repo": "pkg",
-        "rev": "98c126d60011b5f1e181e13951e9c4af4a10475b",
+        "rev": "6839bf349391c7207e2279fd7a8814fc378cfe3c",
         "type": "github"
       },
       "original": {
         "dir": "packer",
         "owner": "defn",
-        "ref": "packer-1.8.6-10",
+        "ref": "packer-1.8.6-11",
         "repo": "pkg",
         "type": "github"
       }
@@ -465,16 +465,16 @@
         "dev": "dev"
       },
       "locked": {
-        "lastModified": 1680513402,
-        "narHash": "sha256-p+XEAADq6aPMh7GuBKfYP0kxtsl4HXCm14zg6V9Asdk=",
+        "lastModified": 1680514134,
+        "narHash": "sha256-rwxw7Sxb2TYiCabx3DwQsqNkC1ZAk3m0GqhgsxYBfok=",
         "owner": "defn",
         "repo": "pkg",
-        "rev": "c4b2696873e792e99abda63df631ef6a0c07e4a4",
+        "rev": "911a7e1282690de052cf7e6761d48dd5ac432125",
         "type": "github"
       },
       "original": {
         "owner": "defn",
-        "ref": "0.0.179",
+        "ref": "0.0.180",
         "repo": "pkg",
         "type": "github"
       }
@@ -484,16 +484,16 @@
         "dev": "dev_2"
       },
       "locked": {
-        "lastModified": 1680514134,
-        "narHash": "sha256-rwxw7Sxb2TYiCabx3DwQsqNkC1ZAk3m0GqhgsxYBfok=",
+        "lastModified": 1680514884,
+        "narHash": "sha256-x+w5Lo/XKk0sYpLxdzOGuu4Beq5/hnedpI5yhQfQZRU=",
         "owner": "defn",
         "repo": "pkg",
-        "rev": "911a7e1282690de052cf7e6761d48dd5ac432125",
+        "rev": "61a4fe748df14d02f91581d13be9e65ba26d2026",
         "type": "github"
       },
       "original": {
         "owner": "defn",
-        "ref": "0.0.180",
+        "ref": "0.0.181",
         "repo": "pkg",
         "type": "github"
       }
@@ -503,16 +503,16 @@
         "dev": "dev_3"
       },
       "locked": {
-        "lastModified": 1680514134,
-        "narHash": "sha256-rwxw7Sxb2TYiCabx3DwQsqNkC1ZAk3m0GqhgsxYBfok=",
+        "lastModified": 1680514884,
+        "narHash": "sha256-x+w5Lo/XKk0sYpLxdzOGuu4Beq5/hnedpI5yhQfQZRU=",
         "owner": "defn",
         "repo": "pkg",
-        "rev": "911a7e1282690de052cf7e6761d48dd5ac432125",
+        "rev": "61a4fe748df14d02f91581d13be9e65ba26d2026",
         "type": "github"
       },
       "original": {
         "owner": "defn",
-        "ref": "0.0.180",
+        "ref": "0.0.181",
         "repo": "pkg",
         "type": "github"
       }
@@ -522,16 +522,16 @@
         "dev": "dev_4"
       },
       "locked": {
-        "lastModified": 1680514134,
-        "narHash": "sha256-rwxw7Sxb2TYiCabx3DwQsqNkC1ZAk3m0GqhgsxYBfok=",
+        "lastModified": 1680514884,
+        "narHash": "sha256-x+w5Lo/XKk0sYpLxdzOGuu4Beq5/hnedpI5yhQfQZRU=",
         "owner": "defn",
         "repo": "pkg",
-        "rev": "911a7e1282690de052cf7e6761d48dd5ac432125",
+        "rev": "61a4fe748df14d02f91581d13be9e65ba26d2026",
         "type": "github"
       },
       "original": {
         "owner": "defn",
-        "ref": "0.0.180",
+        "ref": "0.0.181",
         "repo": "pkg",
         "type": "github"
       }
@@ -541,16 +541,16 @@
         "dev": "dev_5"
       },
       "locked": {
-        "lastModified": 1680514134,
-        "narHash": "sha256-rwxw7Sxb2TYiCabx3DwQsqNkC1ZAk3m0GqhgsxYBfok=",
+        "lastModified": 1680514884,
+        "narHash": "sha256-x+w5Lo/XKk0sYpLxdzOGuu4Beq5/hnedpI5yhQfQZRU=",
         "owner": "defn",
         "repo": "pkg",
-        "rev": "911a7e1282690de052cf7e6761d48dd5ac432125",
+        "rev": "61a4fe748df14d02f91581d13be9e65ba26d2026",
         "type": "github"
       },
       "original": {
         "owner": "defn",
-        "ref": "0.0.180",
+        "ref": "0.0.181",
         "repo": "pkg",
         "type": "github"
       }
@@ -570,17 +570,17 @@
       },
       "locked": {
         "dir": "step",
-        "lastModified": 1680514240,
-        "narHash": "sha256-uGGedcnpryBA0hZCFTv6EwJ2SNid38SMaFPBHOlymQ4=",
+        "lastModified": 1680514997,
+        "narHash": "sha256-8/bBinYhL+PtmepEqvhZoZJ2UyjBBQwajB7g7J7k0LE=",
         "owner": "defn",
         "repo": "pkg",
-        "rev": "4584e6af2b8d113dc39d5f48522d723f3d9daa2d",
+        "rev": "da41bdaf3f4c60cc407ee28bbb5795a98c2e8618",
         "type": "github"
       },
       "original": {
         "dir": "step",
         "owner": "defn",
-        "ref": "step-0.23.4-11",
+        "ref": "step-0.23.4-12",
         "repo": "pkg",
         "type": "github"
       }
@@ -591,17 +591,17 @@
       },
       "locked": {
         "dir": "terraform",
-        "lastModified": 1680514210,
-        "narHash": "sha256-XRx5V+MfwBE4jY7gGM4tP2Jc2ALfx9u6f5s/Q/B+EO8=",
+        "lastModified": 1680514958,
+        "narHash": "sha256-+z59lXH+VCLdVflMFa29HmZcKB+cHdFSB+ze+Hb1TZ0=",
         "owner": "defn",
         "repo": "pkg",
-        "rev": "ea8346a1d31f7a4b3e3b73faf26ab46ff5ef61e8",
+        "rev": "72db3c25a1aaaa5e71de927ab389772613b66d44",
         "type": "github"
       },
       "original": {
         "dir": "terraform",
         "owner": "defn",
-        "ref": "terraform-1.4.4-8",
+        "ref": "terraform-1.4.4-9",
         "repo": "pkg",
         "type": "github"
       }
