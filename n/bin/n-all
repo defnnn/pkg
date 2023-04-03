@@ -11,6 +11,8 @@ function main {
 		local latest="$(git rev-parse HEAD)"
 		if [[ "${latest}" == "${commit}" ]]; then
 			break
+		else
+			commit="${latest}"
 		fi
 	done
 }
