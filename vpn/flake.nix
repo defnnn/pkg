@@ -1,6 +1,6 @@
 {
   inputs = {
-    pkg.url = github:defn/pkg/0.0.193;
+    pkg.url = github:defn/pkg/0.0.194;
   };
 
   outputs = inputs: inputs.pkg.main rec {
