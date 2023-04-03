@@ -3,16 +3,16 @@
     pkg.url = github:defn/pkg/0.0.174;
     tilt.url = github:defn/pkg/tilt-0.32.0-2?dir=tilt;
     nomad.url = github:defn/pkg/nomad-1.5.2-2?dir=nomad;
-    boundary.url = github:defn/pkg/boundary-0.12.1-1?dir=boundary;
+    boundary.url = github:defn/pkg/boundary-0.12.1-2?dir=boundary;
     vault.url = github:defn/pkg/vault-1.13.1-2?dir=vault;
-    gh.url = github:defn/pkg/gh-2.25.1-2?dir=gh;
-    earthly.url = github:defn/pkg/earthly-0.7.2-1?dir=earthly;
-    buildkite.url = github:defn/pkg/buildkite-3.45.0-1?dir=buildkite;
-    bk.url = github:defn/pkg/bk-2.0.0-4?dir=bk;
-    buildevents.url = github:defn/pkg/buildevents-0.13.0-1?dir=buildevents;
-    honeyvent.url = github:defn/pkg/honeyvent-1.1.3-1?dir=honeyvent;
-    honeymarker.url = github:defn/pkg/honeymarker-0.2.10-3?dir=honeymarker;
-    honeytail.url = github:defn/pkg/honeytail-1.8.2-2?dir=honeytail;
+    gh.url = github:defn/pkg/gh-2.25.1-3?dir=gh;
+    earthly.url = github:defn/pkg/earthly-0.7.2-2?dir=earthly;
+    buildkite.url = github:defn/pkg/buildkite-3.45.0-2?dir=buildkite;
+    bk.url = github:defn/pkg/bk-2.0.0-5?dir=bk;
+    buildevents.url = github:defn/pkg/buildevents-0.13.0-2?dir=buildevents;
+    honeyvent.url = github:defn/pkg/honeyvent-1.1.3-2?dir=honeyvent;
+    honeymarker.url = github:defn/pkg/honeymarker-0.2.10-4?dir=honeymarker;
+    honeytail.url = github:defn/pkg/honeytail-1.8.2-3?dir=honeytail;
   };
 
   outputs = inputs: inputs.pkg.main rec {
