@@ -1,2 +1,0 @@
-steps:
-  - command: "env GIT_AUTHOR_NAME=$GIT_AUTHOR_NAME ../.buildkite/all.sh .. ../*/ | buildkite-agent pipeline upload"
