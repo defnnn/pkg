@@ -31,12 +31,12 @@
       "x86_64-darwin" = {
         os = "darwin";
         arch = "amd64";
-        sha256 = "sha256-BkcDhWGsFOh7roHleNV1dVWYNG7T4nKsmMspScpM2FI="; # x86_64-darwin
+        sha256 = "sha256-eEaDHyzHjqjoWCquCP+qWpQfvuVSY2gj0ZyQ+VeMdbs="; # x86_64-darwin
       };
       "aarch64-darwin" = {
         os = "darwin";
         arch = "arm64";
-        sha256 = "sha256-10l/G6PGIh/rSjipYGJq+8TrJlUvxA2UG/9XzCuDvVk="; # aarch64-darwin
+        sha256 = "sha256-CJAo7RY6u4o7rDdsmBd7aJw1yyKoY+2wZERR/faa84Y="; # aarch64-darwin
       };
     };
   };
