@@ -1,5 +1,5 @@
 {
-  inputs.pkg.url = github:defn/pkg/0.0.193;
+  inputs.pkg.url = github:defn/pkg/0.0.194;
   outputs = inputs: inputs.pkg.downloadMain
     rec {
       src = ./.;
