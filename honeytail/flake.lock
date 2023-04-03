@@ -87,16 +87,16 @@
         "dev": "dev"
       },
       "locked": {
-        "lastModified": 1680515657,
-        "narHash": "sha256-OTznO3v60Sgwm4UluS7b8pXxVqwe1HlN1Ur7r6ukh/s=",
+        "lastModified": 1680516489,
+        "narHash": "sha256-Z5HXZ1a38occ3YESARGyxOq+pSMVw1rlnDW/8LoW0uo=",
         "owner": "defn",
         "repo": "pkg",
-        "rev": "fd902c29a9f89fef3458f33ef92e1ce86ce6057b",
+        "rev": "c98b67740f1239156c8689b6a5b2e8cf62954bfb",
         "type": "github"
       },
       "original": {
         "owner": "defn",
-        "ref": "0.0.182",
+        "ref": "0.0.183",
         "repo": "pkg",
         "type": "github"
       }
