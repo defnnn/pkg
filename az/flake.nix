@@ -1,11 +1,11 @@
 {
   inputs = {
-    pkg.url = github:defn/pkg/0.0.194;
-    c.url = github:defn/pkg/c-0.4.26?dir=c;
-    n.url = github:defn/pkg/n-0.0.69?dir=n;
-    tf.url = github:defn/pkg/tf-0.0.30?dir=tf;
-    gum.url = github:defn/pkg/gum-0.10.0-23?dir=gum;
-    glow.url = github:defn/pkg/glow-1.5.0-26?dir=glow;
+    pkg.url = github:defn/pkg/0.0.195;
+    c.url = github:defn/pkg/c-0.4.27?dir=c;
+    n.url = github:defn/pkg/n-0.0.70?dir=n;
+    tf.url = github:defn/pkg/tf-0.0.31?dir=tf;
+    gum.url = github:defn/pkg/gum-0.10.0-24?dir=gum;
+    glow.url = github:defn/pkg/glow-1.5.0-27?dir=glow;
   };
 
   outputs = inputs: inputs.pkg.main rec {
