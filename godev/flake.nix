@@ -1,10 +1,10 @@
 {
   inputs = {
     pkg.url = github:defn/pkg/0.0.185;
-    buf.url = github:defn/pkg/buf-1.16.0-12?dir=buf;
+    buf.url = github:defn/pkg/buf-1.16.0-13?dir=buf;
     operatorsdk.url = github:defn/pkg/operatorsdk-1.28.0-14?dir=operatorsdk;
     goreleaser.url = github:defn/pkg/goreleaser-1.16.2-14?dir=goreleaser;
-    cosign.url = github:defn/pkg/cosign-2.0.0-16?dir=cosign;
+    cosign.url = github:defn/pkg/cosign-2.0.0-17?dir=cosign;
     latest.url = github:NixOS/nixpkgs?rev=64c27498901f104a11df646278c4e5c9f4d642db; # nixos-unstable https://lazamar.co.uk/nix-versions/
   };
 
