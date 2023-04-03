@@ -5,13 +5,13 @@
     kubectl.url = github:defn/pkg/kubectl-1.25.8-1?dir=kubectl;
     k9s.url = github:defn/pkg/k9s-0.27.3-3?dir=k9s;
     helm.url = github:defn/pkg/helm-3.11.2-4?dir=helm;
-    kustomize.url = github:defn/pkg/kustomize-5.0.1-0?dir=kustomize;
-    stern.url = github:defn/pkg/stern-1.24.0-1?dir=stern;
+    kustomize.url = github:defn/pkg/kustomize-5.0.1-1?dir=kustomize;
+    stern.url = github:defn/pkg/stern-1.24.0-2?dir=stern;
     argo.url = github:defn/pkg/argo-3.4.6-1?dir=argo;
     argocd.url = github:defn/pkg/argocd-2.6.7-2?dir=argocd;
-    tkn.url = github:defn/pkg/tkn-0.30.0-2?dir=tkn;
+    tkn.url = github:defn/pkg/tkn-0.30.0-3?dir=tkn;
     kn.url = github:defn/pkg/kn-1.9.2-2?dir=kn;
-    vcluster.url = github:defn/pkg/vcluster-0.14.2-0?dir=vcluster;
+    vcluster.url = github:defn/pkg/vcluster-0.14.2-1?dir=vcluster;
   };
 
   outputs = inputs: inputs.pkg.main rec {
