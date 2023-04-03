@@ -1,6 +1,6 @@
 {
   inputs = {
-    pkg.url = github:defn/pkg/0.0.185;
+    pkg.url = github:defn/pkg/0.0.186;
     latest.url = github:NixOS/nixpkgs?rev=8ad5e8132c5dcf977e308e7bf5517cc6cc0bf7d8; # nixos-unstable https://lazamar.co.uk/nix-versions/
   };
 
