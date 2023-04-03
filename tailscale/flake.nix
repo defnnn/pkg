@@ -24,7 +24,7 @@
 
       case "${pkg.config.os}" in
         darwin)
-          install -m 0755 $etc_src/tailscale-darwin $out/bin/tailscale
+          install -m 0755 ${etc_src}/tailscale-darwin $out/bin/tailscale
           ;;
         *)
           install -m 0755 */tailscale $out/bin/tailscale
