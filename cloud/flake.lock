@@ -6,17 +6,17 @@
       },
       "locked": {
         "dir": "awscli",
-        "lastModified": 1680511248,
-        "narHash": "sha256-Najr2jhHf16T4yzY0wHkjW3NjPG9WJKRFY22/n6XITU=",
+        "lastModified": 1680511945,
+        "narHash": "sha256-eeAKKwo2fEYUTEmoHQQcys57SXIh6KsnGbDLso2GHrw=",
         "owner": "defn",
         "repo": "pkg",
-        "rev": "27ce43c675c8ae0ece33149f6684c402fa729e7c",
+        "rev": "e6b5c6d55790cd8e0a976978f4cd54dc8fe0fc24",
         "type": "github"
       },
       "original": {
         "dir": "awscli",
         "owner": "defn",
-        "ref": "awscli-2.11.8-3",
+        "ref": "awscli-2.11.8-4",
         "repo": "pkg",
         "type": "github"
       }
@@ -445,17 +445,17 @@
       },
       "locked": {
         "dir": "packer",
-        "lastModified": 1680511427,
-        "narHash": "sha256-7tRkuCwcUn0eZ3NHXrwNmWWGC/EXcKWSxR7wu4EvKNk=",
+        "lastModified": 1680512112,
+        "narHash": "sha256-QglvGNOq9+YnFy4AoxkdTspeNyMTBZMxJTDDMLbxzWA=",
         "owner": "defn",
         "repo": "pkg",
-        "rev": "9d995cfeadcaba8e921b90029eeac66b19b7aad3",
+        "rev": "2077a81ad454112bbf9d647f461c86ce78b2784c",
         "type": "github"
       },
       "original": {
         "dir": "packer",
         "owner": "defn",
-        "ref": "packer-1.8.6-6",
+        "ref": "packer-1.8.6-7",
         "repo": "pkg",
         "type": "github"
       }
@@ -465,16 +465,16 @@
         "dev": "dev"
       },
       "locked": {
-        "lastModified": 1680510472,
-        "narHash": "sha256-1U2lvVNAd9krX5/dWXcdtlE9ehDUDXl7b30MQ3LUV78=",
+        "lastModified": 1680511298,
+        "narHash": "sha256-UTvHAB7wdGGqqTJl9OP8XWVqcmHyhQCpc+P3jEGlW9g=",
         "owner": "defn",
         "repo": "pkg",
-        "rev": "3cf1bbe6dcc9be942f287d312aa4ad5616dc72b6",
+        "rev": "05ce0a54dd7d7d8a102634b55c426f10cc52d558",
         "type": "github"
       },
       "original": {
         "owner": "defn",
-        "ref": "0.0.175",
+        "ref": "0.0.176",
         "repo": "pkg",
         "type": "github"
       }
@@ -484,16 +484,16 @@
         "dev": "dev_2"
       },
       "locked": {
-        "lastModified": 1680511298,
-        "narHash": "sha256-UTvHAB7wdGGqqTJl9OP8XWVqcmHyhQCpc+P3jEGlW9g=",
+        "lastModified": 1680511989,
+        "narHash": "sha256-0A+9uWbF4S0Vkh6eMVlzq2KlgHY+UkZG/EY920lOseE=",
         "owner": "defn",
         "repo": "pkg",
-        "rev": "05ce0a54dd7d7d8a102634b55c426f10cc52d558",
+        "rev": "d8c1532b99953cb7b9669d434402f78cd5401cad",
         "type": "github"
       },
       "original": {
         "owner": "defn",
-        "ref": "0.0.176",
+        "ref": "0.0.177",
         "repo": "pkg",
         "type": "github"
       }
@@ -503,16 +503,16 @@
         "dev": "dev_3"
       },
       "locked": {
-        "lastModified": 1680511298,
-        "narHash": "sha256-UTvHAB7wdGGqqTJl9OP8XWVqcmHyhQCpc+P3jEGlW9g=",
+        "lastModified": 1680511989,
+        "narHash": "sha256-0A+9uWbF4S0Vkh6eMVlzq2KlgHY+UkZG/EY920lOseE=",
         "owner": "defn",
         "repo": "pkg",
-        "rev": "05ce0a54dd7d7d8a102634b55c426f10cc52d558",
+        "rev": "d8c1532b99953cb7b9669d434402f78cd5401cad",
         "type": "github"
       },
       "original": {
         "owner": "defn",
-        "ref": "0.0.176",
+        "ref": "0.0.177",
         "repo": "pkg",
         "type": "github"
       }
@@ -522,16 +522,16 @@
         "dev": "dev_4"
       },
       "locked": {
-        "lastModified": 1680511298,
-        "narHash": "sha256-UTvHAB7wdGGqqTJl9OP8XWVqcmHyhQCpc+P3jEGlW9g=",
+        "lastModified": 1680511989,
+        "narHash": "sha256-0A+9uWbF4S0Vkh6eMVlzq2KlgHY+UkZG/EY920lOseE=",
         "owner": "defn",
         "repo": "pkg",
-        "rev": "05ce0a54dd7d7d8a102634b55c426f10cc52d558",
+        "rev": "d8c1532b99953cb7b9669d434402f78cd5401cad",
         "type": "github"
       },
       "original": {
         "owner": "defn",
-        "ref": "0.0.176",
+        "ref": "0.0.177",
         "repo": "pkg",
         "type": "github"
       }
@@ -541,16 +541,16 @@
         "dev": "dev_5"
       },
       "locked": {
-        "lastModified": 1680511298,
-        "narHash": "sha256-UTvHAB7wdGGqqTJl9OP8XWVqcmHyhQCpc+P3jEGlW9g=",
+        "lastModified": 1680511989,
+        "narHash": "sha256-0A+9uWbF4S0Vkh6eMVlzq2KlgHY+UkZG/EY920lOseE=",
         "owner": "defn",
         "repo": "pkg",
-        "rev": "05ce0a54dd7d7d8a102634b55c426f10cc52d558",
+        "rev": "d8c1532b99953cb7b9669d434402f78cd5401cad",
         "type": "github"
       },
       "original": {
         "owner": "defn",
-        "ref": "0.0.176",
+        "ref": "0.0.177",
         "repo": "pkg",
         "type": "github"
       }
@@ -570,17 +570,17 @@
       },
       "locked": {
         "dir": "step",
-        "lastModified": 1680511403,
-        "narHash": "sha256-PS/T0GORNEhliznbPPXWIrOms+TGXltrrhzteSf7i/w=",
+        "lastModified": 1680512085,
+        "narHash": "sha256-lY/Sxzq4gSQL6z+4cw8xBu4nb/OirJsXA9XqG3bBYfg=",
         "owner": "defn",
         "repo": "pkg",
-        "rev": "6e2733775aa9b5065a0f1c482602c35b2edca200",
+        "rev": "18f73b44e48a5cd729f9eb57bcf3a9ae0204d929",
         "type": "github"
       },
       "original": {
         "dir": "step",
         "owner": "defn",
-        "ref": "step-0.23.4-7",
+        "ref": "step-0.23.4-8",
         "repo": "pkg",
         "type": "github"
       }
@@ -591,17 +591,17 @@
       },
       "locked": {
         "dir": "terraform",
-        "lastModified": 1680511371,
-        "narHash": "sha256-dqbeYOywJpRzdtU9lyvNGwhrluQFOxamyA4TSezRiMo=",
+        "lastModified": 1680512055,
+        "narHash": "sha256-zwY+U0AWLiokMiLLwUMf/HyTUL0/bTW/SHzc3J5dN2Q=",
         "owner": "defn",
         "repo": "pkg",
-        "rev": "b2af1b0dcf51c82ab099e5190e1f16f7e46c8e9f",
+        "rev": "d552d888d4de5618206edc892f16f881b1903a39",
         "type": "github"
       },
       "original": {
         "dir": "terraform",
         "owner": "defn",
-        "ref": "terraform-1.4.4-4",
+        "ref": "terraform-1.4.4-5",
         "repo": "pkg",
         "type": "github"
       }
