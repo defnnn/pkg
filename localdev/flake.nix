@@ -1,10 +1,10 @@
 {
   inputs = {
     pkg.url = github:defn/pkg/0.0.199;
-    tilt.url = github:defn/pkg/tilt-0.32.0-26?dir=tilt;
-    nomad.url = github:defn/pkg/nomad-1.5.2-26?dir=nomad;
+    tilt.url = github:defn/pkg/tilt-0.32.0-27?dir=tilt;
+    nomad.url = github:defn/pkg/nomad-1.5.2-27?dir=nomad;
     boundary.url = github:defn/pkg/boundary-0.12.1-27?dir=boundary;
-    vault.url = github:defn/pkg/vault-1.13.1-26?dir=vault;
+    vault.url = github:defn/pkg/vault-1.13.1-27?dir=vault;
     gh.url = github:defn/pkg/gh-2.25.1-28?dir=gh;
     earthly.url = github:defn/pkg/earthly-0.7.2-27?dir=earthly;
     buildkite.url = github:defn/pkg/buildkite-3.45.0-27?dir=buildkite;
