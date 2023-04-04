@@ -4,7 +4,7 @@
     flake-utils.url = github:numtide/flake-utils?rev=04c1b180862888302ddfb2e3ad9eaa63afc60cf8;
 
     gomod2nix = {
-      url = github:defn/gomod2nix/;
+      url = github:defn/gomod2nix/1.5.0-7;
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.utils.follows = "flake-utils";
     };
