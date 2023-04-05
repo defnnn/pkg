@@ -605,17 +605,17 @@
       },
       "locked": {
         "dir": "gh",
-        "lastModified": 1680649440,
-        "narHash": "sha256-XqCXORuJvd0QfpWEY0/U2at57J7Wh6IvYuK/oAUVMt0=",
+        "lastModified": 1680654717,
+        "narHash": "sha256-poWfkHgF34IT5s8xarl7hyFj92XFrEDHuyi9owRTNVs=",
         "owner": "defn",
         "repo": "pkg",
-        "rev": "116598aba3ac8db535871cc0b93b85d4acb415c5",
+        "rev": "d551b1e15496c780ee04c2fb1d3d950a18a2fcf2",
         "type": "github"
       },
       "original": {
         "dir": "gh",
         "owner": "defn",
-        "ref": "gh-2.26.0-1",
+        "ref": "gh-2.26.1-1",
         "repo": "pkg",
         "type": "github"
       }
@@ -897,17 +897,17 @@
       },
       "locked": {
         "dir": "nomad",
-        "lastModified": 1680588114,
-        "narHash": "sha256-M1bxBcaOPlXb5mCEtJTe29FffnYoSP1jNcnHnkwk0s0=",
+        "lastModified": 1680736818,
+        "narHash": "sha256-YnsO/vSbzCDqdKGN5jAhf13Jar/+yzWrDCYe2fmOmAY=",
         "owner": "defn",
         "repo": "pkg",
-        "rev": "4fe9d18afffd699dd377efc1f2210691aad49f88",
+        "rev": "7953dd03be48eca3372c8c6a8d30bfefb4ca992b",
         "type": "github"
       },
       "original": {
         "dir": "nomad",
         "owner": "defn",
-        "ref": "nomad-1.5.2-27",
+        "ref": "nomad-1.5.3-1",
         "repo": "pkg",
         "type": "github"
       }
