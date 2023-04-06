@@ -6,17 +6,17 @@
       },
       "locked": {
         "dir": "awscli",
-        "lastModified": 1680587203,
-        "narHash": "sha256-HLZiEsMwAfRvEXlkfoAQCLHxN+Z37d9gEi4n2CMhTkU=",
+        "lastModified": 1680753387,
+        "narHash": "sha256-vTDyLzd6bCu9qefv5hXFGGtN6FC3YCAJULWkPt/bgFI=",
         "owner": "defn",
         "repo": "pkg",
-        "rev": "9df732f3b3316bef483eae1a6f05c3188a7f847b",
+        "rev": "d0638ee3efd0492180fa4d88e129772b833567a6",
         "type": "github"
       },
       "original": {
         "dir": "awscli",
         "owner": "defn",
-        "ref": "awscli-2.11.9-2",
+        "ref": "awscli-2.11.10-1",
         "repo": "pkg",
         "type": "github"
       }
