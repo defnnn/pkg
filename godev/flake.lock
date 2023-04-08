@@ -6,17 +6,17 @@
       },
       "locked": {
         "dir": "buf",
-        "lastModified": 1680923316,
-        "narHash": "sha256-G8sMVn7mCUaoAy1+5QLWmi0sr+fQwMlDfPgV1GbkIYs=",
+        "lastModified": 1680927436,
+        "narHash": "sha256-0SsJQrSzVUK7Uozy0ZTTHZHX0gGKcnaFkrF1S/CL6eo=",
         "owner": "defn",
         "repo": "pkg",
-        "rev": "55effcbd48602d6614a2a7912b2bd883bd403daa",
+        "rev": "8ad619c68359e658a6a3025060ad6660d0d275f8",
         "type": "github"
       },
       "original": {
         "dir": "buf",
         "owner": "defn",
-        "ref": "buf-1.17.0-7",
+        "ref": "buf-1.17.0-8",
         "repo": "pkg",
         "type": "github"
       }
@@ -27,17 +27,17 @@
       },
       "locked": {
         "dir": "cosign",
-        "lastModified": 1680923210,
-        "narHash": "sha256-Wl3yFmsNlCSZC4i491fld2pHor44QdeSVATQ2Yj+gRY=",
+        "lastModified": 1680927606,
+        "narHash": "sha256-qGXqZz5EDBWENG54akRSIJZo936pV/2ov/0BwBLIAJU=",
         "owner": "defn",
         "repo": "pkg",
-        "rev": "171ece8df17e042ffc1069aaf1ce99ceedb8a667",
+        "rev": "2bd79e60e9e43e1a5cd81ad14bc50d2371655581",
         "type": "github"
       },
       "original": {
         "dir": "cosign",
         "owner": "defn",
-        "ref": "cosign-2.0.1-7",
+        "ref": "cosign-2.0.1-8",
         "repo": "pkg",
         "type": "github"
       }
@@ -238,17 +238,17 @@
       },
       "locked": {
         "dir": "goreleaser",
-        "lastModified": 1680923066,
-        "narHash": "sha256-2ReWinJc4C0jSInDyzpYwVAjC8t9IGiYY2v/VT+sxKA=",
+        "lastModified": 1680928146,
+        "narHash": "sha256-g6qU8xLhZemr8s0GSpscZYbLbGjIsnVwvt6qjO94pio=",
         "owner": "defn",
         "repo": "pkg",
-        "rev": "8e5482a37247b19a3fd73159536d8d97f5d22b5c",
+        "rev": "8f7a43a3fe41572de91ab24cc2496d8fbfcc46c9",
         "type": "github"
       },
       "original": {
         "dir": "goreleaser",
         "owner": "defn",
-        "ref": "goreleaser-1.16.2-34",
+        "ref": "goreleaser-1.16.2-35",
         "repo": "pkg",
         "type": "github"
       }
@@ -375,16 +375,16 @@
         "dev": "dev"
       },
       "locked": {
-        "lastModified": 1680922648,
-        "narHash": "sha256-INkimZ0KBmACVQ3WA6kxwVuVRBp3wXxpX7HMlOj75LU=",
+        "lastModified": 1680923409,
+        "narHash": "sha256-Me0NxFcRKAVyENd0kzcpPxX5nZFNsdowzOYtixROt+0=",
         "owner": "defn",
         "repo": "pkg",
-        "rev": "7734107d9f0550235c9b8c96e5843162ece8a682",
+        "rev": "3798e655e50184232d23df5fc48d2c965ace3d5c",
         "type": "github"
       },
       "original": {
         "owner": "defn",
-        "ref": "0.0.207",
+        "ref": "0.0.208",
         "repo": "pkg",
         "type": "github"
       }
@@ -394,16 +394,16 @@
         "dev": "dev_2"
       },
       "locked": {
-        "lastModified": 1680922648,
-        "narHash": "sha256-INkimZ0KBmACVQ3WA6kxwVuVRBp3wXxpX7HMlOj75LU=",
+        "lastModified": 1680923409,
+        "narHash": "sha256-Me0NxFcRKAVyENd0kzcpPxX5nZFNsdowzOYtixROt+0=",
         "owner": "defn",
         "repo": "pkg",
-        "rev": "7734107d9f0550235c9b8c96e5843162ece8a682",
+        "rev": "3798e655e50184232d23df5fc48d2c965ace3d5c",
         "type": "github"
       },
       "original": {
         "owner": "defn",
-        "ref": "0.0.207",
+        "ref": "0.0.208",
         "repo": "pkg",
         "type": "github"
       }
@@ -413,16 +413,16 @@
         "dev": "dev_3"
       },
       "locked": {
-        "lastModified": 1680922648,
-        "narHash": "sha256-INkimZ0KBmACVQ3WA6kxwVuVRBp3wXxpX7HMlOj75LU=",
+        "lastModified": 1680923409,
+        "narHash": "sha256-Me0NxFcRKAVyENd0kzcpPxX5nZFNsdowzOYtixROt+0=",
         "owner": "defn",
         "repo": "pkg",
-        "rev": "7734107d9f0550235c9b8c96e5843162ece8a682",
+        "rev": "3798e655e50184232d23df5fc48d2c965ace3d5c",
         "type": "github"
       },
       "original": {
         "owner": "defn",
-        "ref": "0.0.207",
+        "ref": "0.0.208",
         "repo": "pkg",
         "type": "github"
       }
