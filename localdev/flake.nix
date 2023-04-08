@@ -10,7 +10,7 @@
     buildkite.url = github:defn/pkg/buildkite-3.45.0-33?dir=buildkite;
     bk.url = github:defn/pkg/bk-2.0.0-36?dir=bk;
     buildevents.url = github:defn/pkg/buildevents-0.13.0-33?dir=buildevents;
-    honeyvent.url = github:defn/pkg/honeyvent-1.1.3-33?dir=honeyvent;
+    honeyvent.url = github:defn/pkg/honeyvent-1.1.3-34?dir=honeyvent;
     honeymarker.url = github:defn/pkg/honeymarker-0.2.10-35?dir=honeymarker;
     honeytail.url = github:defn/pkg/honeytail-1.8.2-34?dir=honeytail;
   };
