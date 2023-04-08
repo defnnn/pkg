@@ -12,6 +12,7 @@
     tkn.url = github:defn/pkg/tkn-0.30.0-36?dir=tkn;
     kn.url = github:defn/pkg/kn-1.9.2-35?dir=kn;
     vcluster.url = github:defn/pkg/vcluster-0.14.2-34?dir=vcluster;
+    kubevirt.url = github:defn/pkg/kubevirt-0.59.0-1?dir=kubevirt;
   };
 
   outputs = inputs: inputs.pkg.main rec {
