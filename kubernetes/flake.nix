@@ -1,16 +1,16 @@
 {
   inputs = {
     pkg.url = github:defn/pkg/0.0.208;
-    k3d.url = github:defn/pkg/k3d-5.4.9-33?dir=k3d;
-    kubectl.url = github:defn/pkg/kubectl-1.25.8-33?dir=kubectl;
-    k9s.url = github:defn/pkg/k9s-0.27.3-35?dir=k9s;
+    k3d.url = github:defn/pkg/k3d-5.4.9-34?dir=k3d;
+    kubectl.url = github:defn/pkg/kubectl-1.25.8-34?dir=kubectl;
+    k9s.url = github:defn/pkg/k9s-0.27.3-36?dir=k9s;
     helm.url = github:defn/pkg/helm-3.11.2-36?dir=helm;
     kustomize.url = github:defn/pkg/kustomize-5.0.1-34?dir=kustomize;
     stern.url = github:defn/pkg/stern-1.24.0-35?dir=stern;
     argo.url = github:defn/pkg/argo-3.4.6-33?dir=argo;
     argocd.url = github:defn/pkg/argocd-2.6.7-34?dir=argocd;
     tkn.url = github:defn/pkg/tkn-0.30.0-36?dir=tkn;
-    kn.url = github:defn/pkg/kn-1.9.2-34?dir=kn;
+    kn.url = github:defn/pkg/kn-1.9.2-35?dir=kn;
     vcluster.url = github:defn/pkg/vcluster-0.14.2-34?dir=vcluster;
   };
 
