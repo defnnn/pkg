@@ -1,6 +1,5 @@
 {
   inputs = {
-    pkg.url = github:defn/pkg/0.0.208;
     c.url = github:defn/pkg/c-0.4.38?dir=c;
     n.url = github:defn/pkg/n-0.0.83?dir=n;
     tf.url = github:defn/pkg/tf-0.0.42?dir=tf;
@@ -8,7 +7,7 @@
     glow.url = github:defn/pkg/glow-1.5.0-38?dir=glow;
   };
 
-  outputs = inputs: inputs.pkg.main rec {
+  outputs = inputs: inputs.c.inputs.pkg.main rec {
     src = ./.;
 
     defaultPackage = ctx: ctx.wrap.nullBuilder {
