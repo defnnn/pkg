@@ -1,8 +1,7 @@
 {
   inputs = {
-    pkg.url = github:defn/pkg/0.0.208;
-    k3d.url = github:defn/pkg/k3d-5.4.9-34?dir=k3d;
     kubectl.url = github:defn/pkg/kubectl-1.25.8-34?dir=kubectl;
+    k3d.url = github:defn/pkg/k3d-5.4.9-34?dir=k3d;
     k9s.url = github:defn/pkg/k9s-0.27.3-36?dir=k9s;
     helm.url = github:defn/pkg/helm-3.11.2-37?dir=helm;
     kustomize.url = github:defn/pkg/kustomize-5.0.1-34?dir=kustomize;
@@ -15,7 +14,7 @@
     kubevirt.url = github:defn/pkg/kubevirt-0.59.0-1?dir=kubevirt;
   };
 
-  outputs = inputs: inputs.pkg.main rec {
+  outputs = inputs: inputs.kubectl.inputs.pkg.main rec {
     src = ./.;
 
     defaultPackage = ctx: ctx.wrap.nullBuilder {
