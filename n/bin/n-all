@@ -5,7 +5,7 @@ function main {
 
 	for a in $(git status -sb | grep ^.M | grep /flake | awk '{print $NF}' | perl -pe 's{/[^/]+$}{\n}'); do
 		mark "$a"
-		cd "$a" && n release "$@"
+		pushd "$a" && n release "$@" && popd
 	done
 }
 
