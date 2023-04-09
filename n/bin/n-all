@@ -3,17 +3,9 @@
 function main {
 	set -efu
 
-	local commit="$(git rev-parse HEAD)"
-
-	while true; do
-		git ls-files | grep flake.nix | sed 's#flake.nix##; s#^#./#' | sort -r | while read -r a; do (cd $a && if n upgrade; then n release "$*" || true; fi); done
-
-		local latest="$(git rev-parse HEAD)"
-		if [[ "${latest}" == "${commit}" ]]; then
-			break
-		else
-			commit="${latest}"
-		fi
+	for a in $(git status -sb | grep ^.M | grep /flake | awk '{print $NF}' | perl -pe 's{/[^/]+$}{\n}'); do
+		mark "$a"
+		cd "$a" && n release "$@"
 	done
 }
 
