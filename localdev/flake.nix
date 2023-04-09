@@ -1,6 +1,5 @@
 {
   inputs = {
-    pkg.url = github:defn/pkg/0.0.208;
     tilt.url = github:defn/pkg/tilt-0.32.0-34?dir=tilt;
     nomad.url = github:defn/pkg/nomad-1.5.3-8?dir=nomad;
     boundary.url = github:defn/pkg/boundary-0.12.2-8?dir=boundary;
@@ -15,7 +14,7 @@
     honeytail.url = github:defn/pkg/honeytail-1.8.2-35?dir=honeytail;
   };
 
-  outputs = inputs: inputs.pkg.main rec {
+  outputs = inputs: inputs.tilt.inputs.pkg.main rec {
     src = ./.;
 
     defaultPackage = ctx: ctx.wrap.nullBuilder {
