@@ -7,7 +7,7 @@
     glow.url = github:defn/pkg/glow-1.5.0-39?dir=glow;
   };
 
-  outputs = inputs: inputs.c.inputs.pkg.main rec {
+  outputs = inputs: inputs.c.inputs.cue.inputs.pkg.main rec {
     src = ./.;
 
     defaultPackage = ctx: ctx.wrap.nullBuilder {
