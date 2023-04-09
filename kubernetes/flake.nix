@@ -8,9 +8,9 @@
     stern.url = github:defn/pkg/stern-1.24.0-36?dir=stern;
     argo.url = github:defn/pkg/argo-3.4.6-35?dir=argo;
     argocd.url = github:defn/pkg/argocd-2.6.7-36?dir=argocd;
-    tkn.url = github:defn/pkg/tkn-0.30.0-37?dir=tkn;
+    tkn.url = github:defn/pkg/tkn-0.30.0-38?dir=tkn;
     kn.url = github:defn/pkg/kn-1.9.2-36?dir=kn;
-    vcluster.url = github:defn/pkg/vcluster-0.14.2-35?dir=vcluster;
+    vcluster.url = github:defn/pkg/vcluster-0.14.2-36?dir=vcluster;
     kubevirt.url = github:defn/pkg/kubevirt-0.59.0-2?dir=kubevirt;
   };
 
